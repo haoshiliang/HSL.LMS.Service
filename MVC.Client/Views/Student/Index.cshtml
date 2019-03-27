@@ -1,0 +1,25 @@
+﻿
+@model LMS.Domain.MainBounderContext.Entity.Student
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <form id="form" method="post" action="@Url.Content("~/Student/AddStudent")">
+        <div><span>主键：</span>@Html.TextBoxFor(m => m.Id, new { @style = "width:100px;" })</div>
+        <div><span>姓名：</span>@Html.TextBoxFor(m => m.Name, new { @style = "width:100px;" })</div>
+        <div><span>年龄：</span>@Html.TextBoxFor(m => m.Age, new { @style = "width:100px;" })</div>
+        <div><span>年限：</span>@Html.TextBoxFor(m => m.YearBounder, new { @style = "width:100px;" })</div>
+        <div><span>创建日期：</span>@Html.TextBoxFor(m => m.CreateTime, new { @style = "width:100px;" })</div>
+        <div><span>测试字段：</span>@Html.TextBoxFor(m=>m.TestFiled)</div>
+        <div><button type="submit">提交</button></div>
+    </form>
+</body>
+</html>

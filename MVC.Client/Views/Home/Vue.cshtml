@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Vue</title>
+    <script src='@Url.Content("~/Scripts/vue.js")'></script>
+</head>
+<body>
+    <div id="app">
+        <span v-bind:title="name">{{name}}</span>
+        <input type="text" v-bind:value="name"/>
+        <button name="aa" v-on:click="change" value="text">sdf</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name:'hello world'
+            },
+            methods: {
+                change: function () {
+                    this.name = "change name";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

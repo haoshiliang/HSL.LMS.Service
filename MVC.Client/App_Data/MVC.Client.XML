@@ -1,0 +1,859 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MVC.Client</name>
+    </assembly>
+    <members>
+        <member name="T:MVC.Client.UserAuthAttribute">
+            <summary>
+            用户身份验证过虑器
+            </summary>
+        </member>
+        <member name="P:MVC.Client.UserAuthAttribute.LoginService">
+            <summary>
+            根据属性注入用户服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.UserAuthAttribute.OnAuthorization(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+        </member>
+        <member name="M:MVC.Client.UserAuthAttribute.IsAuthorized(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.UserAuthAttribute.HandleUnauthorizedRequest(System.Web.Http.Controllers.HttpActionContext,System.String)">
+            <summary>
+            验证失败时
+            </summary>
+            <param name="actionContext"></param>
+            <param name="error">错误信息</param>
+        </member>
+        <member name="M:MVC.Client.UserAuthAttribute.ValidateUser(System.String,System.String@)">
+            <summary>
+            验证用户
+            </summary>
+            <param name="ticket">验证ticket</param>
+            <param name="error">返回信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,MVC.Client.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,MVC.Client.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,MVC.Client.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create one using <see cref="T:MVC.Client.Areas.HelpPage.ObjectGenerator"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},MVC.Client.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:MVC.Client.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleKey.#ctor(MVC.Client.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:MVC.Client.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,MVC.Client.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:MVC.Client.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:MVC.Client.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MVC.Client.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:MVC.Client.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MVC.Client.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="T:MVC.Client.Controllers.ApiBaseController">
+            <summary>
+            API基础类
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.ApiBaseController.ToSuccessObject">
+            <summary>
+            返回成功数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.ApiBaseController.ToSuccessObject(System.Object)">
+            <summary>
+            返回成功数据
+            </summary>
+            <param name="userData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.ApiBaseController.ToFailureObject(System.String)">
+            <summary>
+            转到失败操作
+            </summary>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MVC.Client.Controllers.Home.LoginController">
+            <summary>
+            系统登录
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.Home.LoginController.userService">
+            <summary>
+            用户服务
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.Home.LoginController.moduleService">
+            <summary>
+            模块服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.Home.LoginController.#ctor(LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IUserService,LMS.Application.MainBounderContext.SystemMgr.ModuleMgr.IModuleService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="userService">用户服务</param>
+            <param name="moduleService">模块服务</param>
+        </member>
+        <member name="M:MVC.Client.Controllers.Home.LoginController.Post(LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr.UserDTO)">
+            <summary>
+            验证用户，并返回ticket
+            </summary>
+            <param name="loginUser">用户名密码信息</param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController">
+            <summary>
+            模块管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.moduleService">
+            <summary>
+            模块服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.#ctor(LMS.Application.MainBounderContext.SystemMgr.ModuleMgr.IModuleService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="moduleService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Get">
+            <summary>
+            获取模块列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Get(System.Guid)">
+            <summary>
+            获取模块信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Post(System.String)">
+            <summary>
+            添加模块信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Put(System.Int32,System.String)">
+            <summary>
+            更新模块信息
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Delete(System.Guid)">
+            <summary>
+            删除模块信息
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController">
+            <summary>
+            公司管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.corpService">
+            <summary>
+            公司服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.#ctor(LMS.Application.MainBounderContext.SystemMgr.OrgMgr.ICorporationService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="corpService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Get(System.Guid)">
+            <summary>
+            获取公司信息
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Get">
+            <summary>
+            获取公司列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Post(System.String)">
+            <summary>
+            添加公司信息
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Put(System.Guid,System.String)">
+            <summary>
+            更新公司信息
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Delete(System.Guid)">
+            <summary>
+            删除公司信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.OrgMgr.CorpDepartPositionController">
+            <summary>
+            公司部门职位管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.OrgMgr.CorpDepartPositionController.corpDepartPositionService">
+            <summary>
+            公司部门职位服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorpDepartPositionController.#ctor(LMS.Application.MainBounderContext.SystemMgr.OrgMgr.ICorpDepartPositionService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="corpDepartPositionService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorpDepartPositionController.Post(System.String)">
+            <summary>
+            添加公司部门职位关系信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController">
+            <summary>
+            职位管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.positionService">
+            <summary>
+            职位服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.#ctor(LMS.Application.MainBounderContext.SystemMgr.OrgMgr.IPositionService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="positionService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.Get">
+            <summary>
+            获取职位列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.Get(System.Guid)">
+            <summary>
+            获取职位信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.Post(System.String)">
+            <summary>
+            添加职位信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.Put(System.Int32,System.String)">
+            <summary>
+            更新职位信息
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.Delete(System.Guid)">
+            <summary>
+            删除职位信息
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController">
+            <summary>
+            部门管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.deptService">
+            <summary>
+            部门服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.#ctor(LMS.Application.MainBounderContext.SystemMgr.OrgMgr.IDepartmentService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="deptService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Get">
+            <summary>
+            获取部门列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Get(System.Guid)">
+            <summary>
+            获取部门信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Post(System.String)">
+            <summary>
+            添加部门信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Put(System.Int32,System.String)">
+            <summary>
+            更新部门信息
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Delete(System.Guid)">
+            <summary>
+            删除部门信息
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController">
+            <summary>
+            角色模块管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.roleModuleService">
+            <summary>
+            角色模块服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.#ctor(LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IRoleModuleService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="roleModuleService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.Get">
+            <summary>
+            获取用户角色列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.Post(System.String)">
+            <summary>
+            添加角色模块信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController">
+            <summary>
+            用户角色管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.userRoleService">
+            <summary>
+            用户角色服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.#ctor(LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IUserRoleService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="userRoleService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.Get">
+            <summary>
+            获取用户角色列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.Post(System.String)">
+            <summary>
+            添加角色信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.userService">
+            <summary>
+            用户服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.#ctor(LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IUserService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="userService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Get">
+            <summary>
+            获取用户列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Get(System.Guid)">
+            <summary>
+            获取用户信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Post(System.String)">
+            <summary>
+            添加用户信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Put(System.Guid,System.String)">
+            <summary>
+            更新用户信息
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Delete(System.Guid)">
+            <summary>
+            删除用户信息
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.roleService">
+            <summary>
+            角色服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.#ctor(LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IRoleService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="roleService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Get">
+            <summary>
+            获取角色列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Get(System.Guid)">
+            <summary>
+            获取角色信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Post(System.String)">
+            <summary>
+            添加角色信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Put(System.Int32,System.String)">
+            <summary>
+            更新角色信息
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Delete(System.Guid)">
+            <summary>
+            删除角色信息
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>
