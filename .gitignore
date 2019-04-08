@@ -243,3 +243,10 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/MVC.Client/Log/log-2019-04-04.txt
+/MVC.Client/Log/log-2019-04-03.txt
+/MVC.Client/Log/log-2019-04-02.txt
+/MVC.Client/Log/log-2019-04-01.txt
+/MVC.Client/Log/log-2019-03-29.txt
+/MVC.Client/Log/log-2019-03-28.txt
+/MVC.Client/Log
