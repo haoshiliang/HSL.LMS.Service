@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Repository;
 using LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity;
 using LMS.Application.Seedwork;
+using LMS.Application.Seedwork.Cache;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
@@ -24,6 +25,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// </summary>
         private readonly IRoleRepository roleRepository;
 
+        /// <summary>
+        /// 缓存
+        /// </summary>
+        private readonly ICache cacheHelper;
+
         #endregion
 
         #region 构造方法
@@ -32,10 +38,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 构造方法
         /// </summary>
         /// <param name="userRepository"></param>
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository,ICache cacheHelper)
         {
             this.userRepository = userRepository;
             this.roleRepository = roleRepository;
+            this.cacheHelper = cacheHelper;
         }
 
         #endregion
@@ -130,6 +137,25 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         {
             userRepository.Remove(userRepository.Get(id));
             userRepository.SaveChanges();
+        }
+        /// <summary>
+        /// 设置Token
+        /// </summary>
+        /// <param name="key">键值</param>
+        /// <param name="token">token值</param>
+        public void SetToken(string key, string token)
+        {
+
+        }
+
+        /// <summary>
+        /// 获取Token
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public string GetToken(string key)
+        {
+            return "Token";
         }
 
         #endregion

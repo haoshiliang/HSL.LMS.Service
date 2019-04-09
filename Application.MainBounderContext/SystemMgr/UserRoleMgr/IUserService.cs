@@ -41,5 +41,19 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// </summary>
         /// <returns></returns>
         ICollection<User> FindList();
+
+        /// <summary>
+        /// 设置Token
+        /// </summary>
+        /// <param name="key">键值</param>
+        /// <param name="token">token值</param>
+        void SetToken(string key, string token);
+
+        /// <summary>
+        /// 获取Token
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        string GetToken(string key);
     }
 }

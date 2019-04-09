@@ -16,14 +16,19 @@
       在一次Http请求上下文中,共享一个组件实例。仅适用于asp.net mvc开发。
     -->
 <Application>
-  <components name="Seekwork1">
+  <components name="MainUnitOfWork">
     <type>LMS.Infrastructure.Seedwork.MainUnitOfWork,Infrastructure.Seedwork</type>
     <injectProperties>true</injectProperties> 
     <instanceScope>per-lifetime-scope</instanceScope>
   </components>
-  <components name="Seekwork2">
+  <components name="ReadUnitOfWork">
     <type>LMS.Infrastructure.Seedwork.ReadUnitOfWork,Infrastructure.Seedwork</type>
-    <services name="Seekwork2" type="LMS.Domain.Seedwork.IReadUnitOfWork,Domain.Seedwork" />
+    <services name="ReadUnitOfWork" type="LMS.Domain.Seedwork.IReadUnitOfWork,Domain.Seedwork" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="Cache">
+    <type>LMS.Application.Seedwork.Cache.Redis,Application.Seedwork</type>
+    <services name="Cache" type="LMS.Application.Seedwork.Cache.ICache,Application.Seedwork" />
     <injectProperties>true</injectProperties>
   </components>
 </Application>
