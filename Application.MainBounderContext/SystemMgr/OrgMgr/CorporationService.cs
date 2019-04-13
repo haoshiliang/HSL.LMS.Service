@@ -94,12 +94,12 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <returns></returns>
         public ICollection<CorporationDTO> FindList()
         {
-            var list = this.corpRepository.GetAll();
+            var list = this.corpRepository.GetAll().Where(m => m.ParentId == null);
             var dtoList = new List<CorporationDTO>();
             foreach(var corp in list)
             {
                 var dto = corp.ProjectedAs<CorporationDTO>();
-                if (corp.ParentCorp != null)
+                if (corp.ParentCorp != null)    
                 {
                     dto.ParentId = corp.ParentCorp.Id;
                     dto.ParentName = corp.ParentCorp.CorpName;
@@ -127,7 +127,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                         d.ParentName = m.ParentCorp.CorpName;
                     }
                     this.SetChildList(m, d);
-                    dto.ChildCorpList.Add(d);
+                    dto.ChildList.Add(d);
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr
     {
         public CorporationDTO()
         {
-            ChildCorpList = new List<CorporationDTO>();
+            ChildList = new List<CorporationDTO>();
         }
         public virtual string Id { get; set; }
         /// <summary>
@@ -36,6 +36,6 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr
         /// <summary>
         /// 子公司
         /// </summary>
-        public virtual ICollection<CorporationDTO> ChildCorpList { get; set; }
+        public virtual ICollection<CorporationDTO> ChildList { get; set; }
     }
 }

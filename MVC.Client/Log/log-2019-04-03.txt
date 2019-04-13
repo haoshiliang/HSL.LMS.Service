@@ -1,0 +1,168 @@
+已于 2019/4/3 9:11:27 +08:00
+ 打开了连接
+SELECT 
+"GroupBy1"."A1" AS "C1"
+FROM ( SELECT 
+	COUNT(1) AS "A1"
+	FROM "HSL_LOGMANGAGE"."__MigrationHistory" "Extent1"
+	WHERE ("Extent1"."ContextKey" = :p__linq__0)
+)  "GroupBy1"
+
+
+-- p__linq__0: 'LMS.Infrastructure.Seedwork.MainUnitOfWork' (Type = Object)
+
+-- 正在 2019/4/3 9:11:28 +08:00
+ 执行
+-- 已在 9 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/3 9:11:28 +08:00
+ 关闭了连接
+已于 2019/4/3 9:11:28 +08:00
+ 打开了连接
+SELECT * 
+FROM ( 
+SELECT 
+"Project1"."C1" AS "C1", 
+"Project1"."MigrationId" AS "MigrationId", 
+"Project1"."Model" AS "Model", 
+"Project1"."ProductVersion" AS "ProductVersion"
+FROM ( SELECT 
+	"Extent1"."MigrationId" AS "MigrationId", 
+	"Extent1"."Model" AS "Model", 
+	"Extent1"."ProductVersion" AS "ProductVersion", 
+	1 AS "C1"
+	FROM "HSL_LOGMANGAGE"."__MigrationHistory" "Extent1"
+	WHERE ("Extent1"."ContextKey" = :p__linq__0)
+)  "Project1"
+ORDER BY "Project1"."MigrationId" DESC
+)
+WHERE (ROWNUM <= (1) )
+
+
+-- p__linq__0: 'LMS.Infrastructure.Seedwork.MainUnitOfWork' (Type = Object)
+
+-- 正在 2019/4/3 9:11:28 +08:00
+ 执行
+-- 已在 1 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/3 9:11:28 +08:00
+ 关闭了连接
+已于 2019/4/3 9:11:28 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/3 9:11:28 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/3 9:11:28 +08:00
+ 关闭了连接
+已于 2019/4/3 9:11:28 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/3 9:11:28 +08:00
+ 执行
+-- 已在 1 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/3 9:11:28 +08:00
+ 关闭了连接
+已于 2019/4/3 9:11:28 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_ID" AS "ROLE_ID", 
+"Extent1"."USER_ID" AS "USER_ID"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE_USER" "Extent1"
+WHERE ("Extent1"."USER_ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/3 9:11:28 +08:00
+ 执行
+-- 已在 1 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/3 9:11:28 +08:00
+ 关闭了连接
+已于 2019/4/3 9:11:28 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_CODE" AS "ROLE_CODE", 
+"Extent1"."ROLE_NAME" AS "ROLE_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE" "Extent1"
+WHERE ("Extent1"."ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: 'EF598C5C-42D3-414C-B5DA-D7559718967E' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/3 9:11:28 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/3 9:11:28 +08:00
+ 关闭了连接
+已于 2019/4/3 9:11:28 +08:00
+ 打开了连接
+SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunctionQuery
+  FROM SYS_MODULE m
+ LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID
+ LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID
+WHERE (ru.USER_ID = :UserId OR 1=1)
+  AND m.ID<>'00000000-0000-0000-0000-000000000000'
+ORDER BY m.CREATE_DATE
+
+-- UserId: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false)
+
+-- 正在 2019/4/3 9:11:28 +08:00
+ 执行
+-- 已在 1 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/3 9:11:28 +08:00
+ 关闭了连接
