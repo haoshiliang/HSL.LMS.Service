@@ -1,0 +1,1087 @@
+已于 2019/4/7 11:16:12 +08:00
+ 打开了连接
+已于 2019/4/7 11:16:12 +08:00
+ 启动了事务
+create table "HSL_LOGMANGAGE"."SYS_ROLE_MODULE"
+(
+    "ID" char(36 CHAR) not null, 
+    "ROLE_ID" char(36 CHAR) not null, 
+    "MODULE_ID" char(36 CHAR) not null,
+    constraint "PK_SYS_ROLE_MODULE" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 46 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_MODULE"
+(
+    "ID" char(36 CHAR) not null, 
+    "PARENT_ID" char(36 CHAR) null, 
+    "CODE" nvarchar2(128) not null, 
+    "NAME" nvarchar2(64) not null, 
+    "ICON" nvarchar2(64) null, 
+    "MODULE_PATH" nvarchar2(128) null, 
+    "IS_FUNCTION" number(1, 0) not null, 
+    "IS_ENABLED" number(1, 0) not null, 
+    "CREATE_DATE" date not null, 
+    "LAST_UPDATE_DATE" date not null,
+    constraint "PK_SYS_MODULE" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 10 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_ROLE"
+(
+    "ID" char(36 CHAR) not null, 
+    "ROLE_CODE" nvarchar2(64) not null, 
+    "ROLE_NAME" nvarchar2(128) not null, 
+    "PY_CODE" nvarchar2(64) not null, 
+    "CREATE_DATE" date not null, 
+    "LAST_UPDATE_DATE" date not null,
+    constraint "PK_SYS_ROLE" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 11 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_ROLE_USER"
+(
+    "ID" char(36 CHAR) not null, 
+    "ROLE_ID" char(36 CHAR) not null, 
+    "USER_ID" char(36 CHAR) not null,
+    constraint "PK_SYS_ROLE_USER" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 15 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_USER"
+(
+    "ID" char(36 CHAR) not null, 
+    "CODE" nvarchar2(64) not null, 
+    "NAME" nvarchar2(128) not null, 
+    "LOGIN_NAME" nvarchar2(64) not null, 
+    "PASSWORD" nvarchar2(64) not null, 
+    "SALT_VALUE" nvarchar2(36) not null, 
+    "PY_CODE" nvarchar2(64) not null, 
+    "CREATE_DATE" date not null, 
+    "LAST_UPDATE_DATE" date not null,
+    constraint "PK_SYS_USER" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 24 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_CORPORATION"
+(
+    "ID" char(36 CHAR) not null, 
+    "AUTOMATIC_CODE" nvarchar2(128) not null, 
+    "CORP_CODE" nvarchar2(128) not null, 
+    "CORP_NAME" nvarchar2(64) not null, 
+    "PY_CODE" nvarchar2(64) not null, 
+    "IS_DEL" number(1, 0) not null, 
+    "CREATE_DATE" date not null, 
+    "LAST_UPDATE_DATE" date not null, 
+    "PARENT_ID" char(36 CHAR) null,
+    constraint "PK_SYS_CORPORATION" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 23 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_CORP_DEPART_POSITION"
+(
+    "CORP_ID" char(36 CHAR) not null, 
+    "DEPART_ID" char(36 CHAR) not null, 
+    "POSITION_ID" char(36 CHAR) not null, 
+    "CREATE_DATE" date not null, 
+    "LAST_UPDATE_DATE" date not null,
+    constraint "PK_SYS_CORP_DEPART_POSITION" primary key ("CORP_ID", "DEPART_ID", "POSITION_ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 58 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_POSITION"
+(
+    "ID" char(36 CHAR) not null, 
+    "POSITION_CODE" nvarchar2(64) not null, 
+    "POSITION_NAME" nvarchar2(128) not null, 
+    "PY_CODE" nvarchar2(64) not null, 
+    "IS_DEL" number(1, 0) not null, 
+    "CREATE_DATE" date not null, 
+    "LAST_UPDATE_DATE" date not null,
+    constraint "PK_SYS_POSITION" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 54 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."SYS_DEPARTMENT"
+(
+    "ID" char(36 CHAR) not null, 
+    "DEPART_CODE" nvarchar2(64) not null, 
+    "DEPART_NAME" nvarchar2(128) not null, 
+    "PY_CODE" nvarchar2(64) not null, 
+    "IS_DEL" number(1, 0) not null, 
+    "CREATE_DATE" date not null, 
+    "LAST_UPDATE_DATE" date not null,
+    constraint "PK_SYS_DEPARTMENT" primary key ("ID")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 14 毫秒内完成，结果为: -1
+
+
+
+begin
+  execute immediate
+  'create index "HSL_LOGMANGAGE"."IX_SYS_ROLE_MODULE_ROLE_ID" on "HSL_LOGMANGAGE"."SYS_ROLE_MODULE" ("ROLE_ID")';
+exception
+  when others then
+    if sqlcode <> -1408 then
+      raise;
+    end if;
+end;
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 5 毫秒内完成，结果为: -1
+
+
+
+begin
+  execute immediate
+  'create index "HSL_LOGMANGAGE"."IX_SYS_ROLE_MODULE_MODULE_ID" on "HSL_LOGMANGAGE"."SYS_ROLE_MODULE" ("MODULE_ID")';
+exception
+  when others then
+    if sqlcode <> -1408 then
+      raise;
+    end if;
+end;
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 4 毫秒内完成，结果为: -1
+
+
+
+begin
+  execute immediate
+  'create index "HSL_LOGMANGAGE"."IX_SYS_MODULE_PARENT_ID" on "HSL_LOGMANGAGE"."SYS_MODULE" ("PARENT_ID")';
+exception
+  when others then
+    if sqlcode <> -1408 then
+      raise;
+    end if;
+end;
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: -1
+
+
+
+begin
+  execute immediate
+  'create index "HSL_LOGMANGAGE"."IX_SYS_ROLE_USER_ROLE_ID" on "HSL_LOGMANGAGE"."SYS_ROLE_USER" ("ROLE_ID")';
+exception
+  when others then
+    if sqlcode <> -1408 then
+      raise;
+    end if;
+end;
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: -1
+
+
+
+begin
+  execute immediate
+  'create index "HSL_LOGMANGAGE"."IX_SYS_ROLE_USER_USER_ID" on "HSL_LOGMANGAGE"."SYS_ROLE_USER" ("USER_ID")';
+exception
+  when others then
+    if sqlcode <> -1408 then
+      raise;
+    end if;
+end;
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 5 毫秒内完成，结果为: -1
+
+
+
+begin
+  execute immediate
+  'create index "HSL_LOGMANGAGE"."IX_SYS_CORPORATION_PARENT_ID" on "HSL_LOGMANGAGE"."SYS_CORPORATION" ("PARENT_ID")';
+exception
+  when others then
+    if sqlcode <> -1408 then
+      raise;
+    end if;
+end;
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: -1
+
+
+
+alter table "HSL_LOGMANGAGE"."SYS_ROLE_MODULE" add constraint "FK_SYS_ROLE_MODULE_MODULE_ID" foreign key ("MODULE_ID") references "HSL_LOGMANGAGE"."SYS_MODULE" ("ID") on delete cascade
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 40 毫秒内完成，结果为: -1
+
+
+
+alter table "HSL_LOGMANGAGE"."SYS_ROLE_MODULE" add constraint "FK_SYS_ROLE_MODULE_ROLE_ID" foreign key ("ROLE_ID") references "HSL_LOGMANGAGE"."SYS_ROLE" ("ID") on delete cascade
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 15 毫秒内完成，结果为: -1
+
+
+
+alter table "HSL_LOGMANGAGE"."SYS_MODULE" add constraint "FK_SYS_MODULE_PARENT_ID" foreign key ("PARENT_ID") references "HSL_LOGMANGAGE"."SYS_MODULE" ("ID") on delete cascade
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 8 毫秒内完成，结果为: -1
+
+
+
+alter table "HSL_LOGMANGAGE"."SYS_ROLE_USER" add constraint "FK_SYS_ROLE_USER_ROLE_ID" foreign key ("ROLE_ID") references "HSL_LOGMANGAGE"."SYS_ROLE" ("ID") on delete cascade
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 7 毫秒内完成，结果为: -1
+
+
+
+alter table "HSL_LOGMANGAGE"."SYS_ROLE_USER" add constraint "FK_SYS_ROLE_USER_USER_ID" foreign key ("USER_ID") references "HSL_LOGMANGAGE"."SYS_USER" ("ID") on delete cascade
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 7 毫秒内完成，结果为: -1
+
+
+
+alter table "HSL_LOGMANGAGE"."SYS_CORPORATION" add constraint "FK_SYS_CORPORATION_PARENT_ID" foreign key ("PARENT_ID") references "HSL_LOGMANGAGE"."SYS_CORPORATION" ("ID") on delete cascade
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 9 毫秒内完成，结果为: -1
+
+
+
+create table "HSL_LOGMANGAGE"."__MigrationHistory"
+(
+    "MigrationId" nvarchar2(150) not null, 
+    "ContextKey" nvarchar2(300) not null, 
+    "Model" blob not null, 
+    "ProductVersion" nvarchar2(32) not null,
+    constraint "PK___MigrationHistory" primary key ("MigrationId", "ContextKey")
+) segment creation immediate
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 19 毫秒内完成，结果为: -1
+
+
+
+declare
+model_blob blob;
+begin
+dbms_lob.createtemporary(model_blob, true);
+dbms_lob.append(model_blob, to_blob(cast('1F8B0800000000000400ED1DD98EE3B8F13D40FE41D063306B77CF068B4DC3DE85C776CF1AF105CB3D9B7D32D812DB2DAC2C193A66BB11E4CBF2904FCA2F84D449913A48599727C6601AB6445615EB62914596FFFBEFFF8C7E7E3B19D257683BBA658EE5FBC19D2C4153B534DD3C8E65CF7DF9EE47F9E79FFEFCA7D15C3BBD495FA276DFE376A8A7E98CE557D73D3F0C878EFA0A4FC0199C74D5B61CEBC51DA8D66908346BF8F1EEEE6FC3FBFB21442064044B92463BCF74F513F4BFA0AF53CB54E1D9F580B1B2346838E173F446F1A14A6B7082CE19A8702C2F57CA6061BED8C0716D4F753D1B0E1408B53F2CFB77599A183A402429D0789125609A960B5C44F0C3930315D7B6CCA372460F80B17F3F43D4EE05180E0C07F29034E71DD3DD473CA661D23102A57A8E6B9D0401DE7F1F32694877AFC46A39662262E31CB1DB7DC7A3F659399677960111AF3D030D9F46F730356CDC34E0F50CBDD2CDC10AFDF96479A6066D242D17BEB903E5DD71E16975B40788BDB60F117D0E500D12041FA45C101F628D428A87FF7D90A69E81653A36A1E7DAC0F8206DBD674357FF0EDFF7D6EFD01C9B9E619043438343EF520FD0A3AD6D9DA1EDBEEFE04B38E085264BC374BF21DD31EE46F4091881940719842CADC0DB129A47F71599C00FB2F4A8BF412D7A102AD393A923F3417D907AA2AF6B442F783660FC7E588812B3AD03B481A4DA40BC065FF5A3AF669924F8F62F4B3B68F86D9C57FD1C9833A1508754D347DB3AE177A44E932D0E8AE5D92A22646F1536DB03FB085D7E7A4330E5D4120D33698DDF17519A34CAA273344C0CBCD0ECEB33F9907589C1DF8C5DD8EAB6C086A65B07E2623C53D4B200C7FDC71F9B181DFE5B80F587BF368174A1E2E9F252A43CCE720BDCD71A985A321CE7D133D5200608507DB2902700A638639CB9899B6B97029ADA10B87086FE4790F0E7BD7E1217D612C5704F67AD32B85CDF3C7DD50D6DA93B6EA66F0E5D2AD128F1CBF43BC627330D44E78DC0E823477C297911F65CF222FA05A7350424977F9567629AD89209BBD20C87613618D2DEE637C160B664EE696616C0884BA69F8626BDED7B2703BE06A72CE659F8A3E602AFC286D6BCC446E69F4B6AD4E090A02329CD78CD109AD5E622DF17016CC8FF458F6E3EB0FF0B7A2CAB4E97F3A459D4633E74245664622266CE4325D92E83CAE4753E95449B8B96F0184E83067E336E9169B78BB9BE9BC066691D75B39325FD1638CE1F965D24DD66102BC070BF00C32B1A72431B43B728F2F2C08CDF67E70666197EBD92CF9E5AF6D9B2C35CCEE5AE7B631F09AF4D00BF396F01159D78580CAEAE76B33D8AC5D61DE66E3C79376E6DE1CCF032F29BD9F66C2B8B50BCBD8AB528D709133EE940B54E5C716E232688CE6F596DF715776F826E7A22291F61E5E96406CFC076B796A337' as long raw)));
+dbms_lob.append(model_blob, to_blob(cast('37ABA471F46372C174B1134C66D3807CCEC6D128AB4C5E114D2D4F60C9F8DA0E4F095EB5BDE2EA891BE6B6D5E62CB45F767925415FC4B44E029108F9FF556AE29B8ABEB8CD3EF0CD27146BD46FF809EC9BE90B4F979DD84080FA66F6DF9AD94F1CC75275DFA853678388C31B69A2E6A626951D3409E4949C0441C24286AB9F91A92212C6F2DD60702FD356B93111BBA10BA5891A1C389E0247051ACB1634128D9BA6783D5346D35F183CC83D40BCD4D281813C92831C8E6EBAAC2FD14D553F03A38429543F4E2F84471B63A0DF209384C85D9A6EC9D87950272B709680180F258632FE8C86847215EB5CCE799C3C29971D934D644DE6E6CAE45D0A9F5B976A55EE4A6A583C821694B158443C042407BA3B51C9ACF46E9EBE14E67A1365490E37F0AB62E1298CB49EF74F0B0B886F41050BA4C2833D3AF6D0ADF61129A05215C9CAE1D7A47D59A9A634E81E6B1F4B7C9BDAC74A85077B74FAA5EBE93839C4C6315966DC03A9712ACE382FD7770758447DBB9330239ADEBBC0FC44469EAE70646312854925B4DB5A9E70E45DB828AC69B152CAB01674B49425BD5BBE040B69BC49857A403B0A57D197275377372FBFFAF778992D33E4D1C35D3327DC90A0B5048355A0CB3861479692C57B8637659C671A503E104E0018571E0DA59DA379300B4012927000C90350DA99D0B02C182933E300954E29E641A4939B25808BC07103497655B3C090FBB9142042D169B5212FF110CDF22EFAD0D6C7B15B148F82D054C68A397678CAE1A42C1A35E46042DE452196153C5B18229B18C470529EA0803525DB168D3028F31434CB9DD2D534F77A9A1805E15A0AB852B482A6985C2B43C8C37B050CC95BE0712FF1AA332463514701ABD98492C544B101E52C3AF8971D97190FBBD068404F0ACEE9B0BCE18C8505A3616254E939B2804DE5112C27D4029645B98A38C48ADF8D86413595F0C16898537665B402E7B36E1E89322CE11349096AB04CBF53C46B929C021843D5C9284D12531B6372D1D88F907A1B1CB97FD46DC79D01173C039CA9996A27A6191550E64CFD113236666465180504511FFC394C2DE557A419E47BEC84AB8F68A038B2F0C70C33AD8FED2CE1DA38C000764662756A19DEC90CBFCF588DCCEF1DAD594908BBCD727E100393EC3E9380569BD9532EA8D190E206B3146144C0AC1CD352E59279DDF2AE2CEB76E59C2CF94818DBC96EBEDE0BCA3AC82E9360A69BD95C044290172721AC272B210841D587143BA69BB5B8C606351D3274763BD9FF22441051B721459672787C5A4FF70B31EA88E20D14B4F97AF2693917131891544F896D379FECE78719FA23028E4EAC93209713657F78DACE8AE07664F8412452A79BAFE8E0DB74EDACADFACE5DD4603128D6687D50A2961B9D4E49B9A1DF8429BAE9747AB7A82EBD8EF798C4753BBF6BAF4397287544' as long raw)));
+dbms_lob.append(model_blob, to_blob(cast('827952E6BB7E852DC1F2B24E295794705BD2ED4394415C814D3984CDE7C55ADCF1C5B75AD31198A2FCBAD909B186B8A64A825226CBFDE1CB64F974F3C75D59696A055F97B1923BEEE2365BD8BB19D3A5EE599280264FFBCD6AB25F4CC5152CBE3D99F609BB6D2550AC55FBA03A8A66C2B3B354A83F9B2FAFD8046B5C897668CD74FAAA4EA3A6925ED56CBB0C489111D042F04D40CCD6932B6924A0D91CC953745F81BC6496528D8DB2C0EB67D16D8A7E9943473A5CBFE65EA0AFE25A7AE1A657EAEE57A64E897AEAF48DAE4C90B739E4DA8D863C195097D910E709C40DA7A87333A643DE9DCAF0ECA2CA49DE87CA00773399EB301926D5483789B1C729472AB5380AD37CA9FCA394F5B30F4CDE2F68224B88615F750DE7FC3636500D3858011341D470BB89AA42C7194C0DDD3FB81335452DF417E8B8C1B547F9FE7EF091FAE988FEFC8CC3D071342323614A95BCCD3CE5CE777B9371041CB73767D1594BF515D8CCDD4DD11289D12E1D09923901B83035F83696FFE9777A9016FF3884FD3E481B1B09F541BA93FE752929448A529098B867757244ABF85FA5B089959D2087E39E9C1CE6AA8CEF4F110121E6576063623EB2B772452BF4F9F35711547CE756F442AD9FD1E407CA55C99ECC6E0A7081AB743D99EA0C617BA7677CE4746B43550F7F704896F0BC875EDE897384487F36822035670718347F1616BD7BCC4CD4DCC0C4EA9E5FA547205290359B0C9191ACDBC4E3F0B26692AF49E5B2337C57A576FD883AE2FCA2202961BF16220E36D5772D626EC44A9BF1296422B1668293BC62CD80C92C6311E82A91E2CDC5E6A7EBAEC5FCE80C5FDD364364FC1A01DD8C3536A4D9D16ED5B71A0CF76B357949B9CE0AB69C9B8DCBAA7C999F70CBBAFF999F51E3A87D1991559FCF20A8AF71DF811C648DE145F756215E8AF22A67122A4757B74B4EA7EBAE65B9F8AD7BFC2AF516AF52BB5389B49A95249555BB6976BF35FBE292823DA82018E4D0DA2D1AC8576D232B2012AD11E88F8E075BC121B63ED605E4569F867487BC035FB1F251CFF5A7F032288BADE0BE64EF8AF8058548DA2C29C55EC9AF58B0AD726DAA3654A6E0020E8B2BF7BA4B2FABEEB55B04AF5B75C9B961D3ADBAE45E6BEA6799BCAEDC4B57F3525B2E467056EAD6C95C54D7AE5725EC9820B9D58A756D28163DD8FEC5CCD4F1C558C7E81223B438F36ACD95949A0B8E2C8EE55F94E561B9F9BC9AAC3F4F3EE34563B04A547E5382EC7210F83132A7F1E6E214C0C7892A70B79983E31E562992640E661025AF78798827372E8CB985F13830712149D935832BF5960325DE6FDFEC26591524380AEE71D6DBE3A4E310EE2C459BA7A504159021849C1B2159B68F4149BEE4401A0C7685DC1383B6BD12801985E8323C65F6864C69CF7E95F8AB3660D619D3A5942E1F742365FB48CF97140729' as long raw)));
+dbms_lob.append(model_blob, to_blob(cast('1A2AED2FD365176A1C66DDC5F818823B1D668325F6C4E4D986EAB659382FAF9A5D21139808990F463D05F1D8DB2828B8F450EF53B0478F425C473F26204608A609D5545819B759982F5614E05214454DE8E3D8D0051ABEB662BBFA0B505DF41ADF5FF17FB0C9AFF03096E7A767A82DCC8DE79E3D170D199E9E8D779219384A2EC2EF57FD4BD33CDA9CFD3BA1750C0191A9E3ECC7C6FCE4218589E97ECCC880E480C0E1F767889E07B244D1BC0B8FEF31A4B56572020AD917AF1AF6F07436103067632AE02BAC421B723B4B7804EA7B7495281F48B920D26C1FCD7470B4C1C9096124FDD157A4C3DAE9EDA7FF0181FA9056B1970000' as long raw)));
+insert into "HSL_LOGMANGAGE"."__MigrationHistory"("MigrationId", "ContextKey", "Model", "ProductVersion")
+values ('201904070316104_InitialCreate', 'LMS.Infrastructure.Seedwork.MainUnitOfWork', model_blob, '6.1.3-40302');
+end;
+
+
+-- 正在 2019/4/7 11:16:12 +08:00
+ 执行
+-- 已在 16 毫秒内完成，结果为: -1
+
+
+
+已于 2019/4/7 11:16:12 +08:00
+ 提交了事务
+已于 2019/4/7 11:16:12 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."POSITION_CODE" AS "POSITION_CODE", 
+"Extent1"."POSITION_NAME" AS "POSITION_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."IS_DEL" AS "IS_DEL", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_POSITION" "Extent1"
+
+
+-- 正在 2019/4/7 11:16:13 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 11:16:13 +08:00
+ 关闭了连接
+已于 2019/4/7 11:24:49 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."POSITION_CODE" AS "POSITION_CODE", 
+"Extent1"."POSITION_NAME" AS "POSITION_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."IS_DEL" AS "IS_DEL", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_POSITION" "Extent1"
+
+
+-- 正在 2019/4/7 11:24:49 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 11:24:49 +08:00
+ 关闭了连接
+已于 2019/4/7 12:00:13 +08:00
+ 打开了连接
+SELECT 
+"GroupBy1"."A1" AS "C1"
+FROM ( SELECT 
+	COUNT(1) AS "A1"
+	FROM "HSL_LOGMANGAGE"."__MigrationHistory" "Extent1"
+	WHERE ("Extent1"."ContextKey" = :p__linq__0)
+)  "GroupBy1"
+
+
+-- p__linq__0: 'LMS.Infrastructure.Seedwork.MainUnitOfWork' (Type = Object)
+
+-- 正在 2019/4/7 12:00:15 +08:00
+ 执行
+-- 已在 28 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:00:15 +08:00
+ 关闭了连接
+已于 2019/4/7 12:00:15 +08:00
+ 打开了连接
+SELECT * 
+FROM ( 
+SELECT 
+"Project1"."C1" AS "C1", 
+"Project1"."MigrationId" AS "MigrationId", 
+"Project1"."Model" AS "Model", 
+"Project1"."ProductVersion" AS "ProductVersion"
+FROM ( SELECT 
+	"Extent1"."MigrationId" AS "MigrationId", 
+	"Extent1"."Model" AS "Model", 
+	"Extent1"."ProductVersion" AS "ProductVersion", 
+	1 AS "C1"
+	FROM "HSL_LOGMANGAGE"."__MigrationHistory" "Extent1"
+	WHERE ("Extent1"."ContextKey" = :p__linq__0)
+)  "Project1"
+ORDER BY "Project1"."MigrationId" DESC
+)
+WHERE (ROWNUM <= (1) )
+
+
+-- p__linq__0: 'LMS.Infrastructure.Seedwork.MainUnitOfWork' (Type = Object)
+
+-- 正在 2019/4/7 12:00:15 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:00:15 +08:00
+ 关闭了连接
+已于 2019/4/7 12:00:15 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:00:15 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:00:15 +08:00
+ 关闭了连接
+已于 2019/4/7 12:00:15 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:00:15 +08:00
+ 执行
+-- 已在 3 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:00:15 +08:00
+ 关闭了连接
+已于 2019/4/7 12:00:15 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_ID" AS "ROLE_ID", 
+"Extent1"."USER_ID" AS "USER_ID"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE_USER" "Extent1"
+WHERE ("Extent1"."USER_ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:00:16 +08:00
+ 执行
+-- 已在 2 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:00:16 +08:00
+ 关闭了连接
+已于 2019/4/7 12:00:16 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_CODE" AS "ROLE_CODE", 
+"Extent1"."ROLE_NAME" AS "ROLE_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE" "Extent1"
+WHERE ("Extent1"."ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: 'EF598C5C-42D3-414C-B5DA-D7559718967E' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:00:16 +08:00
+ 执行
+-- 已在 5 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:00:16 +08:00
+ 关闭了连接
+已于 2019/4/7 12:00:16 +08:00
+ 打开了连接
+SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunctionQuery
+  FROM SYS_MODULE m
+ LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID
+ LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID
+WHERE (ru.USER_ID = :UserId OR 1=1)
+  AND m.ID<>'00000000-0000-0000-0000-000000000000'
+ORDER BY m.CREATE_DATE
+
+-- UserId: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false)
+
+-- 正在 2019/4/7 12:00:16 +08:00
+ 执行
+-- 已在 9 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:00:16 +08:00
+ 关闭了连接
+已于 2019/4/7 12:02:02 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:02:02 +08:00
+ 执行
+-- 已在 1 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:02:02 +08:00
+ 关闭了连接
+已于 2019/4/7 12:02:02 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:02:02 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:02:02 +08:00
+ 关闭了连接
+已于 2019/4/7 12:02:02 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_ID" AS "ROLE_ID", 
+"Extent1"."USER_ID" AS "USER_ID"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE_USER" "Extent1"
+WHERE ("Extent1"."USER_ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:02:02 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:02:02 +08:00
+ 关闭了连接
+已于 2019/4/7 12:02:02 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_CODE" AS "ROLE_CODE", 
+"Extent1"."ROLE_NAME" AS "ROLE_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE" "Extent1"
+WHERE ("Extent1"."ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: 'EF598C5C-42D3-414C-B5DA-D7559718967E' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:02:02 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:02:02 +08:00
+ 关闭了连接
+已于 2019/4/7 12:02:02 +08:00
+ 打开了连接
+SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunctionQuery
+  FROM SYS_MODULE m
+ LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID
+ LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID
+WHERE (ru.USER_ID = :UserId OR 1=1)
+  AND m.ID<>'00000000-0000-0000-0000-000000000000'
+ORDER BY m.CREATE_DATE
+
+-- UserId: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false)
+
+-- 正在 2019/4/7 12:02:02 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:02:02 +08:00
+ 关闭了连接
+已于 2019/4/7 12:03:49 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:03:49 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:03:49 +08:00
+ 关闭了连接
+已于 2019/4/7 12:03:49 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:03:49 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:03:49 +08:00
+ 关闭了连接
+已于 2019/4/7 12:03:49 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_ID" AS "ROLE_ID", 
+"Extent1"."USER_ID" AS "USER_ID"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE_USER" "Extent1"
+WHERE ("Extent1"."USER_ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:03:49 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:03:49 +08:00
+ 关闭了连接
+已于 2019/4/7 12:03:49 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_CODE" AS "ROLE_CODE", 
+"Extent1"."ROLE_NAME" AS "ROLE_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE" "Extent1"
+WHERE ("Extent1"."ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: 'EF598C5C-42D3-414C-B5DA-D7559718967E' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:03:49 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:03:49 +08:00
+ 关闭了连接
+已于 2019/4/7 12:03:49 +08:00
+ 打开了连接
+SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunctionQuery
+  FROM SYS_MODULE m
+ LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID
+ LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID
+WHERE (ru.USER_ID = :UserId OR 1=1)
+  AND m.ID<>'00000000-0000-0000-0000-000000000000'
+ORDER BY m.CREATE_DATE
+
+-- UserId: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false)
+
+-- 正在 2019/4/7 12:03:49 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:03:49 +08:00
+ 关闭了连接
+已于 2019/4/7 12:08:17 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:08:17 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:08:17 +08:00
+ 关闭了连接
+已于 2019/4/7 12:08:17 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:08:17 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:08:17 +08:00
+ 关闭了连接
+已于 2019/4/7 12:08:17 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_ID" AS "ROLE_ID", 
+"Extent1"."USER_ID" AS "USER_ID"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE_USER" "Extent1"
+WHERE ("Extent1"."USER_ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:08:17 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:08:17 +08:00
+ 关闭了连接
+已于 2019/4/7 12:08:17 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_CODE" AS "ROLE_CODE", 
+"Extent1"."ROLE_NAME" AS "ROLE_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE" "Extent1"
+WHERE ("Extent1"."ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: 'EF598C5C-42D3-414C-B5DA-D7559718967E' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:08:17 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:08:17 +08:00
+ 关闭了连接
+已于 2019/4/7 12:08:17 +08:00
+ 打开了连接
+SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunctionQuery
+  FROM SYS_MODULE m
+ LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID
+ LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID
+WHERE (ru.USER_ID = :UserId OR 1=1)
+  AND m.ID<>'00000000-0000-0000-0000-000000000000'
+ORDER BY m.CREATE_DATE
+
+-- UserId: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false)
+
+-- 正在 2019/4/7 12:08:17 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:08:17 +08:00
+ 关闭了连接
+已于 2019/4/7 12:45:20 +08:00
+ 打开了连接
+SELECT 
+"GroupBy1"."A1" AS "C1"
+FROM ( SELECT 
+	COUNT(1) AS "A1"
+	FROM "HSL_LOGMANGAGE"."__MigrationHistory" "Extent1"
+	WHERE ("Extent1"."ContextKey" = :p__linq__0)
+)  "GroupBy1"
+
+
+-- p__linq__0: 'LMS.Infrastructure.Seedwork.MainUnitOfWork' (Type = Object)
+
+-- 正在 2019/4/7 12:45:21 +08:00
+ 执行
+-- 已在 4 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:45:21 +08:00
+ 关闭了连接
+已于 2019/4/7 12:45:21 +08:00
+ 打开了连接
+SELECT * 
+FROM ( 
+SELECT 
+"Project1"."C1" AS "C1", 
+"Project1"."MigrationId" AS "MigrationId", 
+"Project1"."Model" AS "Model", 
+"Project1"."ProductVersion" AS "ProductVersion"
+FROM ( SELECT 
+	"Extent1"."MigrationId" AS "MigrationId", 
+	"Extent1"."Model" AS "Model", 
+	"Extent1"."ProductVersion" AS "ProductVersion", 
+	1 AS "C1"
+	FROM "HSL_LOGMANGAGE"."__MigrationHistory" "Extent1"
+	WHERE ("Extent1"."ContextKey" = :p__linq__0)
+)  "Project1"
+ORDER BY "Project1"."MigrationId" DESC
+)
+WHERE (ROWNUM <= (1) )
+
+
+-- p__linq__0: 'LMS.Infrastructure.Seedwork.MainUnitOfWork' (Type = Object)
+
+-- 正在 2019/4/7 12:45:21 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:45:21 +08:00
+ 关闭了连接
+已于 2019/4/7 12:45:21 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:45:21 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:45:21 +08:00
+ 关闭了连接
+已于 2019/4/7 12:45:21 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."CODE" AS "CODE", 
+"Extent1"."NAME" AS "NAME", 
+"Extent1"."LOGIN_NAME" AS "LOGIN_NAME", 
+"Extent1"."PASSWORD" AS "PASSWORD", 
+"Extent1"."SALT_VALUE" AS "SALT_VALUE", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_USER" "Extent1"
+WHERE (((UPPER("Extent1"."LOGIN_NAME")) = (UPPER(:p__linq__0))) OR ((UPPER("Extent1"."LOGIN_NAME") IS NULL) AND (UPPER(:p__linq__0) IS NULL)))
+
+
+-- p__linq__0: 'admin' (Type = Object)
+
+-- 正在 2019/4/7 12:45:21 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:45:21 +08:00
+ 关闭了连接
+已于 2019/4/7 12:45:21 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_ID" AS "ROLE_ID", 
+"Extent1"."USER_ID" AS "USER_ID"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE_USER" "Extent1"
+WHERE ("Extent1"."USER_ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:45:21 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:45:21 +08:00
+ 关闭了连接
+已于 2019/4/7 12:45:21 +08:00
+ 打开了连接
+SELECT 
+"Extent1"."ID" AS "ID", 
+"Extent1"."ROLE_CODE" AS "ROLE_CODE", 
+"Extent1"."ROLE_NAME" AS "ROLE_NAME", 
+"Extent1"."PY_CODE" AS "PY_CODE", 
+"Extent1"."CREATE_DATE" AS "CREATE_DATE", 
+"Extent1"."LAST_UPDATE_DATE" AS "LAST_UPDATE_DATE"
+FROM "HSL_LOGMANGAGE"."SYS_ROLE" "Extent1"
+WHERE ("Extent1"."ID" = :EntityKeyValue1)
+
+
+-- EntityKeyValue1: 'EF598C5C-42D3-414C-B5DA-D7559718967E' (Type = String, IsNullable = false, Size = 36)
+
+-- 正在 2019/4/7 12:45:21 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:45:21 +08:00
+ 关闭了连接
+已于 2019/4/7 12:45:21 +08:00
+ 打开了连接
+SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunctionQuery
+  FROM SYS_MODULE m
+ LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID
+ LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID
+WHERE (ru.USER_ID = :UserId OR 1=1)
+  AND m.ID<>'00000000-0000-0000-0000-000000000000'
+ORDER BY m.CREATE_DATE
+
+-- UserId: '85c63dec-596c-49b4-8d14-12f4c9eaf140' (Type = String, IsNullable = false)
+
+-- 正在 2019/4/7 12:45:21 +08:00
+ 执行
+-- 已在 0 毫秒内完成，结果为: OracleDataReader
+
+
+
+已于 2019/4/7 12:45:21 +08:00
+ 关闭了连接
