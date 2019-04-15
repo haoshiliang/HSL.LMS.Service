@@ -9,9 +9,9 @@
             用户身份验证过虑器
             </summary>
         </member>
-        <member name="P:MVC.Client.UserAuthAttribute.LoginService">
+        <member name="P:MVC.Client.UserAuthAttribute.cacheService">
             <summary>
-            根据属性注入用户服务
+            缓存服务
             </summary>
         </member>
         <member name="M:MVC.Client.UserAuthAttribute.OnAuthorization(System.Web.Http.Controllers.HttpActionContext)">
@@ -474,12 +474,18 @@
             模块服务
             </summary>
         </member>
+        <member name="F:MVC.Client.Controllers.Home.LoginController.cacheService">
+            <summary>
+            缓存服务
+            </summary>
+        </member>
         <member name="M:MVC.Client.Controllers.Home.LoginController.#ctor(LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IUserService,LMS.Application.MainBounderContext.SystemMgr.ModuleMgr.IModuleService)">
             <summary>
             构造函数
             </summary>
             <param name="userService">用户服务</param>
             <param name="moduleService">模块服务</param>
+            <param name="cacheService">缓存服务</param>
         </member>
         <member name="M:MVC.Client.Controllers.Home.LoginController.Post(LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr.UserDTO)">
             <summary>

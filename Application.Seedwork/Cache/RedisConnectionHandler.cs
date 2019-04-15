@@ -18,7 +18,14 @@ namespace LMS.Application.Seedwork.Cache
             {
                 foreach(XmlNode childNode in section.ChildNodes)
                 {
-                    list.Add(new RedisServer() { ServerAddress = childNode.Attributes["serverAddress"].Value, ServerPort = childNode.Attributes["serverPort"].Value });
+                    if (childNode.Name== "hostServer")
+                    {
+                        list.Add(new RedisServer() { ServerAddress = childNode.Attributes["serverAddress"].Value, ServerPort = childNode.Attributes["serverPort"].Value, RedisType = 0 });
+                    }
+                    else if(childNode.Name == "sentinelServer")
+                    {
+                        list.Add(new RedisServer() { ServerAddress = childNode.Attributes["serverAddress"].Value, ServerPort = childNode.Attributes["serverPort"].Value, RedisType = 1 });
+                    }
                 }
             }
             return list;

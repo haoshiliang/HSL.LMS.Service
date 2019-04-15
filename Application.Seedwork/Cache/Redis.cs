@@ -26,6 +26,17 @@ namespace LMS.Application.Seedwork.Cache
 
         #endregion
 
+        #region 构造方法
+
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        public Redis()
+        {
+        }
+         
+        #endregion
+
         #region 静态构造方法 
 
         /// <summary>
@@ -33,9 +44,10 @@ namespace LMS.Application.Seedwork.Cache
         /// </summary>
         static Redis()
         {
-            var hostServerList = ConfigurationManager.GetSection("hostServer") as List<RedisServer>;
-            var sentinelServerList = ConfigurationManager.GetSection("sentinelServer") as List<RedisServer>;
-            if (hostServerList.Count == 0 && sentinelServerList.Count == 0)
+            var serverList = ConfigurationManager.GetSection("redisConnection") as List<RedisServer>;
+            var hostServerList = serverList.Where(m => m.RedisType == 0).ToList();
+            var sentinelServerList = serverList.Where(m => m.RedisType == 1).ToList();
+            if (hostServerList.Count == 0 || sentinelServerList.Count == 0)
                 throw new ApplicationException("请配置Redis主服务地址与哨兵服务地址");
 
             //创建连接
@@ -59,7 +71,7 @@ namespace LMS.Application.Seedwork.Cache
                 config.EndPoints.Add(hostServer.ServerAddress, int.Parse(hostServer.ServerPort));
             }
             //服务器秘密
-            //config.Password = "123456";
+            config.Password = "123456";
             //客户端名字
             config.ClientName = "127.0.0.1";
             //服务器名字
@@ -81,9 +93,10 @@ namespace LMS.Application.Seedwork.Cache
             {
                 sentinelOptions.EndPoints.Add(hostServer.ServerAddress, int.Parse(hostServer.ServerPort));
             }
+            //sentinelOptions.Password = "123456";
             //哨兵连接模式
             sentinelOptions.CommandMap = CommandMap.Sentinel;
-            sentinelOptions.ServiceName = "myMasterServer";
+            sentinelOptions.ServiceName = "mymaster";
             sentinelConn = ConnectionMultiplexer.Connect(sentinelOptions);
             sentinelsub = sentinelConn.GetSubscriber();
             sentinelsub.Subscribe("+switch-master", (ch, mg) =>
@@ -93,6 +106,8 @@ namespace LMS.Application.Seedwork.Cache
         }
 
         #endregion
+
+        #region 接口实现 
 
         public string Get(string key)
         {
@@ -147,6 +162,8 @@ namespace LMS.Application.Seedwork.Cache
         {
             return database.KeyExists(key);
         }
+
+        #endregion
 
         #region 私有方法
 

@@ -26,9 +26,9 @@
     <services name="ReadUnitOfWork" type="LMS.Domain.Seedwork.IReadUnitOfWork,Domain.Seedwork" />
     <injectProperties>true</injectProperties>
   </components>
-  <components name="Cache">
+  <!--<components name="Cache">
     <type>LMS.Application.Seedwork.Cache.Redis,Application.Seedwork</type>
     <services name="Cache" type="LMS.Application.Seedwork.Cache.ICache,Application.Seedwork" />
     <injectProperties>true</injectProperties>
-  </components>
+  </components>-->
 </Application>

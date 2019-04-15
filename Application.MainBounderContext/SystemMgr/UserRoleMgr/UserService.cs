@@ -25,11 +25,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// </summary>
         private readonly IRoleRepository roleRepository;
 
-        /// <summary>
-        /// 缓存
-        /// </summary>
-        private readonly ICache cacheHelper;
-
         #endregion
 
         #region 构造方法
@@ -38,11 +33,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 构造方法
         /// </summary>
         /// <param name="userRepository"></param>
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository,ICache cacheHelper)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             this.userRepository = userRepository;
             this.roleRepository = roleRepository;
-            this.cacheHelper = cacheHelper;
         }
 
         #endregion

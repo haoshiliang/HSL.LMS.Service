@@ -12,6 +12,7 @@ using System.Text;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr;
 using LMS.Application.MainBounderContext.SystemMgr.ModuleMgr;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
+using LMS.Application.Seedwork.Cache;
 
 namespace MVC.Client.Controllers.Home
 {
@@ -32,6 +33,11 @@ namespace MVC.Client.Controllers.Home
         /// </summary>
         private readonly IModuleService moduleService;
 
+        /// <summary>
+        /// 缓存服务
+        /// </summary>
+        private readonly ICache cacheService;
+
         #endregion
 
         #region 构造函数
@@ -41,10 +47,19 @@ namespace MVC.Client.Controllers.Home
         /// </summary>
         /// <param name="userService">用户服务</param>
         /// <param name="moduleService">模块服务</param>
+        /// <param name="cacheService">缓存服务</param>
         public LoginController(IUserService userService, IModuleService moduleService)
         {
-            this.userService = userService;
-            this.moduleService = moduleService;
+            try
+            {
+                this.userService = userService;
+                this.moduleService = moduleService;
+                this.cacheService = new Redis();
+            }
+            catch (Exception ex)
+            {
+                var aa = ex.Message;
+            }
         }
 
         #endregion
@@ -65,7 +80,7 @@ namespace MVC.Client.Controllers.Home
                 if (userDto != null)
                 {
                     var sha1 = System.Security.Cryptography.SHA1.Create();
-                    var ticket = new FormsAuthenticationTicket(0, loginUser.LoginName, DateTime.Now, DateTime.Now.AddDays(1), false, loginUser.LoginName);
+                    var ticket = new FormsAuthenticationTicket(0, loginUser.LoginName, DateTime.Now, DateTime.Now.AddDays(1), false, Guid.NewGuid().ToString());
                     if (userDto.Password == BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(loginUser.Password + userDto.SaltValue))).Replace("-", null))
                     {
                         var userModel = new
@@ -74,6 +89,11 @@ namespace MVC.Client.Controllers.Home
                             Ticket = FormsAuthentication.Encrypt(ticket),
                             SysRoleVoList = this.moduleService.FindTreeList(userDto.Id)
                         };
+                        if (cacheService.Exists("Sys_Ticket_" + loginUser.LoginName))
+                        {
+                            cacheService.Remove("Sys_Ticket_" + loginUser.LoginName);
+                        }
+                        cacheService.Insert("Sys_Ticket_" + loginUser.LoginName, userModel.Ticket);
                         return base.ToSuccessObject(userModel);
                     }
                     else

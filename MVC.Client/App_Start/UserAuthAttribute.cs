@@ -10,6 +10,7 @@ using System.Web.Security;
 using System.Web.Helpers;
 using System.Text;
 using LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr;
+using LMS.Application.Seedwork.Cache;
 
 namespace MVC.Client
 {
@@ -21,9 +22,9 @@ namespace MVC.Client
         #region 变量
 
         /// <summary>
-        /// 根据属性注入用户服务
+        /// 缓存服务
         /// </summary>
-        public IUserService LoginService { get; set; }
+        public ICache cacheService { get; set; }
 
         #endregion
 
@@ -105,23 +106,12 @@ namespace MVC.Client
             {
                 var returnValue = true;
                 var faTicket = FormsAuthentication.Decrypt(ticket);
-                if (!faTicket.Expired)
+                var ticketKey = "Sys_Ticket_" + faTicket.Name;
+                if (cacheService.Exists(ticketKey))
                 {
-                    var userName = faTicket.Name;
-                    var password = faTicket.UserData;
-                    var userDto = this.LoginService.FindByName(userName);
-                    if (userDto != null)
+                    if (cacheService.Get(ticketKey) != ticket)
                     {
-                        var sha1 = System.Security.Cryptography.SHA1.Create();
-                        if (userDto.Password != BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(password + userDto.SaltValue))).Replace("-", null))
-                        {
-                            error = "密码不正确！";
-                            returnValue = false;
-                        }
-                    }
-                    else
-                    {
-                        error = "用户名不存在！";
+                        error = "用户登录验证失败！";
                         returnValue = false;
                     }
                 }

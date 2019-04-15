@@ -20,5 +20,10 @@ namespace LMS.Application.Seedwork.Cache
         /// 服务器端口
         /// </summary>
         public string ServerPort { get; set; }
+
+        /// <summary>
+        /// 类型 0 主从服务,1 哨兵服务
+        /// </summary>
+        public int RedisType { get; set; }
     }
 }

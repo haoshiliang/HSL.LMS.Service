@@ -10,7 +10,7 @@ namespace MVC.Client.Controllers
     /// <summary>
     /// API基础类
     /// </summary>
-    //[UserAuth]
+    [UserAuth]
     public class ApiBaseController : ApiController
     {
         /// <summary>
