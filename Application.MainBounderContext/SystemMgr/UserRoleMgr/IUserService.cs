@@ -47,7 +47,8 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// </summary>
         /// <param name="key">键值</param>
         /// <param name="token">token值</param>
-        void SetToken(string key, string token);
+        /// <param name="cacheTime">过期时间</param>
+        void SetToken(string key, string token, int cacheTime);
 
         /// <summary>
         /// 获取Token
@@ -55,5 +56,12 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// <param name="key"></param>
         /// <returns></returns>
         string GetToken(string key);
+
+        /// <summary>
+        /// 是否存在Token
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        bool IsExistToken(string key);
     }
 }

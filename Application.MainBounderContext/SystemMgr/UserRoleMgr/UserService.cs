@@ -24,6 +24,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 角色仓储
         /// </summary>
         private readonly IRoleRepository roleRepository;
+        /// <summary>
+        /// 缓存服务
+        /// </summary>
+        private readonly ICache cacheService;
 
         #endregion
 
@@ -33,10 +37,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 构造方法
         /// </summary>
         /// <param name="userRepository"></param>
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, ICache cacheService)
         {
             this.userRepository = userRepository;
             this.roleRepository = roleRepository;
+            this.cacheService = cacheService;
         }
 
         #endregion
@@ -137,9 +142,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// </summary>
         /// <param name="key">键值</param>
         /// <param name="token">token值</param>
-        public void SetToken(string key, string token)
+        public void SetToken(string key, string token, int cacheTime)
         {
-
+            this.RemoveToken(key);
+            this.cacheService.Insert(key, token, cacheTime);
         }
 
         /// <summary>
@@ -149,7 +155,27 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// <returns></returns>
         public string GetToken(string key)
         {
-            return "Token";
+            return this.cacheService.Get(key);
+        }
+        /// <summary>
+        /// 移除Token
+        /// </summary>
+        /// <param name="key"></param>
+        public void RemoveToken(string key)
+        {
+            if (this.cacheService.Exists(key))
+            {
+                this.cacheService.Remove(key);
+            }
+        }
+        /// <summary>
+        /// 是否存在Token
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool IsExistToken(string key)
+        {
+            return this.cacheService.Exists(key);
         }
 
         #endregion

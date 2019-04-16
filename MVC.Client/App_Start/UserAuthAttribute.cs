@@ -22,9 +22,22 @@ namespace MVC.Client
         #region 变量
 
         /// <summary>
-        /// 缓存服务
+        /// 用户服务
         /// </summary>
-        public ICache cacheService { get; set; }
+        private readonly IUserService userService;
+
+        #endregion
+
+        #region 构造函数
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="userService">用户服务</param>
+        public UserAuthAttribute(IUserService userService)
+        {
+            this.userService = userService;
+        }
 
         #endregion
 
@@ -39,9 +52,9 @@ namespace MVC.Client
             //从http的header中取出ticket
             var authorization = actionContext.Request.Headers.Authorization;
             var error = "";//错误信息
-            if (authorization != null && authorization.Parameter != null)
+            if (authorization != null && authorization.Scheme != null)
             {
-                if (this.ValidateUser(authorization.Parameter,ref error))
+                if (this.ValidateUser(authorization.Scheme, ref error))
                 {
                     base.IsAuthorized(actionContext);
                 }
@@ -107,9 +120,9 @@ namespace MVC.Client
                 var returnValue = true;
                 var faTicket = FormsAuthentication.Decrypt(ticket);
                 var ticketKey = "Sys_Ticket_" + faTicket.Name;
-                if (cacheService.Exists(ticketKey))
+                if (userService.IsExistToken(ticketKey))
                 {
-                    if (cacheService.Get(ticketKey) != ticket)
+                    if(userService.GetToken(ticketKey)!= ticket)
                     {
                         error = "用户登录验证失败！";
                         returnValue = false;

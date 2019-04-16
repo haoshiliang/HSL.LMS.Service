@@ -62,24 +62,31 @@ namespace LMS.Application.Seedwork.Cache
         /// <param name="hostServerList"></param>
         private static void CreateRedisConn(List<RedisServer> hostServerList)
         {
-            //是一个列表，一个复杂的的场景中可能包含有主从复制 ， 对于这种情况，只需要指定所有地址在连接字符串中
-            //（它将会自动识别出主服务器 set值得时候用的主服务器）假设这里找到了两台主服务器，将会对两台服务进行裁决选出一台作为主服务器
-            //来解决这个问题 ， 这种情况是非常罕见的 ，我们也应该避免这种情况的发生。
-            ConfigurationOptions config = new ConfigurationOptions();
-            foreach(var hostServer in hostServerList)
+            try
             {
-                config.EndPoints.Add(hostServer.ServerAddress, int.Parse(hostServer.ServerPort));
+                //是一个列表，一个复杂的的场景中可能包含有主从复制 ， 对于这种情况，只需要指定所有地址在连接字符串中
+                //（它将会自动识别出主服务器 set值得时候用的主服务器）假设这里找到了两台主服务器，将会对两台服务进行裁决选出一台作为主服务器
+                //来解决这个问题 ， 这种情况是非常罕见的 ，我们也应该避免这种情况的发生。
+                ConfigurationOptions config = new ConfigurationOptions();
+                foreach (var hostServer in hostServerList)
+                {
+                    config.EndPoints.Add(hostServer.ServerAddress, int.Parse(hostServer.ServerPort));
+                }
+                //服务器秘密
+                config.Password = "123456";
+                //客户端名字
+                config.ClientName = "127.0.0.1";
+                //服务器名字
+                config.ServiceName = "127.0.0.1";
+                //true表示管理员身份，可以用一些危险的指令。
+                config.AllowAdmin = true;
+                redisConn = ConnectionMultiplexer.Connect(config);
+                database = redisConn.GetDatabase();
             }
-            //服务器秘密
-            config.Password = "123456";
-            //客户端名字
-            config.ClientName = "127.0.0.1";
-            //服务器名字
-            config.ServiceName = "127.0.0.1";
-            //true表示管理员身份，可以用一些危险的指令。
-            config.AllowAdmin = true;
-            redisConn = ConnectionMultiplexer.Connect(config);
-            database = redisConn.GetDatabase();
+            catch(Exception ex)
+            {
+                throw new Exception("Redis主从配置不正确,请查看配置." + ex.Message);
+            }
         }
 
         /// <summary>
@@ -87,7 +94,9 @@ namespace LMS.Application.Seedwork.Cache
         /// </summary>
         private static void CreateSentinelConn(List<RedisServer> sentinelServerList)
         {
-            var sentinelOptions = new ConfigurationOptions() { TieBreaker = "" };
+            try
+            {
+                var sentinelOptions = new ConfigurationOptions() { TieBreaker = "" };
             //添加哨兵地址
             foreach (var hostServer in sentinelServerList)
             {
@@ -103,6 +112,11 @@ namespace LMS.Application.Seedwork.Cache
             {
                 Console.WriteLine((string)mg);
             });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Redis哨兵配置不正确,请查看配置." + ex.Message);
+            }
         }
 
         #endregion

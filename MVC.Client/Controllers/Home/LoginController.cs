@@ -33,11 +33,6 @@ namespace MVC.Client.Controllers.Home
         /// </summary>
         private readonly IModuleService moduleService;
 
-        /// <summary>
-        /// 缓存服务
-        /// </summary>
-        private readonly ICache cacheService;
-
         #endregion
 
         #region 构造函数
@@ -47,14 +42,12 @@ namespace MVC.Client.Controllers.Home
         /// </summary>
         /// <param name="userService">用户服务</param>
         /// <param name="moduleService">模块服务</param>
-        /// <param name="cacheService">缓存服务</param>
         public LoginController(IUserService userService, IModuleService moduleService)
         {
             try
             {
                 this.userService = userService;
                 this.moduleService = moduleService;
-                this.cacheService = new Redis();
             }
             catch (Exception ex)
             {
@@ -89,11 +82,7 @@ namespace MVC.Client.Controllers.Home
                             Ticket = FormsAuthentication.Encrypt(ticket),
                             SysRoleVoList = this.moduleService.FindTreeList(userDto.Id)
                         };
-                        if (cacheService.Exists("Sys_Ticket_" + loginUser.LoginName))
-                        {
-                            cacheService.Remove("Sys_Ticket_" + loginUser.LoginName);
-                        }
-                        cacheService.Insert("Sys_Ticket_" + loginUser.LoginName, userModel.Ticket);
+                        this.userService.SetToken("Sys_Ticket_" + loginUser.LoginName,userModel.Ticket,int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
                         return base.ToSuccessObject(userModel);
                     }
                     else
