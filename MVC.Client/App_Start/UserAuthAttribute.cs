@@ -24,20 +24,7 @@ namespace MVC.Client
         /// <summary>
         /// 用户服务
         /// </summary>
-        private readonly IUserService userService;
-
-        #endregion
-
-        #region 构造函数
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="userService">用户服务</param>
-        public UserAuthAttribute(IUserService userService)
-        {
-            this.userService = userService;
-        }
+        public static IUserService UserService { get; set; }
 
         #endregion
 
@@ -52,24 +39,24 @@ namespace MVC.Client
             //从http的header中取出ticket
             var authorization = actionContext.Request.Headers.Authorization;
             var error = "";//错误信息
-            if (authorization != null && authorization.Scheme != null)
+            //判断是否可匿名访问
+            var anonymousAttrList = actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().OfType<AllowAnonymousAttribute>();
+            if (anonymousAttrList.Count() > 0)
             {
-                if (this.ValidateUser(authorization.Scheme, ref error))
-                {
-                    base.IsAuthorized(actionContext);
-                }
-                else
-                {
-                    HandleUnauthorizedRequest(actionContext, error);
-                }
+                base.OnAuthorization(actionContext);
             }
             else
             {
-                //判断是否可匿名访问
-                var anonymousAttrList = actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().OfType<AllowAnonymousAttribute>();
-                if (anonymousAttrList.Count() > 0)
+                if (authorization != null)
                 {
-                    base.OnAuthorization(actionContext);
+                    if (this.ValidateUser(authorization.ToString(), ref error))
+                    {
+                        base.IsAuthorized(actionContext);
+                    }
+                    else
+                    {
+                        HandleUnauthorizedRequest(actionContext, error);
+                    }
                 }
                 else
                 {
@@ -120,9 +107,9 @@ namespace MVC.Client
                 var returnValue = true;
                 var faTicket = FormsAuthentication.Decrypt(ticket);
                 var ticketKey = "Sys_Ticket_" + faTicket.Name;
-                if (userService.IsExistToken(ticketKey))
+                if (UserService.IsExistToken(ticketKey))
                 {
-                    if(userService.GetToken(ticketKey)!= ticket)
+                    if(UserService.GetToken(ticketKey)!= ticket)
                     {
                         error = "用户登录验证失败！";
                         returnValue = false;

@@ -26,6 +26,11 @@
     <services name="ReadUnitOfWork" type="LMS.Domain.Seedwork.IReadUnitOfWork,Domain.Seedwork" />
     <injectProperties>true</injectProperties>
   </components>
+  <components name="UserAuthAttribute">
+    <type>MVC.Client.UserAuthAttribute,MVC.Client</type>
+    <injectProperties>true</injectProperties>
+    <instanceScope>SingleInstance</instanceScope>
+  </components>
   <components name="Cache">
     <type>LMS.Application.Seedwork.Cache.Redis,Application.Seedwork</type>
     <services name="Cache" type="LMS.Application.Seedwork.Cache.ICache,Application.Seedwork" />

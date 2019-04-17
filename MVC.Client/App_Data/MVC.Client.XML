@@ -9,7 +9,7 @@
             用户身份验证过虑器
             </summary>
         </member>
-        <member name="P:MVC.Client.UserAuthAttribute.userService">
+        <member name="P:MVC.Client.UserAuthAttribute.UserService">
             <summary>
             用户服务
             </summary>
