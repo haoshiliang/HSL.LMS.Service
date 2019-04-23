@@ -178,6 +178,15 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
             return this.cacheService.Exists(key);
         }
 
+        /// <summary>
+        /// 设置Token有效期
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool SetExpire(string key, int cacheTime)
+        {
+            return this.cacheService.SetExpire(key, cacheTime);
+        }
         #endregion
     }
 }

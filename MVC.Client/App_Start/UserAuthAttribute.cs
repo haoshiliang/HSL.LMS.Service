@@ -114,6 +114,10 @@ namespace MVC.Client
                         error = "用户登录验证失败！";
                         returnValue = false;
                     }
+                    else
+                    {
+                        UserService.SetExpire(ticketKey, int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
+                    }
                 }
                 else
                 {

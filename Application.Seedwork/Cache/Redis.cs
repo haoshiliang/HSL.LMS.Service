@@ -176,6 +176,17 @@ namespace LMS.Application.Seedwork.Cache
         {
             return database.KeyExists(key);
         }
+        /// <summary>
+        /// 设置有效期
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="cacheTime">有效期</param>
+        /// <returns></returns>
+        public bool SetExpire(string key, int cacheTime)
+        {
+            var timeSpan = TimeSpan.FromSeconds(cacheTime);
+            return database.KeyExpire(key, timeSpan);
+        }
 
         #endregion
 

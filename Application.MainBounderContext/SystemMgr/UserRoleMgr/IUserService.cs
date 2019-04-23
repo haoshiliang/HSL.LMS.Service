@@ -63,5 +63,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// <param name="key"></param>
         /// <returns></returns>
         bool IsExistToken(string key);
+        /// <summary>
+        /// 设置Token有效期
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        bool SetExpire(string key,int cacheTime);
     }
 }

@@ -51,5 +51,12 @@ namespace LMS.Application.Seedwork.Cache
         /// 判断key是否存在
         /// </summary>
         bool Exists(string key);
+        /// <summary>
+        /// 设置有效期
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="cacheTime">有效期</param>
+        /// <returns></returns>
+        bool SetExpire(string key, int cacheTime);
     }
 }
