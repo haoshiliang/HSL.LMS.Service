@@ -13,6 +13,7 @@ using LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr;
 using LMS.Application.MainBounderContext.SystemMgr.ModuleMgr;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
 using LMS.Application.Seedwork.Cache;
+using LMS.Application.Seedwork.EnumData;
 
 namespace MVC.Client.Controllers.Home
 {
@@ -82,7 +83,7 @@ namespace MVC.Client.Controllers.Home
                             Ticket = FormsAuthentication.Encrypt(ticket),
                             SysRoleVoList = this.moduleService.FindTreeList(userDto.Id)
                         };
-                        this.userService.SetToken("Sys_Ticket_" + loginUser.LoginName,userModel.Ticket,int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
+                        this.userService.SetToken(RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + loginUser.LoginName, userModel.Ticket, int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
                         return base.ToSuccessObject(userModel);
                     }
                     else
@@ -100,6 +101,9 @@ namespace MVC.Client.Controllers.Home
                 return base.ToFailureObject(ex.Message);
             }
         }
+
+
+
 
         #endregion
     }

@@ -53,6 +53,7 @@
     <Compile Include="Cache\ICache.cs" />
     <Compile Include="Cache\Redis.cs" />
     <Compile Include="Cache\RedisConnectionHandler.cs" />
+    <Compile Include="EnumData\RedisPrefixEnum.cs" />
     <Compile Include="ExtensionMethods\ProjectionsExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

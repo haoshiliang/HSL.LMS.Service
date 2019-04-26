@@ -11,6 +11,7 @@ using System.Web.Helpers;
 using System.Text;
 using LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr;
 using LMS.Application.Seedwork.Cache;
+using LMS.Application.Seedwork.EnumData;
 
 namespace MVC.Client
 {
@@ -87,7 +88,7 @@ namespace MVC.Client
             // 这句话可以改变请求状态值 就是 200 403 之类的那个状态值
             response.StatusCode = HttpStatusCode.OK;
             // 将这个出错信息加入到返回对象中.
-            response.Content = new StringContent(Json.Encode(new { status = "0", message = error }), Encoding.UTF8, "application/json");
+            response.Content = new StringContent(Json.Encode(new { status = "-1", message = error }), Encoding.UTF8, "application/json");
         }
 
         #endregion
@@ -106,7 +107,7 @@ namespace MVC.Client
             {
                 var returnValue = true;
                 var faTicket = FormsAuthentication.Decrypt(ticket);
-                var ticketKey = "Sys_Ticket_" + faTicket.Name;
+                var ticketKey = RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + faTicket.Name;
                 if (UserService.IsExistToken(ticketKey))
                 {
                     if(UserService.GetToken(ticketKey)!= ticket)

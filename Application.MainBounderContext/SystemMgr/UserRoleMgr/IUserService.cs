@@ -69,5 +69,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// <param name="key"></param>
         /// <returns></returns>
         bool SetExpire(string key,int cacheTime);
+        /// <summary>
+        /// 移除Token
+        /// </summary>
+        /// <param name="key"></param>
+        void RemoveToken(string key);
     }
 }

@@ -34,7 +34,7 @@ namespace LMS.Application.Seedwork.Cache
         public Redis()
         {
         }
-         
+
         #endregion
 
         #region 静态构造方法 
@@ -47,13 +47,16 @@ namespace LMS.Application.Seedwork.Cache
             var serverList = ConfigurationManager.GetSection("redisConnection") as List<RedisServer>;
             var hostServerList = serverList.Where(m => m.RedisType == 0).ToList();
             var sentinelServerList = serverList.Where(m => m.RedisType == 1).ToList();
-            if (hostServerList.Count == 0 || sentinelServerList.Count == 0)
-                throw new ApplicationException("请配置Redis主服务地址与哨兵服务地址");
+            if (hostServerList.Count == 0)
+                throw new ApplicationException("请配置Redis主服务地址");
 
             //创建连接
             CreateRedisConn(hostServerList);
             //创建哨兵
-            CreateSentinelConn(sentinelServerList);
+            if (sentinelServerList.Count > 0)
+            {
+                CreateSentinelConn(sentinelServerList);
+            }
         }
 
         /// <summary>
@@ -72,8 +75,11 @@ namespace LMS.Application.Seedwork.Cache
                 {
                     config.EndPoints.Add(hostServer.ServerAddress, int.Parse(hostServer.ServerPort));
                 }
-                //服务器秘密
-                config.Password = "123456";
+                //服务器密码
+                if (!string.IsNullOrEmpty(hostServerList[0].Password))
+                {
+                    config.Password = hostServerList[0].Password;
+                }
                 //客户端名字
                 config.ClientName = "127.0.0.1";
                 //服务器名字
@@ -97,21 +103,24 @@ namespace LMS.Application.Seedwork.Cache
             try
             {
                 var sentinelOptions = new ConfigurationOptions() { TieBreaker = "" };
-            //添加哨兵地址
-            foreach (var hostServer in sentinelServerList)
-            {
-                sentinelOptions.EndPoints.Add(hostServer.ServerAddress, int.Parse(hostServer.ServerPort));
-            }
-            //sentinelOptions.Password = "123456";
-            //哨兵连接模式
-            sentinelOptions.CommandMap = CommandMap.Sentinel;
-            sentinelOptions.ServiceName = "mymaster";
-            sentinelConn = ConnectionMultiplexer.Connect(sentinelOptions);
-            sentinelsub = sentinelConn.GetSubscriber();
-            sentinelsub.Subscribe("+switch-master", (ch, mg) =>
-            {
-                Console.WriteLine((string)mg);
-            });
+                //添加哨兵地址
+                foreach (var hostServer in sentinelServerList)
+                {
+                    sentinelOptions.EndPoints.Add(hostServer.ServerAddress, int.Parse(hostServer.ServerPort));
+                }
+                if (!string.IsNullOrEmpty(sentinelServerList[0].Password))
+                {
+                    sentinelOptions.Password = sentinelServerList[0].Password;
+                }
+                //哨兵连接模式
+                sentinelOptions.CommandMap = CommandMap.Sentinel;
+                sentinelOptions.ServiceName = "mymaster";
+                sentinelConn = ConnectionMultiplexer.Connect(sentinelOptions);
+                sentinelsub = sentinelConn.GetSubscriber();
+                sentinelsub.Subscribe("+switch-master", (ch, mg) =>
+                {
+                    Console.WriteLine((string)mg);
+                });
             }
             catch (Exception ex)
             {

@@ -20,11 +20,11 @@ namespace LMS.Application.Seedwork.Cache
                 {
                     if (childNode.Name== "hostServer")
                     {
-                        list.Add(new RedisServer() { ServerAddress = childNode.Attributes["serverAddress"].Value, ServerPort = childNode.Attributes["serverPort"].Value, RedisType = 0 });
+                        list.Add(new RedisServer() { ServerAddress = childNode.Attributes["serverAddress"].Value, ServerPort = childNode.Attributes["serverPort"].Value, RedisType = 0, Password = section.Attributes["hostServerPassword"].InnerText });
                     }
                     else if(childNode.Name == "sentinelServer")
                     {
-                        list.Add(new RedisServer() { ServerAddress = childNode.Attributes["serverAddress"].Value, ServerPort = childNode.Attributes["serverPort"].Value, RedisType = 1 });
+                        list.Add(new RedisServer() { ServerAddress = childNode.Attributes["serverAddress"].Value, ServerPort = childNode.Attributes["serverPort"].Value, RedisType = 1, Password = section.Attributes["sentinelServerPassword"].InnerText });
                     }
                 }
             }

@@ -25,5 +25,10 @@ namespace LMS.Application.Seedwork.Cache
         /// 类型 0 主从服务,1 哨兵服务
         /// </summary>
         public int RedisType { get; set; }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string Password { get; set; }
     }
 }
