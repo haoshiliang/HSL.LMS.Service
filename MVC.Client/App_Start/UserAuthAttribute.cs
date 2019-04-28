@@ -122,7 +122,7 @@ namespace MVC.Client
                 }
                 else
                 {
-                    error = "用户登录过期！";
+                    error = "用户登录超时！";
                     returnValue = false;
                 }
                 return returnValue;
