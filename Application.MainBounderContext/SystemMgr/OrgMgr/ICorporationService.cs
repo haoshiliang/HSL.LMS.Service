@@ -33,6 +33,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 取出公司列表
         /// </summary>
         /// <returns></returns>
-        ICollection<CorporationDTO> FindList();
+        ICollection<CorporationDTO> FindList(string id);
     }
 }

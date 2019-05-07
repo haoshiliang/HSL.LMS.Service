@@ -10,5 +10,11 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository
 {
     public interface ICorporationRepository : IRepository<Corporation>
     {
+        /// <summary>
+        /// 获取生成的最大编码
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        string GetAutomaticCode(string parentId);
     }
 }

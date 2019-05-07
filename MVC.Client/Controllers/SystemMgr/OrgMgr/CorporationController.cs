@@ -69,7 +69,26 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         {
             try
             {
-                var list = this.corpService.FindList();
+                var list = this.corpService.FindList(null);
+                return base.ToSuccessObject(list);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取公司列表
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <param name="isTree">是否树列表</param>
+        /// <returns></returns>
+        public object Get(string id,bool isTree)
+        {
+            try
+            {
+                var list = this.corpService.FindList(id);
                 return base.ToSuccessObject(list);
             }
             catch (Exception ex)
@@ -84,37 +103,16 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public object Post([FromBody]string value)
+        public object Post([FromBody]Corporation value)
         {
             try
             {
-                this.corpService.AddOrModity(JsonConvert.DeserializeObject<Corporation>(value));
+                this.corpService.AddOrModity(value);
                 return base.ToSuccessObject();
             }
             catch(DbEntityValidationException dbEx)
             {
                 return base.ToFailureObject(dbEx.Message);
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
-        // PUT: api/Corporation/5
-        /// <summary>
-        /// 更新公司信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public object Put(Guid id, [FromBody]string value)
-        {
-            try
-            {
-                var model = JsonConvert.DeserializeObject<Corporation>(value);
-                this.corpService.AddOrModity(model);
-
-                return base.ToSuccessObject();
             }
             catch (Exception ex)
             {

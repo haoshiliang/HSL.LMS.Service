@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\TreeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemMgr\ModuleMgr\ModuleDTO.cs" />
     <Compile Include="SystemMgr\OrgMgr\CorporationDTO.cs" />

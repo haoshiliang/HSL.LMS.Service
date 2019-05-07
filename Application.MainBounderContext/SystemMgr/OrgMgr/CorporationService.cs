@@ -43,20 +43,34 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <param name="model"></param>
         public void AddOrModity(Corporation model)
         {
-            model.PyCode = model.CorpName.ToConvertPyCode();
-            if (!string.IsNullOrEmpty(model.Id))
+            try
             {
-                model.LastUpdateDate = DateTime.Now;
-                this.corpRepository.Modity(model);
+                this.corpRepository.UnitOfWork.BeginTrans();
+
+                model.ParentId = (string.IsNullOrEmpty(model.ParentId) ? Guid.Empty.ToString() : model.ParentId);
+                model.PyCode = model.CorpName.ToConvertPyCode();
+                if (!string.IsNullOrEmpty(model.Id))
+                {
+                    model.LastUpdateDate = DateTime.Now;
+                    this.corpRepository.Modity(model);
+                }
+                else
+                {                   
+                    model.GenerateNewIdentity();
+                    model.CreateDate = DateTime.Now;
+                    model.LastUpdateDate = DateTime.Now;
+                    model.AutomaticCode = this.corpRepository.GetAutomaticCode(model.ParentId);
+                    this.corpRepository.Add(model);
+                }
+
+                this.corpRepository.SaveChanges();
+                this.corpRepository.UnitOfWork.Commit();
             }
-            else
+            catch(Exception ex)
             {
-                model.GenerateNewIdentity();
-                model.CreateDate = DateTime.Now;
-                model.LastUpdateDate = DateTime.Now;
-                this.corpRepository.Add(model);
+                this.corpRepository.UnitOfWork.Rollback();
+                throw ex;
             }
-            this.corpRepository.SaveChanges();
         }
 
         /// <summary>
@@ -92,9 +106,9 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 取出公司列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<CorporationDTO> FindList()
+        public ICollection<CorporationDTO> FindList(string id)
         {
-            var list = this.corpRepository.GetAll().Where(m => m.ParentId == null);
+            var list = this.corpRepository.GetAll().Where(m => m.ParentId == null && m.Id != id);
             var dtoList = new List<CorporationDTO>();
             foreach(var corp in list)
             {
@@ -104,7 +118,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                     dto.ParentId = corp.ParentCorp.Id;
                     dto.ParentName = corp.ParentCorp.CorpName;
                 }
-                this.SetChildList(corp, dto);
+                this.SetChildList(corp, dto, id);
                 dtoList.Add(dto);
             }
             return dtoList;
@@ -114,11 +128,18 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 
         #region 私有方法
 
-        private void SetChildList(Corporation corp,CorporationDTO dto)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="corp"></param>
+        /// <param name="dto"></param>
+        /// <param name="id"></param>
+        private void SetChildList(Corporation corp,CorporationDTO dto,string id)
         {
             if(corp.ChildCorpList!=null && corp.ChildCorpList.Count > 0)
             {
-                foreach(var m in corp.ChildCorpList)
+                var childList = corp.ChildCorpList.Where(m => m.Id != id);
+                foreach (var m in childList)
                 {
                     var d = m.ProjectedAs<CorporationDTO>();
                     if (m.ParentCorp != null)
@@ -126,7 +147,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                         d.ParentId = m.ParentCorp.Id;
                         d.ParentName = m.ParentCorp.CorpName;
                     }
-                    this.SetChildList(m, d);
+                    this.SetChildList(m, d, id);
                     dto.ChildList.Add(d);
                 }
             }

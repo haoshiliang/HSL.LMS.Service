@@ -13,7 +13,7 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Mapping
         public CorporationMapping()
         {
             this.HasKey(m => m.Id).Property(m=>m.Id).HasColumnName("ID").HasColumnType("CHAR").HasMaxLength(36);
-            this.Property(m => m.AutomaticCode).HasColumnName("AUTOMATIC_CODE").HasMaxLength(128).IsRequired();
+            this.Property(m => m.AutomaticCode).HasColumnName("AUTOMATIC_CODE").HasMaxLength(128);
             this.Property(m => m.CorpCode).HasMaxLength(128).HasColumnName("CORP_CODE").IsRequired();
             this.Property(m => m.CorpName).HasMaxLength(64).HasColumnName("CORP_NAME").IsRequired();
             this.Property(m => m.PyCode).HasMaxLength(64).HasColumnName("PY_CODE").IsRequired();
