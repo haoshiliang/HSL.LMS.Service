@@ -580,13 +580,13 @@
             <param name="id">编号</param>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Get">
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.GetList">
             <summary>
             获取公司列表
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Get(System.String,System.Boolean)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.GetTreeList(System.String,System.Boolean)">
             <summary>
             获取公司列表
             </summary>
@@ -601,7 +601,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Delete(System.Guid)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Delete(System.String)">
             <summary>
             删除公司信息
             </summary>

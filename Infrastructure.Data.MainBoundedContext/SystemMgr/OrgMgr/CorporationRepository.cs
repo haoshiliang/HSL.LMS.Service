@@ -34,7 +34,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr
             }
             else
             {
-                return parentCode + (Int32.Parse(automaticCode) + 1).ToString().PadLeft(4, '0');
+                return parentCode + (Int32.Parse(automaticCode.Substring(automaticCode.Length-5,5)) + 1).ToString().PadLeft(5, '0');
             }
         }
     }

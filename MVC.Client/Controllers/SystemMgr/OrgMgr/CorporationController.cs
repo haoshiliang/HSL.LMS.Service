@@ -65,7 +65,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// 获取公司列表
         /// </summary>
         /// <returns></returns>
-        public object Get()
+        public object GetList()
         {
             try
             {
@@ -84,7 +84,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// <param name="id">编号</param>
         /// <param name="isTree">是否树列表</param>
         /// <returns></returns>
-        public object Get(string id,bool isTree)
+        public object GetTreeList(string id,bool isTree)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public object Delete(Guid id)
+        public object Delete(string id)
         {
             try
             {

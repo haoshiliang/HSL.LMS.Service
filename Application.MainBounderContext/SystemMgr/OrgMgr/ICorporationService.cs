@@ -27,7 +27,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 删除公司信息
         /// </summary>
         /// <param name="id"></param>
-        void Delete(Guid id);
+        void Delete(string id);
 
         /// <summary>
         /// 取出公司列表

@@ -36,7 +36,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         #endregion
 
         #region 接口方法
-
+         
         /// <summary>
         /// 添加或修改
         /// </summary>
@@ -77,7 +77,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 删除信息
         /// </summary>
         /// <param name=""></param>
-        public void Delete(Guid id)
+        public void Delete(string id)
         {
             var model = corpRepository.Get(id);
             model.IsDel = true;
@@ -108,7 +108,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <returns></returns>
         public ICollection<CorporationDTO> FindList(string id)
         {
-            var list = this.corpRepository.GetAll().Where(m => m.ParentId == null && m.Id != id);
+            var list = this.corpRepository.GetAll().Where(m => m.ParentId == Guid.Empty.ToString() && m.Id != id && m.IsDel == false);
             var dtoList = new List<CorporationDTO>();
             foreach(var corp in list)
             {
@@ -134,11 +134,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <param name="corp"></param>
         /// <param name="dto"></param>
         /// <param name="id"></param>
-        private void SetChildList(Corporation corp,CorporationDTO dto,string id)
+        private void SetChildList(Corporation corp, CorporationDTO dto, string id)
         {
-            if(corp.ChildCorpList!=null && corp.ChildCorpList.Count > 0)
+            if (corp.ChildCorpList != null && corp.ChildCorpList.Count > 0)
             {
-                var childList = corp.ChildCorpList.Where(m => m.Id != id);
+                var childList = corp.ChildCorpList.Where(m => m.Id != id && m.IsDel == false);
                 foreach (var m in childList)
                 {
                     var d = m.ProjectedAs<CorporationDTO>();
