@@ -55,7 +55,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
                 var queryParamModel = JsonConvert.DeserializeObject<QueryParam>(queryParam);
                 if (queryParamModel.SortList.Count == 0)
                 {
-                    queryParamModel.SortList.Add(new SortField() { SortValue = "DeprtCode" });
+                    queryParamModel.SortList.Add(new SortField() { SortValue = "DepartCode" });
                 }
                 var list = this.deptService.FindList(paginationModel, queryParamModel);
                 return base.ToSuccessObject(new { List = list, RecordTotal = paginationModel.RecordTotal });
