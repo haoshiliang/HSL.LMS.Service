@@ -9,6 +9,7 @@ using Newtonsoft.Json.Converters;
 using LMS.Application.MainBounderContext.SystemMgr.OrgMgr;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
 using System.Data.Entity.Validation;
+using LMS.Domain.Seedwork;
 
 namespace MVC.Client.Controllers.SystemMgr.OrgMgr
 {
@@ -46,12 +47,18 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// 获取部门列表
         /// </summary>
         /// <returns></returns>
-        public object Get()
+        public object Get(string pagination,string queryParam)
         {
             try
             {
-                var list = this.deptService.FindList();
-                return base.ToSuccessObject(list);
+                var paginationModel = JsonConvert.DeserializeObject<Pagination>(pagination);
+                var queryParamModel = JsonConvert.DeserializeObject<QueryParam>(queryParam);
+                if (queryParamModel.SortList.Count == 0)
+                {
+                    queryParamModel.SortList.Add(new SortField() { SortValue = "DeprtCode" });
+                }
+                var list = this.deptService.FindList(paginationModel, queryParamModel);
+                return base.ToSuccessObject(new { List = list, RecordTotal = paginationModel.RecordTotal });
             }
             catch (Exception ex)
             {

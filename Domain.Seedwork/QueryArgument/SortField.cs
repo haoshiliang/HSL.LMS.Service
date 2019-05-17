@@ -11,7 +11,7 @@ namespace LMS.Domain.Seedwork
         public SortField()
         {
             SortValue = "";
-            SortType = "";
+            SortType = "ASC";
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
+using LMS.Domain.Seedwork;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 {
@@ -32,6 +33,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 取出部门列表
         /// </summary>
         /// <returns></returns>
-        ICollection<Department> FindList();
+        ICollection<Department> FindList(Pagination pagination, QueryParam queryParam);
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
 using LMS.Application.Seedwork;
+using LMS.Domain.Seedwork;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 {
@@ -73,9 +74,13 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 取出部门列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<Department> FindList()
+        public ICollection<Department> FindList(Pagination pagination, QueryParam queryParam)
         {
-            return deptRepository.GetAll().ToList();
+            if (queryParam.SortList.Count == 0)
+            {
+                queryParam.SortList.Add(new SortField() { SortValue = "CreateDate", SortType = "DESC" });
+            }
+            return deptRepository.GetPaged(pagination, queryParam).ToList();
         }
 
         /// <summary>

@@ -694,7 +694,7 @@
             </summary>
             <param name="deptService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Get">
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Get(System.String,System.String)">
             <summary>
             获取部门列表
             </summary>
