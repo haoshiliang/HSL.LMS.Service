@@ -210,7 +210,7 @@ namespace LMS.Infrastructure.Seedwork
                             if(whereItem.Operator.ToLower() != "in")
                             {
                                 paramNameList.Add(field);
-                                paramValueList.Add(this.GetParamValue(whereItem.Value, whereItem.DataType));
+                                paramValueList.Add(this.GetParamValue(whereItem.Value, whereItem.DataType.ToString()));
                             }
                         }
                         whereBuilder.AppendLine("AND ("+ whereStr.Substring(0, whereStr.Length- 4) + ")");
@@ -275,7 +275,7 @@ namespace LMS.Infrastructure.Seedwork
                 foreach (var queryParam in whereParams)
                 {
                     if (!string.IsNullOrEmpty(queryParam.Value))
-                        expConstant = Expression.AndAlso(expConstant, this.GetOrExpression(queryParam));
+                        expConstant = Expression.AndAlso(expConstant, this.GetOrExpression(queryParam).Body);
                 }
             }
             return Expression.Lambda<Func<TEntity, Boolean>>(expConstant, nickNameParam);
@@ -295,7 +295,7 @@ namespace LMS.Infrastructure.Seedwork
             {
                 if (this.GetProperty(typeof(TEntity), field) != null)
                 {
-                    expConstant = Expression.OrElse(expConstant, this.GetExpression(field, queryParam.Value, queryParam.Operator, queryParam.DataType));
+                    expConstant = Expression.OrElse(expConstant, this.GetExpression(field, queryParam.Value, queryParam.Operator, queryParam.DataType.ToString()));
                 }
             }
             return Expression.Lambda<Func<TEntity, Boolean>>(expConstant, nickNameParam);
@@ -314,7 +314,7 @@ namespace LMS.Infrastructure.Seedwork
         {
             Expression opExpression = null;
             Expression rExpression = null;
-            ParameterExpression param = Expression.Parameter(typeof(TEntity), "o");
+            ParameterExpression param = Expression.Parameter(typeof(TEntity), "m");
             Expression lExpression = Expression.Property(param, typeof(TEntity).GetProperty(queryField.Split('.').First()));
             if (operationType.ToLower() != "in")
                 rExpression = Expression.Constant(Convert.ChangeType(queryValue, GetTypeByString(dataType)));

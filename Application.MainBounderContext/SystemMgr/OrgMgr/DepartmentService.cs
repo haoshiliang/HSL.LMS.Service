@@ -76,10 +76,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <returns></returns>
         public ICollection<Department> FindList(Pagination pagination, QueryParam queryParam)
         {
-            if (queryParam.SortList.Count == 0)
-            {
-                queryParam.SortList.Add(new SortField() { SortValue = "CreateDate", SortType = "DESC" });
-            }
             return deptRepository.GetPaged(pagination, queryParam).ToList();
         }
 

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QueryArgument\QueryConfig.cs" />
     <Compile Include="QueryArgument\QueryParam.cs" />
     <Compile Include="RepositoryInterface\EntityBase.cs" />
     <Compile Include="RepositoryInterface\IRepository.cs" />
