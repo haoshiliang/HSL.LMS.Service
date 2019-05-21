@@ -37,6 +37,10 @@ namespace LMS.Domain.Seedwork
         /// 绑定列表
         /// </summary>
         public object BinderList { get; set; }
+        /// <summary>
+        /// 是否高级查询
+        /// </summary>
+        public bool IsAdvancedQuery { get; set; }
     }
 
     /// <summary>

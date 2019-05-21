@@ -161,13 +161,14 @@ namespace LMS.Infrastructure.Seedwork
         public IEnumerable<TEntity> GetPaged(Pagination pagination, QueryParam queryParam, bool isSlave = false)
         {
             IQueryable<TEntity> tempData = null;
+            IList<WhereParam> queryParamList = (queryParam.IsAdvancedQuery?queryParam.WhereList:queryParam.WhereList.Where(m=>m.IsAdvancedQuery==false)).ToList();
             if (isSlave)
             {
-                tempData = this.ReadDbSet().Where(this.GetAndExpression(queryParam.WhereList));
+                tempData = this.ReadDbSet().Where(this.GetAndExpression(queryParamList));
             }
             else
             {
-                tempData = this.DbSet().Where(this.GetAndExpression(queryParam.WhereList));
+                tempData = this.DbSet().Where(this.GetAndExpression(queryParamList));
             }
             MethodCallExpression resultExp = null;
             foreach (var sort in queryParam.SortList)
@@ -195,10 +196,11 @@ namespace LMS.Infrastructure.Seedwork
             IList<string> paramNameList = new List<string>();
             IList<object> paramValueList = new List<object>();
             StringBuilder whereBuilder = new StringBuilder();
+            IList<WhereParam> queryParamList = (queryParam.IsAdvancedQuery ? queryParam.WhereList : queryParam.WhereList.Where(m => m.IsAdvancedQuery == false)).ToList();
 
-            if (queryParam.WhereList.Count > 0)
+            if (queryParamList.Count > 0)
             {
-                foreach(var whereItem in queryParam.WhereList)
+                foreach(var whereItem in queryParamList)
                 {
                     if (!string.IsNullOrEmpty(whereItem.Value))
                     {
@@ -275,7 +277,7 @@ namespace LMS.Infrastructure.Seedwork
                 foreach (var queryParam in whereParams)
                 {
                     if (!string.IsNullOrEmpty(queryParam.Value))
-                        expConstant = Expression.AndAlso(expConstant, this.GetOrExpression(queryParam).Body);
+                        expConstant = Expression.AndAlso(expConstant, this.GetOrExpression(nickNameParam,queryParam));
                 }
             }
             return Expression.Lambda<Func<TEntity, Boolean>>(expConstant, nickNameParam);
@@ -286,19 +288,18 @@ namespace LMS.Infrastructure.Seedwork
         /// </summary>
         /// <param name="queryParams"></param>
         /// <returns></returns>
-        private Expression<Func<TEntity, bool>> GetOrExpression(WhereParam queryParam)
+        private Expression GetOrExpression(ParameterExpression nickNameParam,WhereParam queryParam)
         {
             string[] fieldList = queryParam.Field.Split('|');
-            ParameterExpression nickNameParam = Expression.Parameter(typeof(TEntity), "m");
             Expression expConstant = Expression.Constant(false);
             foreach (string field in fieldList)
             {
                 if (this.GetProperty(typeof(TEntity), field) != null)
                 {
-                    expConstant = Expression.OrElse(expConstant, this.GetExpression(field, queryParam.Value, queryParam.Operator, queryParam.DataType.ToString()));
+                    expConstant = Expression.OrElse(expConstant, this.GetExpression(field, queryParam.Value, queryParam.Operator, queryParam.DataType.ToString(), nickNameParam));
                 }
             }
-            return Expression.Lambda<Func<TEntity, Boolean>>(expConstant, nickNameParam);
+            return expConstant;
         }
 
 
@@ -310,11 +311,10 @@ namespace LMS.Infrastructure.Seedwork
         /// <param name="operationType">操作类型</param>
         /// <param name="dataType">数据类型</param>
         /// <returns></returns>
-        private Expression GetExpression(string queryField, string queryValue, string operationType, string dataType)
+        private Expression GetExpression(string queryField, string queryValue, string operationType, string dataType, ParameterExpression param)
         {
             Expression opExpression = null;
             Expression rExpression = null;
-            ParameterExpression param = Expression.Parameter(typeof(TEntity), "m");
             Expression lExpression = Expression.Property(param, typeof(TEntity).GetProperty(queryField.Split('.').First()));
             if (operationType.ToLower() != "in")
                 rExpression = Expression.Constant(Convert.ChangeType(queryValue, GetTypeByString(dataType)));

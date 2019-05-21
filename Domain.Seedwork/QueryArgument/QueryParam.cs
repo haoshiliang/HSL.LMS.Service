@@ -15,7 +15,12 @@ namespace LMS.Domain.Seedwork
         {
             WhereList = new List<WhereParam>();
             SortList = new List<SortField>();
+            IsAdvancedQuery = false;
         }
+        /// <summary>
+        /// 是否高级查询
+        /// </summary>
+        public bool IsAdvancedQuery { get; set; }
         /// <summary>
         /// 条件列表
         /// </summary>
