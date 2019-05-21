@@ -161,7 +161,7 @@ namespace LMS.Infrastructure.Seedwork
         public IEnumerable<TEntity> GetPaged(Pagination pagination, QueryParam queryParam, bool isSlave = false)
         {
             IQueryable<TEntity> tempData = null;
-            IList<WhereParam> queryParamList = (queryParam.IsAdvancedQuery?queryParam.WhereList:queryParam.WhereList.Where(m=>m.IsAdvancedQuery==false)).ToList();
+            IList<WhereParam> queryParamList = (queryParam.IsAdvancedQuery?queryParam.WhereList:queryParam.WhereList.Where(m=>m.IsDefaultQuery == true)).ToList();
             if (isSlave)
             {
                 tempData = this.ReadDbSet().Where(this.GetAndExpression(queryParamList));
@@ -196,7 +196,7 @@ namespace LMS.Infrastructure.Seedwork
             IList<string> paramNameList = new List<string>();
             IList<object> paramValueList = new List<object>();
             StringBuilder whereBuilder = new StringBuilder();
-            IList<WhereParam> queryParamList = (queryParam.IsAdvancedQuery ? queryParam.WhereList : queryParam.WhereList.Where(m => m.IsAdvancedQuery == false)).ToList();
+            IList<WhereParam> queryParamList = (queryParam.IsAdvancedQuery ? queryParam.WhereList : queryParam.WhereList.Where(m => m.IsDefaultQuery == true)).ToList();
 
             if (queryParamList.Count > 0)
             {
