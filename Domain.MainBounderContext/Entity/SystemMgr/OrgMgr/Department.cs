@@ -9,6 +9,10 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity
 {
     public class Department : EntityBase
     {
+        public Department()
+        {
+            IsDel = false;
+        }
         /// <summary>
         /// 科室编号
         /// </summary>

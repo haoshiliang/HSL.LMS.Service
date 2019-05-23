@@ -21,13 +21,13 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Department FindById(Guid id);
+        Department FindById(string id);
 
         /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>
-        void Delete(Guid id);
+        void Delete(string id);
 
         /// <summary>
         /// 取出部门列表

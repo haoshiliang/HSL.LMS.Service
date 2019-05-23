@@ -72,7 +72,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public object Get(Guid id)
+        public object Get(string id)
         {
             try
             {
@@ -90,11 +90,11 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// 添加部门信息
         /// </summary>
         /// <param name="value"></param>
-        public object Post([FromBody]string value)
+        public object Post([FromBody]Department value)
         {
             try
             {
-                this.deptService.AddOrModity(JsonConvert.DeserializeObject<Department>(value));
+                this.deptService.AddOrModity(value);
                 return base.ToSuccessObject();
             }
             catch (DbEntityValidationException dbEx)
@@ -107,33 +107,12 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
             }
         }
 
-        // PUT: api/Department/5
-        /// <summary>
-        /// 更新部门信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public object Put(int id, [FromBody]string value)
-        {
-            try
-            {
-                var model = JsonConvert.DeserializeObject<Department>(value);
-                this.deptService.AddOrModity(model);
-
-                return base.ToSuccessObject();
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
         // DELETE: api/Department/5
         /// <summary>
         /// 删除部门信息
         /// </summary>
         /// <param name="id"></param>
-        public object Delete(Guid id)
+        public object Delete(string id)
         {
             try
             {

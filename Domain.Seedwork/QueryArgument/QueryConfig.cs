@@ -64,7 +64,13 @@ namespace LMS.Domain.Seedwork
             /// 数值型
             /// </summary>
             [Description("数值型")]
-            Double
+            Double,
+
+            /// <summary>
+            /// 布尔型
+            /// </summary>
+            [Description("布尔型")]
+            Bool
         }
 
         /// <summary>
