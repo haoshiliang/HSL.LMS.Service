@@ -37,7 +37,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr
         public IList<DTO> GetAllList<DTO>(string corpId) where DTO : class
         {
             StringBuilder sBuilder = new StringBuilder();
-            sBuilder.AppendLine("SELECT d.ID AS DepartId,d.DEPART_NAME AS DepartName,@CorpId || '/' || d.ID || '/'|| p.ID AS PositionId,p.POSITION_NAME AS PositionName,");
+            sBuilder.AppendLine("SELECT d.ID AS DepartId,d.DEPART_NAME AS DepartName,@CorpId || '_' || d.ID || '_'|| p.ID AS PositionId,p.POSITION_NAME AS PositionName,");
             sBuilder.AppendLine("       CASE WHEN cdp.CORP_ID IS NULL THEN 0 ELSE 1 END IsSelected");
             sBuilder.AppendLine("  FROM SYS_CORPORATION c");
             sBuilder.AppendLine("  LEFT JOIN SYS_DEPARTMENT d ON 1=1");

@@ -21,17 +21,7 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr
         /// 名称
         /// </summary>
         public string Name { get; set; }
-        /// <summary>
-        /// 是否选择
-        /// </summary>
-        public int IsSelected { get; set; }
-        public bool IsChecked
-        {
-            get
-            {
-                return this.IsSelected == 1;
-            }
-        }
+        public bool IsChecked { get; set; }
         /// <summary>
         /// 职位列表
         /// </summary>

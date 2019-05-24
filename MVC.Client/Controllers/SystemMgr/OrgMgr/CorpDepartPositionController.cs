@@ -76,7 +76,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
                     var pList = deptM.PositionList.Where(m=>m.IsChecked==true);
                     foreach(var pModel in pList)
                     {
-                        postList.Add(new CorpDepartPosition() { CorpId = pModel.Id.Split('/')[0], DepartId = pModel.Id.Split('/')[1], PositionId = pModel.Id.Split('/')[2] });
+                        postList.Add(new CorpDepartPosition() { CorpId = pModel.Id.Split('_')[0], DepartId = pModel.Id.Split('_')[1], PositionId = pModel.Id.Split('_')[2] });
                     }
                 }
                 this.corpDepartPositionService.Add(postList);

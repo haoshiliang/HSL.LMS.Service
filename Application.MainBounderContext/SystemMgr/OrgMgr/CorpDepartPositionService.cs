@@ -77,16 +77,16 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         {
             var returnList = new List<DeptPositionDTO>();
             var list= this.corpDepartPositionRepository.GetAllList<CorpDeptPositionDTO>(corpId);
-            var deptList = list.GroupBy(m => new { m.DepartId, m.DepartName, m.IsSelected })
-                               .Select(m => new { DepartId = m.Key.DepartId, DepartName = m.Key.DepartName, IsSelected = m.Key.IsSelected });
+            var deptList = list.GroupBy(m => new { m.DepartId, m.DepartName })
+                               .Select(m => new { DepartId = m.Key.DepartId, DepartName = m.Key.DepartName });
 
             foreach(var deptModel in deptList)
             {
                 var positionList = list.Where(m => m.DepartId == deptModel.DepartId).ToList();
-                var dto = new DeptPositionDTO() { Id = deptModel.DepartId, Name = deptModel.DepartName, IsSelected = deptModel.IsSelected };
+                var dto = new DeptPositionDTO() { Id = deptModel.DepartId, Name = deptModel.DepartName, IsChecked = positionList.Any(p=>p.IsSelected==1) };
                 foreach(var pModel in positionList)
                 {
-                    dto.PositionList.Add(new DeptPositionDTO() { Id = pModel.PositionId, Name = pModel.PositionName, IsSelected = pModel.IsSelected });
+                    dto.PositionList.Add(new DeptPositionDTO() { Id = pModel.PositionId, Name = pModel.PositionName, IsChecked = pModel.IsSelected==1 });
                 }
                 returnList.Add(dto);
             }
