@@ -9,6 +9,7 @@ using Newtonsoft.Json.Converters;
 using LMS.Application.MainBounderContext.SystemMgr.OrgMgr;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
 using System.Data.Entity.Validation;
+using LMS.Domain.Seedwork;
 
 namespace MVC.Client.Controllers.SystemMgr.OrgMgr
 {
@@ -46,12 +47,18 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// 获取职位列表
         /// </summary>
         /// <returns></returns>
-        public object Get()
+        public object Get(string pagination, string queryParam)
         {
             try
             {
-                var list = this.positionService.FindList();
-                return base.ToSuccessObject(list);
+                var paginationModel = JsonConvert.DeserializeObject<Pagination>(pagination);
+                var queryParamModel = JsonConvert.DeserializeObject<QueryParam>(queryParam);
+                if (queryParamModel.SortList.Count == 0)
+                {
+                    queryParamModel.SortList.Add(new SortField() { SortValue = "PositionCode" });
+                }
+                var list = this.positionService.FindList(paginationModel, queryParamModel);
+                return base.ToSuccessObject(new { List = list, RecordTotal = paginationModel.RecordTotal });
             }
             catch (Exception ex)
             {
@@ -65,7 +72,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public object Get(Guid id)
+        public object Get(string id)
         {
             try
             {
@@ -83,11 +90,11 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// 添加职位信息
         /// </summary>
         /// <param name="value"></param>
-        public object Post([FromBody]string value)
+        public object Post([FromBody]Position value)
         {
             try
             {
-                this.positionService.AddOrModity(JsonConvert.DeserializeObject<Position>(value));
+                this.positionService.AddOrModity(value);
                 return base.ToSuccessObject();
             }
             catch (DbEntityValidationException dbEx)
@@ -100,33 +107,12 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
             }
         }
 
-        // PUT: api/Position/5
-        /// <summary>
-        /// 更新职位信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public object Put(int id, [FromBody]string value)
-        {
-            try
-            {
-                var model = JsonConvert.DeserializeObject<Position>(value);
-                this.positionService.AddOrModity(model);
-
-                return base.ToSuccessObject();
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
         // DELETE: api/Position/5
         /// <summary>
         /// 删除职位信息
         /// </summary>
         /// <param name="id"></param>
-        public object Delete(Guid id)
+        public object Delete(string id)
         {
             try
             {

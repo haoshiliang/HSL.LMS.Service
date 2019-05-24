@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
+using LMS.Domain.Seedwork;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 {
@@ -20,18 +21,18 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Position FindById(Guid id);
+        Position FindById(string id);
 
         /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>
-        void Delete(Guid id);
+        void Delete(string id);
 
         /// <summary>
         /// 取出部门列表
         /// </summary>
         /// <returns></returns>
-        ICollection<Position> FindList();
+        ICollection<Position> FindList(Pagination pagination, QueryParam queryParam);
     }
 }

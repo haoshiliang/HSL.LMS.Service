@@ -43,6 +43,8 @@
     <Compile Include="Common\TreeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemMgr\ModuleMgr\ModuleDTO.cs" />
+    <Compile Include="SystemMgr\OrgMgr\CorpDeptPositionDTO.cs" />
+    <Compile Include="SystemMgr\OrgMgr\DeptPositionDTO.cs" />
     <Compile Include="SystemMgr\OrgMgr\CorporationDTO.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\UserDTO.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\RoleDTO.cs" />

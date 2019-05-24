@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
 using LMS.Application.Seedwork;
+using LMS.Domain.Seedwork;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 {
@@ -62,7 +63,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Position FindById(Guid id)
+        public Position FindById(string id)
         {
             return positionRepository.Get(id);
         }
@@ -71,16 +72,25 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 取出部门列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<Position> FindList()
+        public ICollection<Position> FindList(Pagination pagination, QueryParam queryParam)
         {
-            return positionRepository.GetAll().ToList();
+            queryParam.WhereList.Add(
+            new WhereParam()
+            {
+                Field = "IsDel",
+                IsDefaultQuery = true,
+                Operator = "=",
+                DataType = QueryConfig.DataType.Bool,
+                Value = "False"
+            });
+            return positionRepository.GetPaged(pagination, queryParam).ToList();
         }
 
         /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(Guid id)
+        public void Delete(string id)
         {
             var model = FindById(id);
             model.IsDel = true;

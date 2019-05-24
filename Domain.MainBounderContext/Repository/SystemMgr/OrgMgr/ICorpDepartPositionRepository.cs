@@ -14,8 +14,19 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository
         /// 移除数据
         /// </summary>
         /// <param name="corpId">公司编号</param>
-        /// <param name="deprtId">部门编号</param>
         /// <returns></returns>
-        void RemoveByCorpId(string corpId, string deprtId);
+        void RemoveByCorpId(string corpId);
+
+        /// <summary>
+        /// 获取公司-部门-职位列表
+        /// </summary>
+        /// <param name="corpId">公司编号</param>
+        IList<DTO> GetAllList<DTO>(string corpId) where DTO : class;
+
+        /// <summary>
+        /// 获取公司-部门-职位列表
+        /// </summary>
+        /// <param name="corpId">公司编号</param>
+        IList<DTO> GetList<DTO>(string corpId) where DTO : class;
     }
 }

@@ -9,6 +9,11 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity
 {
     public class Position : EntityBase
     {
+        public Position()
+        {
+            this.IsDel = false;
+        }
+
         /// <summary>
         /// 职位编号
         /// </summary>
