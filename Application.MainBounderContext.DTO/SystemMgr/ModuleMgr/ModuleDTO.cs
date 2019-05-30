@@ -27,7 +27,7 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
         public ModuleDTO()
         {
             this.ChildList = new List<ModuleDTO>();
-            this.FunctionList = new List<ModuleDTO>();
+            this.FunctionList = new Dictionary<string, string>();
         }
 
         #endregion
@@ -90,7 +90,7 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
         /// <summary>
         /// 功能列表
         /// </summary>
-        public virtual ICollection<ModuleDTO> FunctionList { get; set; }
+        public virtual Dictionary<string,string> FunctionList { get; set; }
 
         #endregion
     }

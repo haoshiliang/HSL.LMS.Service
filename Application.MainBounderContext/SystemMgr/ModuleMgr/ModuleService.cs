@@ -122,12 +122,12 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// <param name="parentId"></param>
         /// <param name="mList"></param>
         /// <returns></returns>
-        private IEnumerable<ModuleDTO> GetChildList(string parentId,IEnumerable<ModuleDTO> mList)
+        private IEnumerable<ModuleDTO> GetChildList(string parentId, IEnumerable<ModuleDTO> mList)
         {
-            var treeList = mList.Where(m => m.ParentId == parentId).OrderBy(m => m.Code);
-            foreach(var t in treeList)
+            var treeList = mList.Where(m => m.ParentId == parentId && m.IsFunctionQuery == 0).OrderBy(m => m.Code);
+            foreach (var t in treeList)
             {
-                t.FunctionList = mList.Where(m => m.ParentId == parentId && m.IsFunctionQuery == 1).ToList();
+                t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunctionQuery == 1).ToList().ToDictionary(key => key.Code, value => value.Id);
                 t.ChildList = this.GetChildList(t.Id, mList).ToList();
             }
             return treeList;
