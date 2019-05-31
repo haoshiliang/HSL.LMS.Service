@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <!--公司管理-->
+  <components name="CorporationRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr.CorporationRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="CorporationRepository" type="LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository.ICorporationRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties> 
+  </components>
+  <components name="CorporationService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.OrgMgr.CorporationService, Application.MainBounderContext</type>
+    <services name="CorporationService" type="LMS.Application.MainBounderContext.SystemMgr.OrgMgr.ICorporationService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <!--部门管理-->
+  <components name="DepartmentRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr.DepartmentRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="DepartmentRepository" type="LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository.IDepartmentRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="DepartmentService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.OrgMgr.DepartmentService, Application.MainBounderContext</type>
+    <services name="DepartmentService" type="LMS.Application.MainBounderContext.SystemMgr.OrgMgr.IDepartmentService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <!--职位管理-->
+  <components name="PositionRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr.PositionRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="PositionRepository" type="LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository.IPositionRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="PositionService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.OrgMgr.PositionService, Application.MainBounderContext</type>
+    <services name="PositionService" type="LMS.Application.MainBounderContext.SystemMgr.OrgMgr.IPositionService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <!--公司部门职位关系管理-->
+  <components name="CorpDepartPositionRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr.CorpDepartPositionSqlServerRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="CorpDepartPositionRepository" type="LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository.ICorpDepartPositionRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="CorpDepartPositionService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.OrgMgr.CorpDepartPositionService, Application.MainBounderContext</type>
+    <services name="CorpDepartPositionService" type="LMS.Application.MainBounderContext.SystemMgr.OrgMgr.ICorpDepartPositionService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+
+  <!--角色管理-->
+  <components name="RoleRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.UserRoleMgr.RoleRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="RoleRepository" type="LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Repository.IRoleRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="RoleService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.RoleService, Application.MainBounderContext</type>
+    <services name="RoleService" type="LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IRoleService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <!--角色模块管理-->
+  <components name="RoleModuleRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.UserRoleMgr.RoleModuleRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="RoleModuleRepository" type="LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Repository.IRoleModuleRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="RoleModuleService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.RoleModuleService, Application.MainBounderContext</type>
+    <services name="RoleModuleService" type="LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IRoleModuleService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+
+  <!--用户管理-->
+  <components name="UserRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.UserRoleMgr.UserRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="UserRepository" type="LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Repository.IUserRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="UserService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.UserService, Application.MainBounderContext</type>
+    <services name="UserService" type="LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IUserService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+    <!--用户角色管理-->
+  <components name="UserRoleRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.UserRoleMgr.UserRoleRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="UserRoleRepository" type="LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Repository.IUserRoleRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="UserRoleService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.UserRoleService, Application.MainBounderContext</type>
+    <services name="UserRoleService" type="LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr.IUserRoleService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+
+  <!--模块管理-->
+  <components name="ModuleRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr.ModuleRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="ModuleRepository" type="LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Repository.IModuleRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="ModuleService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.ModuleMgr.ModuleService, Application.MainBounderContext</type>
+    <services name="ModuleService" type="LMS.Application.MainBounderContext.SystemMgr.ModuleMgr.IModuleService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+</Application>
