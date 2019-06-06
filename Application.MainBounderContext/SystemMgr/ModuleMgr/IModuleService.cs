@@ -40,5 +40,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// </summary>
         /// <returns></returns>
         ICollection<ModuleDTO> FindTreeList(string userId);
+
+        /// <summary>
+        /// 获取模块儿树列表
+        /// </summary>
+        /// <returns></returns>
+        ICollection<ModuleDTO> FindTreeList();
     }
 }

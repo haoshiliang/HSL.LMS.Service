@@ -109,6 +109,42 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
             {
                 m.ChildList = this.GetChildList(m.Id, mList).ToList();
             }
+            var l = treeList.ToList();
+            var v = this.getFList(l, "59cf4643-76fa-403e-9af1-0ad63a2106d1");
+            return treeList.ToList();
+        }
+
+        private ModuleDTO getFList(IList<ModuleDTO> m, string mId)
+        {
+            ModuleDTO returnValue = null;
+            foreach (var i in m) {
+                if (i.Id == mId) {
+                    returnValue = i;
+                    break;
+                }
+                else if (i.ChildList.Count() > 0) {
+                    returnValue = getFList(i.ChildList.ToList(), mId);
+                    i.ChildList.Clear();
+                }
+            }
+            if (returnValue == null)
+            {
+                returnValue = getFList(m, mId); 
+            }
+            return returnValue;
+        }
+        /// <summary>
+        /// 获取模块儿树列表
+        /// </summary>
+        /// <returns></returns>
+        public ICollection<ModuleDTO> FindTreeList()
+        {
+            var mList = moduleRepository.GetTreeList<ModuleDTO>().ToList();
+            var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString()).OrderBy(m => m.Code);
+            foreach (var m in treeList)
+            {
+                m.ChildList = this.GetChildList(m.Id, mList).ToList();
+            }
             return treeList.ToList();
         }
 
@@ -124,10 +160,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// <returns></returns>
         private IEnumerable<ModuleDTO> GetChildList(string parentId, IEnumerable<ModuleDTO> mList)
         {
-            var treeList = mList.Where(m => m.ParentId == parentId && m.IsFunctionQuery == 0).OrderBy(m => m.Code);
+            var treeList = mList.Where(m => m.ParentId == parentId && m.IsFunction == 0).OrderBy(m => m.Code);
             foreach (var t in treeList)
             {
-                t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunctionQuery == 1).ToList().ToDictionary(key => key.Code, value => value.Id);
+                t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunction == 1).ToList().ToDictionary(key => key.Code, value => value.Id);
                 t.ChildList = this.GetChildList(t.Id, mList).ToList();
             }
             return treeList;

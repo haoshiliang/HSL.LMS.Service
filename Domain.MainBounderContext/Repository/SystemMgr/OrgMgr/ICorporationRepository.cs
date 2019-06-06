@@ -16,5 +16,14 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository
         /// <param name="parentId"></param>
         /// <returns></returns>
         string GetAutomaticCode(string parentId);
+
+        /// <summary>
+        /// 设置自动生成编号
+        /// </summary>
+        /// <param name="oldCode">旧编号</param>
+        /// <param name="newCode">新编号</param>
+        /// <param name="id">当前ID</param>
+        /// <returns></returns>
+        void SetAutomaticCode(string oldCode, string newCode, string id);
     }
 }

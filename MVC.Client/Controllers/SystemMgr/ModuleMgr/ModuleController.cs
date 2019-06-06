@@ -50,7 +50,7 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
         {
             try
             {
-                var list = this.moduleService.FindList();
+                var list = this.moduleService.FindTreeList();
                 return base.ToSuccessObject(list);
             }
             catch (Exception ex)

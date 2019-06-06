@@ -45,6 +45,10 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity
         /// </summary>
         public virtual string ParentId { get; set; }
         /// <summary>
+        /// 旧公司编号
+        /// </summary>
+        public virtual string OldParentId { get; set; }
+        /// <summary>
         /// 父公司
         /// </summary>
         public virtual Corporation ParentCorp { get; set; }

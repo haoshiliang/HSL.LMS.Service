@@ -36,7 +36,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         #endregion
 
         #region 接口方法
-         
+
         /// <summary>
         /// 添加或修改
         /// </summary>
@@ -48,25 +48,32 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                 this.corpRepository.UnitOfWork.BeginTrans();
 
                 model.ParentId = (string.IsNullOrEmpty(model.ParentId) ? Guid.Empty.ToString() : model.ParentId);
+                model.OldParentId = (string.IsNullOrEmpty(model.OldParentId) ? Guid.Empty.ToString() : model.OldParentId);
                 model.PyCode = model.CorpName.ToConvertPyCode();
                 if (!string.IsNullOrEmpty(model.Id))
                 {
                     model.LastUpdateDate = DateTime.Now;
+                    if (model.ParentId != model.OldParentId)
+                    {
+                        var oldAutomaticCode = "";
+                        oldAutomaticCode = model.AutomaticCode;
+                        model.AutomaticCode = this.corpRepository.GetAutomaticCode(model.ParentId);
+                        this.corpRepository.SetAutomaticCode(oldAutomaticCode, model.AutomaticCode, model.Id);
+                    }
                     this.corpRepository.Modity(model);
                 }
                 else
-                {                   
+                {
                     model.GenerateNewIdentity();
                     model.CreateDate = DateTime.Now;
                     model.LastUpdateDate = DateTime.Now;
                     model.AutomaticCode = this.corpRepository.GetAutomaticCode(model.ParentId);
                     this.corpRepository.Add(model);
                 }
-
                 this.corpRepository.SaveChanges();
                 this.corpRepository.UnitOfWork.Commit();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.corpRepository.UnitOfWork.Rollback();
                 throw ex;
@@ -115,6 +122,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                 var dto = corp.ProjectedAs<CorporationDTO>();
                 if (corp.ParentCorp != null)    
                 {
+                    dto.OldParentId = corp.ParentCorp.Id;
                     dto.ParentId = corp.ParentCorp.Id;
                     dto.ParentName = corp.ParentCorp.CorpName;
                 }
@@ -144,6 +152,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                     var d = m.ProjectedAs<CorporationDTO>();
                     if (m.ParentCorp != null)
                     {
+                        d.OldParentId = m.ParentCorp.Id;
                         d.ParentId = m.ParentCorp.Id;
                         d.ParentName = m.ParentCorp.CorpName;
                     }

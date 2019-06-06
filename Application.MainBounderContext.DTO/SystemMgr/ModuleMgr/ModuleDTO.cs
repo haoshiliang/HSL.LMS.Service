@@ -52,6 +52,10 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
         /// </summary>
         public virtual string Name { get; set; }
         /// <summary>
+        /// 当前分层数
+        /// </summary>
+        public virtual int Level { get; set; }
+        /// <summary>
         /// 模块图标
         /// </summary>
         public virtual string Icon
@@ -70,19 +74,15 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
         /// <summary>
         /// 是否属性功能
         /// </summary>
-        public virtual bool IsFunction { get; set; }
+        public virtual int IsFunction { get; set; }
         /// <summary>
-        /// 是否属性功能 0 否,1 是
+        /// 是否可用
         /// </summary>
-        public virtual int IsFunctionQuery { get; set; }
+        public virtual int IsEnabled { get; set; }
         /// <summary>
-        /// 创建日期
+        /// 模块层级
         /// </summary>
-        public virtual DateTime CreateDate { get; set; }
-        /// <summary>
-        /// 最后更新日期
-        /// </summary>
-        public virtual DateTime LastUpdateDate { get; set; }
+        public virtual int ModuleLevel { get; set; }
         /// <summary>
         /// 子模块列表
         /// </summary>

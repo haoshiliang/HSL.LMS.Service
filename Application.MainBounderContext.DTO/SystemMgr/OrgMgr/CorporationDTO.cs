@@ -30,6 +30,10 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr
         /// </summary>
         public virtual string PyCode { get; set; }
         /// <summary>
+        /// 旧公司编号
+        /// </summary>
+        public virtual string OldParentId { get; set; }
+        /// <summary>
         /// 父公司编号
         /// </summary>
         public virtual string ParentId { get; set; }

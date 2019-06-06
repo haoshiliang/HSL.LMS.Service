@@ -22,6 +22,8 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Mapping
             this.Property(m => m.LastUpdateDate).HasColumnName("LAST_UPDATE_DATE").IsRequired();
             this.Property(m => m.ParentId).HasColumnName("PARENT_ID").HasColumnType("CHAR").HasMaxLength(36);
             this.HasMany(m => m.ChildCorpList).WithOptional(m => m.ParentCorp).HasForeignKey(m=>m.ParentId).WillCascadeOnDelete();
+            this.Ignore(m => m.OldParentId);
+
             this.ToTable("SYS_CORPORATION");
         }
     }

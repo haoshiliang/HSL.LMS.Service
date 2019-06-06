@@ -127,11 +127,11 @@ namespace LMS.Infrastructure.Seedwork
         {
             if (isSlave)
             {
-                return this.ReadDbSet().ToList();
+                return this.ReadDbSet().AsNoTracking().ToList();
             }
             else
             {
-                return this.DbSet().ToList();
+                return this.DbSet().AsNoTracking().ToList();
             }
         }
 
@@ -144,11 +144,11 @@ namespace LMS.Infrastructure.Seedwork
         {
             if (isSlave)
             {
-                return this.ReadDbSet().Where(filter);
+                return this.ReadDbSet().AsNoTracking().Where(filter);
             }
             else
             {
-                return this.DbSet().Where(filter);
+                return this.DbSet().AsNoTracking().Where(filter);
             }
         }
 
