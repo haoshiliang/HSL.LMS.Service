@@ -59,39 +59,50 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         }
 
         /// <summary>
+        /// 添加模块功能
+        /// </summary>
+        /// <param name="fList"></param>
+        public void AddFunction(IList<Module> fList)
+        {
+            try
+            {
+                moduleRepository.UnitOfWork.BeginTrans();
+
+                //删除模块功能
+                moduleRepository.RemoveFunction(fList.FirstOrDefault().ParentId);
+                //添加模块功能
+                foreach(var m in fList)
+                {
+                    m.IsFunction = true;
+                    m.GenerateNewIdentity();
+                    moduleRepository.Add(m);
+                }
+                moduleRepository.SaveChanges();
+                moduleRepository.UnitOfWork.Commit();
+            }
+            catch(Exception ex)
+            {
+                moduleRepository.UnitOfWork.Rollback();
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// 取出模块功能信息
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ModuleDTO FindById(Guid id)
+        public AddModuleDTO FindById(string id)
         {
             var model = moduleRepository.Get(id);
-            var dto = model.ProjectedAs<ModuleDTO>();
-            dto.ParentName = model.ParentModule.Name;
-
-            return dto;
-        }
-
-        /// <summary>
-        /// 取出模块功能列表
-        /// </summary>
-        /// <returns></returns>
-        public ICollection<ModuleDTO> FindList()
-        {
-            var list = moduleRepository.GetAll().ToList();
-            var dtoList = new List<ModuleDTO>();
-            foreach(var m in list)
-            {
-                dtoList.Add(m.ProjectedAs<ModuleDTO>());
-            }
-            return dtoList;
+            return model.ProjectedAs<AddModuleDTO>();
         }
 
         /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(Guid id)
+        public void Delete(string id)
         {
             moduleRepository.Remove(moduleRepository.Get(id));
             moduleRepository.SaveChanges();
@@ -101,7 +112,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// 获取模块儿树列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<ModuleDTO> FindTreeList(string userId)
+        public ICollection<ModuleDTO> FindAllowVisitList(string userId)
         {
             var mList = moduleRepository.GetTreeList<ModuleDTO>(userId).ToList();
             var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString()).OrderBy(m=>m.Code);
@@ -109,43 +120,39 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
             {
                 m.ChildList = this.GetChildList(m.Id, mList).ToList();
             }
-            var l = treeList.ToList();
-            var v = this.getFList(l, "59cf4643-76fa-403e-9af1-0ad63a2106d1");
             return treeList.ToList();
         }
 
-        private ModuleDTO getFList(IList<ModuleDTO> m, string mId)
-        {
-            ModuleDTO returnValue = null;
-            foreach (var i in m) {
-                if (i.Id == mId) {
-                    returnValue = i;
-                    break;
-                }
-                else if (i.ChildList.Count() > 0) {
-                    returnValue = getFList(i.ChildList.ToList(), mId);
-                    i.ChildList.Clear();
-                }
-            }
-            if (returnValue == null)
-            {
-                returnValue = getFList(m, mId); 
-            }
-            return returnValue;
-        }
         /// <summary>
         /// 获取模块儿树列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<ModuleDTO> FindTreeList()
+        public ICollection<ModuleDTO> FindTreeList(string id)
         {
             var mList = moduleRepository.GetTreeList<ModuleDTO>().ToList();
-            var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString()).OrderBy(m => m.Code);
+            var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString() && m.Id != id).OrderBy(m => m.Code);
             foreach (var m in treeList)
             {
-                m.ChildList = this.GetChildList(m.Id, mList).ToList();
+                m.ChildList = this.GetChildList(m.Id, mList, id).ToList();
             }
             return treeList.ToList();
+        }
+
+        /// <summary>
+        /// 获取功能列表
+        /// </summary>
+        /// <param name="id">模块编号</param>
+        /// <returns></returns>
+        public ICollection<AddModuleDTO> FindFunctionList(string id)
+        {
+            var funList = new List<AddModuleDTO>();
+            var model = moduleRepository.Get(id);
+            var fList = model.ChildList.Where(m=>m.IsFunction);
+            foreach(var m in fList)
+            {
+                funList.Add(m.ProjectedAs<AddModuleDTO>());
+            }
+            return funList;
         }
 
         #endregion
@@ -158,9 +165,9 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// <param name="parentId"></param>
         /// <param name="mList"></param>
         /// <returns></returns>
-        private IEnumerable<ModuleDTO> GetChildList(string parentId, IEnumerable<ModuleDTO> mList)
+        private IEnumerable<ModuleDTO> GetChildList(string parentId, IEnumerable<ModuleDTO> mList,string id=null)
         {
-            var treeList = mList.Where(m => m.ParentId == parentId && m.IsFunction == 0).OrderBy(m => m.Code);
+            var treeList = mList.Where(m => m.ParentId == parentId && m.IsFunction == 0 && m.Id!=id).OrderBy(m => m.Code);
             foreach (var t in treeList)
             {
                 t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunction == 1).ToList().ToDictionary(key => key.Code, value => value.Id);

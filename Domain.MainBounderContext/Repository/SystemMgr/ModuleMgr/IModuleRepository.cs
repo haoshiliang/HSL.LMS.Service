@@ -12,6 +12,12 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Repository
     public interface IModuleRepository : IRepository<Module>
     {
         /// <summary>
+        /// 删除功能列表
+        /// </summary>
+        /// <param name="moduleId">模块ID</param>
+        void RemoveFunction(string moduleId);
+
+        /// <summary>
         /// 取出可访问模块树列表
         /// </summary>
         /// <param name="userId">用户ID</param>

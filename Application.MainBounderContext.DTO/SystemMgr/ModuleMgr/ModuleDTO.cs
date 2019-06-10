@@ -83,6 +83,7 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
         /// 模块层级
         /// </summary>
         public virtual int ModuleLevel { get; set; }
+
         /// <summary>
         /// 子模块列表
         /// </summary>

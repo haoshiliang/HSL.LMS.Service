@@ -17,34 +17,40 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         void AddOrModity(Module model);
 
         /// <summary>
+        /// 添加模块功能
+        /// </summary>
+        /// <param name="fList"></param>
+        void AddFunction(IList<Module> fList);
+        /// <summary>
         /// 取出职位信息
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        ModuleDTO FindById(Guid id);
+        AddModuleDTO FindById(string id);
 
         /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>
-        void Delete(Guid id);
-
-        /// <summary>
-        /// 取出模块功能列表
-        /// </summary>
-        /// <returns></returns>
-        ICollection<ModuleDTO> FindList();
+        void Delete(string id);
 
         /// <summary>
         /// 获取模块儿树列表
         /// </summary>
         /// <returns></returns>
-        ICollection<ModuleDTO> FindTreeList(string userId);
+        ICollection<ModuleDTO> FindAllowVisitList(string userId);
 
         /// <summary>
         /// 获取模块儿树列表
         /// </summary>
         /// <returns></returns>
-        ICollection<ModuleDTO> FindTreeList();
+        ICollection<ModuleDTO> FindTreeList(string id);
+
+        /// <summary>
+        /// 获取功能列表
+        /// </summary>
+        /// <param name="id">模块编号</param>
+        /// <returns></returns>
+        ICollection<AddModuleDTO> FindFunctionList(string id);
     }
 }

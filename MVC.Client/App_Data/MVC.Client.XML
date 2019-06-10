@@ -509,6 +509,35 @@
             </summary>
             <param name="loginUser">登录名</param>
         </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.ModuleMgr.FunctionController">
+            <summary>
+            模块功能模块
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.ModuleMgr.FunctionController.moduleService">
+            <summary>
+            模块服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.FunctionController.#ctor(LMS.Application.MainBounderContext.SystemMgr.ModuleMgr.IModuleService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="moduleService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.FunctionController.Get(System.String)">
+            <summary>
+            获取功能列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.FunctionController.Post(System.Collections.Generic.IList{LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Entity.Module})">
+            <summary>
+            添加模块功能
+            </summary>
+            <param name="itemList">功能列表</param>
+            <returns></returns>
+        </member>
         <member name="T:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController">
             <summary>
             模块管理
@@ -531,27 +560,28 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Get(System.Guid)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.GetTreeList(System.String,System.Boolean)">
+            <summary>
+            获取模块列表
+            </summary>
+            <param name="id">编号</param>
+            <param name="isTree">是否树列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Get(System.String)">
             <summary>
             获取模块信息
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Post(System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Post(LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Entity.Module)">
             <summary>
             添加模块信息
             </summary>
-            <param name="value"></param>
+            <param name="item"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Put(System.Int32,System.String)">
-            <summary>
-            更新模块信息
-            </summary>
-            <param name="id"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Delete(System.Guid)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Delete(System.String)">
             <summary>
             删除模块信息
             </summary>

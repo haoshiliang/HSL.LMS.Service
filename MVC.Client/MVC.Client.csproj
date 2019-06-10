@@ -281,6 +281,7 @@
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\Home\LoginController.cs" />
     <Compile Include="Controllers\Home\LoginoutController.cs" />
+    <Compile Include="Controllers\SystemMgr\ModuleMgr\FunctionController.cs" />
     <Compile Include="Controllers\SystemMgr\ModuleMgr\ModuleController.cs" />
     <Compile Include="Controllers\SystemMgr\OrgMgr\CorporationController.cs" />
     <Compile Include="Controllers\SystemMgr\OrgMgr\CorpDepartPositionController.cs" />

@@ -50,7 +50,26 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
         {
             try
             {
-                var list = this.moduleService.FindTreeList();
+                var list = this.moduleService.FindTreeList(null);
+                return base.ToSuccessObject(list);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取模块列表
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <param name="isTree">是否树列表</param>
+        /// <returns></returns>
+        public object GetTreeList(string id, bool isTree)
+        {
+            try
+            {
+                var list = this.moduleService.FindTreeList(id);
                 return base.ToSuccessObject(list);
             }
             catch (Exception ex)
@@ -65,7 +84,7 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public object Get(Guid id)
+        public object Get(string id)
         {
             try
             {
@@ -82,12 +101,12 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
         /// <summary>
         /// 添加模块信息
         /// </summary>
-        /// <param name="value"></param>
-        public object Post([FromBody]string value)
+        /// <param name="item"></param>
+        public object Post([FromBody]Module item)
         {
             try
             {
-                this.moduleService.AddOrModity(JsonConvert.DeserializeObject<Module>(value));
+                this.moduleService.AddOrModity(item);
                 return base.ToSuccessObject();
             }
             catch (DbEntityValidationException dbEx)
@@ -100,33 +119,12 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
             }
         }
 
-        // PUT: api/Module/5
-        /// <summary>
-        /// 更新模块信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public object Put(int id, [FromBody]string value)
-        {
-            try
-            {
-                var model = JsonConvert.DeserializeObject<Module>(value);
-                this.moduleService.AddOrModity(model);
-
-                return base.ToSuccessObject();
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
         // DELETE: api/Module/5
         /// <summary>
         /// 删除模块信息
         /// </summary>
         /// <param name="id"></param>
-        public object Delete(Guid id)
+        public object Delete(string id)
         {
             try
             {

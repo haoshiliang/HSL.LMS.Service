@@ -18,6 +18,18 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
 
         }
         /// <summary>
+        /// 删除功能列表
+        /// </summary>
+        /// <param name="moduleId">模块ID</param>
+        public void RemoveFunction(string moduleId)
+        {
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendLine("DELETE FROM SYS_MODULE m");
+            sqlBuilder.AppendLine(" WHERE m.IS_FUNCTION = 1 ");
+            sqlBuilder.AppendLine("   AND m.PARENT_ID = @ParentId");
+            base.ExecuteSql(sqlBuilder.ToString(), new string[] { "ParentId" }, new object[] { moduleId });
+        }
+        /// <summary>
         /// 取出可访问模块树列表
         /// </summary>
         /// <param name="userId"></param>
