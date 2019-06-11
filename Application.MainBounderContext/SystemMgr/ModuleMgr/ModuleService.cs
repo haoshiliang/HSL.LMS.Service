@@ -71,7 +71,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
                 //删除模块功能
                 moduleRepository.RemoveFunction(fList.FirstOrDefault().ParentId);
                 //添加模块功能
-                foreach(var m in fList)
+                foreach (var m in fList)
                 {
                     m.IsFunction = true;
                     m.GenerateNewIdentity();
@@ -80,7 +80,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
                 moduleRepository.SaveChanges();
                 moduleRepository.UnitOfWork.Commit();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 moduleRepository.UnitOfWork.Rollback();
                 throw ex;
@@ -115,10 +115,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         public ICollection<ModuleDTO> FindAllowVisitList(string userId)
         {
             var mList = moduleRepository.GetTreeList<ModuleDTO>(userId).ToList();
-            var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString()).OrderBy(m=>m.Code);
-            foreach(var m in treeList)
+            var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString() && m.IsEnabled == 1).OrderBy(m => m.Code);
+            foreach (var m in treeList)
             {
-                m.ChildList = this.GetChildList(m.Id, mList).ToList();
+                m.ChildList = this.GetChildList(m.Id, mList, null, 1).ToList();
             }
             return treeList.ToList();
         }
@@ -147,8 +147,8 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         {
             var funList = new List<AddModuleDTO>();
             var model = moduleRepository.Get(id);
-            var fList = model.ChildList.Where(m=>m.IsFunction);
-            foreach(var m in fList)
+            var fList = model.ChildList.Where(m => m.IsFunction);
+            foreach (var m in fList)
             {
                 funList.Add(m.ProjectedAs<AddModuleDTO>());
             }
@@ -165,13 +165,21 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// <param name="parentId"></param>
         /// <param name="mList"></param>
         /// <returns></returns>
-        private IEnumerable<ModuleDTO> GetChildList(string parentId, IEnumerable<ModuleDTO> mList,string id=null)
+        private IEnumerable<ModuleDTO> GetChildList(string parentId, IEnumerable<ModuleDTO> mList, string id = null, int? isEnabled = null)
         {
-            var treeList = mList.Where(m => m.ParentId == parentId && m.IsFunction == 0 && m.Id!=id).OrderBy(m => m.Code);
+            var treeList = new List<ModuleDTO>();
+            if (isEnabled != null)
+                treeList = mList.Where(m => m.ParentId == parentId && m.IsFunction == 0 && m.Id != id && m.IsEnabled == isEnabled.Value).OrderBy(m => m.Code).ToList();
+            else
+                treeList = mList.Where(m => m.ParentId == parentId && m.IsFunction == 0 && m.Id != id).OrderBy(m => m.Code).ToList();
+
             foreach (var t in treeList)
             {
-                t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunction == 1).ToList().ToDictionary(key => key.Code, value => value.Id);
-                t.ChildList = this.GetChildList(t.Id, mList).ToList();
+                if (isEnabled != null)
+                    t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunction == 1 && m.IsEnabled == isEnabled.Value).ToList().ToDictionary(key => key.Code, value => value.Id);
+                else
+                    t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunction == 1).ToList().ToDictionary(key => key.Code, value => value.Id);
+                t.ChildList = this.GetChildList(t.Id, mList, id, isEnabled).ToList();
             }
             return treeList;
         }

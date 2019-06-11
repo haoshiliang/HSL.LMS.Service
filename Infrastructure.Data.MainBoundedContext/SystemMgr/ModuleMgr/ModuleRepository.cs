@@ -37,7 +37,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
         public IEnumerable<DTO> GetTreeList<DTO>(string userId)
         {
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendLine("SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction");
+            sqlBuilder.AppendLine("SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
             sqlBuilder.AppendLine("  FROM SYS_MODULE m");
             sqlBuilder.AppendLine(" LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID");
             sqlBuilder.AppendLine(" LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID");
