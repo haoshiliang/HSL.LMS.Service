@@ -147,7 +147,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         {
             var funList = new List<AddModuleDTO>();
             var model = moduleRepository.Get(id);
-            var fList = model.ChildList.Where(m => m.IsFunction);
+            var fList = model.ChildList.Where(m => m.IsFunction).OrderBy(m => m.Id);
             foreach (var m in fList)
             {
                 funList.Add(m.ProjectedAs<AddModuleDTO>());

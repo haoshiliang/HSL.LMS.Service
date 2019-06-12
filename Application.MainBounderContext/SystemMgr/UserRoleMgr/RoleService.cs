@@ -7,6 +7,7 @@ using LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Repository;
 using LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity;
 using LMS.Application.Seedwork;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
+using LMS.Domain.Seedwork;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
 {
@@ -63,7 +64,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public RoleDTO FindById(Guid id)
+        public RoleDTO FindById(string id)
         {
             var model = roleRepository.Get(id);
             var dto = model.ProjectedAs<RoleDTO>();
@@ -74,10 +75,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 取出角色列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<RoleDTO> FindList()
+        public ICollection<RoleDTO> FindList(Pagination pagination, QueryParam queryParam)
         {
-            var list = roleRepository.GetAll().ToList();
-            var dtoList = new List<RoleDTO>();
+            var list = roleRepository.GetPaged(pagination, queryParam).ToList();
+            var dtoList= new List<RoleDTO>();
             foreach(var m in list)
             {
                 dtoList.Add(m.ProjectedAs<RoleDTO>());
@@ -89,7 +90,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(Guid id)
+        public void Delete(string id)
         {
             roleRepository.Remove(roleRepository.Get(id));
             roleRepository.SaveChanges();

@@ -9,6 +9,10 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
     public class AddModuleDTO
     {
         /// <summary>
+        /// Id
+        /// </summary>
+        public virtual string Id { get; set; }
+        /// <summary>
         /// 父模块编号
         /// </summary>
         public virtual string ParentId { get; set; }

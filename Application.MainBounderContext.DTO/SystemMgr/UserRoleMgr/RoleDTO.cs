@@ -25,5 +25,9 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr
         /// 角色简拼
         /// </summary>
         public virtual string PyCode { get; set; }
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        public virtual DateTime CreateDate { get; set; }
     }
 }

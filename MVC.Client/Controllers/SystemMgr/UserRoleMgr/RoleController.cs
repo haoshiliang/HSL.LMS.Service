@@ -10,6 +10,7 @@ using LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
 using LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity;
 using System.Data.Entity.Validation;
+using LMS.Domain.Seedwork;
 
 namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
 {
@@ -47,12 +48,18 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
         /// 获取角色列表
         /// </summary>
         /// <returns></returns>
-        public object Get()
+        public object Get(string pagination, string queryParam)
         {
             try
             {
-                var list = this.roleService.FindList();
-                return base.ToSuccessObject(list);
+                var paginationModel = JsonConvert.DeserializeObject<Pagination>(pagination);
+                var queryParamModel = JsonConvert.DeserializeObject<QueryParam>(queryParam);
+                if (queryParamModel.SortList.Count == 0)
+                {
+                    queryParamModel.SortList.Add(new SortField() { SortValue = "RoleCode" });
+                }
+                var list = this.roleService.FindList(paginationModel, queryParamModel);
+                return base.ToSuccessObject(new { List = list, RecordTotal = paginationModel.RecordTotal });
             }
             catch (Exception ex)
             {
@@ -66,7 +73,7 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public object Get(Guid id)
+        public object Get(string id)
         {
             try
             {
@@ -84,11 +91,11 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
         /// 添加角色信息
         /// </summary>
         /// <param name="value"></param>
-        public object Post([FromBody]string value)
+        public object Post([FromBody]Role value)
         {
             try
             {
-                this.roleService.AddOrModity(JsonConvert.DeserializeObject<Role>(value));
+                this.roleService.AddOrModity(value);
                 return base.ToSuccessObject();
             }
             catch (DbEntityValidationException dbEx)
@@ -101,33 +108,12 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
             }
         }
 
-        // PUT: api/Role/5
-        /// <summary>
-        /// 更新角色信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public object Put(int id, [FromBody]string value)
-        {
-            try
-            {
-                var model = JsonConvert.DeserializeObject<Role>(value);
-                this.roleService.AddOrModity(model);
-
-                return base.ToSuccessObject();
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
         // DELETE: api/Role/5
         /// <summary>
         /// 删除角色信息
         /// </summary>
         /// <param name="id"></param>
-        public object Delete(Guid id)
+        public object Delete(string id)
         {
             try
             {
