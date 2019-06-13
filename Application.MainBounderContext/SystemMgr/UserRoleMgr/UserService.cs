@@ -107,7 +107,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
                 {
                     foreach (var role in userModel.UserRoleList)
                     {
-                        userDto.RoleList.Add(role.RoleModule.ProjectedAs<RoleDTO>());
+                        userDto.RoleList.Add(role.RoleModel.ProjectedAs<RoleDTO>());
                     }
                 }
                 return userDto;
