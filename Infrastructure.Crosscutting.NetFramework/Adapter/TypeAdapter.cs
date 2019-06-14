@@ -106,7 +106,7 @@ namespace LMS.Infrastructure.Crosscutting.NetFramework.Adapter
                         NullableConverter nullableConverter = new NullableConverter(propType);
                         propType = nullableConverter.UnderlyingType;
                     }
-                    if (propertyValue != null)
+                    if (propertyValue != null && propType.Namespace.ToUpper()=="SYSTEM")
                     {
                         if (propType == typeof(Guid))
                         {

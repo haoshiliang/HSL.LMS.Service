@@ -92,10 +92,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public AddModuleDTO FindById(string id)
+        public Module FindById(string id)
         {
             var model = moduleRepository.Get(id);
-            return model.ProjectedAs<AddModuleDTO>();
+            return model.ProjectedAs<Module>();
         }
 
         /// <summary>
@@ -143,14 +143,14 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// </summary>
         /// <param name="id">模块编号</param>
         /// <returns></returns>
-        public ICollection<AddModuleDTO> FindFunctionList(string id)
+        public ICollection<Module> FindFunctionList(string id)
         {
-            var funList = new List<AddModuleDTO>();
+            var funList = new List<Module>();
             var model = moduleRepository.Get(id);
             var fList = model.ChildList.Where(m => m.IsFunction).OrderBy(m => m.Id);
             foreach (var m in fList)
             {
-                funList.Add(m.ProjectedAs<AddModuleDTO>());
+                funList.Add(m.ProjectedAs<Module>());
             }
             return funList;
         }

@@ -97,16 +97,15 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CorporationDTO FindById(Guid id)
+        public Corporation FindById(string id)
         {
             var model = this.corpRepository.Get(id);
-            var dto = model.ProjectedAs<CorporationDTO>();
+            var returnModel = model.ProjectedAs<Corporation>();
             if (model.ParentCorp != null)
             {
-                dto.ParentId = model.ParentCorp.Id;
-                dto.ParentName = model.ParentCorp.CorpName;
+                returnModel.ParentCorp = new Corporation() {Id =model.ParentCorp.Id, CorpName = model.ParentCorp.CorpName };
             }
-            return dto;
+            return returnModel;
         }
 
         /// <summary>
@@ -122,7 +121,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                 var dto = corp.ProjectedAs<CorporationDTO>();
                 if (corp.ParentCorp != null)    
                 {
-                    dto.OldParentId = corp.ParentCorp.Id;
                     dto.ParentId = corp.ParentCorp.Id;
                     dto.ParentName = corp.ParentCorp.CorpName;
                 }
@@ -152,7 +150,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                     var d = m.ProjectedAs<CorporationDTO>();
                     if (m.ParentCorp != null)
                     {
-                        d.OldParentId = m.ParentCorp.Id;
                         d.ParentId = m.ParentCorp.Id;
                         d.ParentName = m.ParentCorp.CorpName;
                     }

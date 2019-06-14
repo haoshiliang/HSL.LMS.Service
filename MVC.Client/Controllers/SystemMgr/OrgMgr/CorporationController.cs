@@ -48,7 +48,7 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns></returns>
-        public object Get(Guid id)
+        public object Get(string id)
         {
             try
             {

@@ -603,7 +603,7 @@
             </summary>
             <param name="corpService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Get(System.Guid)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorporationController.Get(System.String)">
             <summary>
             获取公司信息
             </summary>

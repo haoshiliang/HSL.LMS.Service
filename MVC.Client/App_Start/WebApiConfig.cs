@@ -12,6 +12,12 @@ namespace MVC.Client
     {
         public static void Register(HttpConfiguration config)
         {
+            var json = config.Formatters.JsonFormatter;
+            // 解决json序列化时的循环引用问题
+            json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            // 干掉XML序列化器
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
             // Web API 配置和服务
             // 将 Web API 配置为仅使用不记名令牌身份验证。
             config.SuppressDefaultHostAuthentication();

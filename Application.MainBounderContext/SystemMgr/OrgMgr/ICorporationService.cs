@@ -21,7 +21,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        CorporationDTO FindById(Guid id);
+        Corporation FindById(string id);
 
         /// <summary>
         /// 删除公司信息

@@ -26,7 +26,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        AddModuleDTO FindById(string id);
+        Module FindById(string id);
 
         /// <summary>
         /// 删除信息
@@ -51,6 +51,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// </summary>
         /// <param name="id">模块编号</param>
         /// <returns></returns>
-        ICollection<AddModuleDTO> FindFunctionList(string id);
+        ICollection<Module> FindFunctionList(string id);
     }
 }
