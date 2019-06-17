@@ -18,6 +18,10 @@ namespace LMS.Domain.Seedwork
         /// </summary>
         public string Field { get; set; }
         /// <summary>
+        /// 参数名
+        /// </summary>
+        public string ParamName { get; set; }
+        /// <summary>
         /// 操作类型
         /// </summary>
         public string Operator { get; set; }
@@ -25,6 +29,14 @@ namespace LMS.Domain.Seedwork
         /// 查询值
         /// </summary>
         public string Value { get; set; }
+        /// <summary>
+        /// Exists条件
+        /// </summary>
+        public string Exists { get; set; }
+        /// <summary>
+        /// 目标参数名
+        /// </summary>
+        public string TargetName { get; set; }
         /// <summary>
         /// 数据类型
         /// </summary>
@@ -36,7 +48,12 @@ namespace LMS.Domain.Seedwork
         /// <summary>
         /// 绑定列表
         /// </summary>
-        public object BinderList { get; set; }
+        public object BinderList { get; set; }  
+        /// <summary>
+        /// 所有绑定列表
+        /// </summary>
+                   
+        public object AllBinderList { get; set; }   
         /// <summary>
         /// 是否默认查询
         /// </summary>

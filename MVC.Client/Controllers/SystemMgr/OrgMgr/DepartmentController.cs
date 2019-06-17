@@ -47,18 +47,17 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         /// 获取部门列表
         /// </summary>
         /// <returns></returns>
-        public object Get(string pagination,string queryParam)
+        [Route("api/Department/List")]
+        public object Post(QueryWhere queryWhere)
         {
             try
             {
-                var paginationModel = JsonConvert.DeserializeObject<Pagination>(pagination);
-                var queryParamModel = JsonConvert.DeserializeObject<QueryParam>(queryParam);
-                if (queryParamModel.SortList.Count == 0)
+                if (queryWhere.QueryParamModel.SortList.Count == 0)
                 {
-                    queryParamModel.SortList.Add(new SortField() { SortValue = "DepartCode" });
+                    queryWhere.QueryParamModel.SortList.Add(new SortField() { SortValue = "DepartCode" });
                 }
-                var list = this.deptService.FindList(paginationModel, queryParamModel);
-                return base.ToSuccessObject(new { List = list, RecordTotal = paginationModel.RecordTotal });
+                var list = this.deptService.FindList(queryWhere.PaginationModel, queryWhere.QueryParamModel);
+                return base.ToSuccessObject(new { List = list, RecordTotal = queryWhere.PaginationModel.RecordTotal });
             }
             catch (Exception ex)
             {

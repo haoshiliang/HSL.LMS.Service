@@ -11,6 +11,7 @@ using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
 using LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity;
 using System.Data.Entity.Validation;
 using System.Text;
+using LMS.Domain.Seedwork;
 
 namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
 {
@@ -43,31 +44,13 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
 
         #region API
 
-        // GET: api/Role
-        /// <summary>
-        /// 获取用户列表
-        /// </summary>
-        /// <returns></returns>
-        public object Get()
-        {
-            try
-            {
-                var list = this.userService.FindList();
-                return base.ToSuccessObject(list);
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
         // GET: api/Role/5
         /// <summary>
         /// 获取用户信息
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public object Get(Guid id)
+        public object Get(string id)
         {
             try
             {
@@ -80,21 +63,45 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
             }
         }
 
-        // POST: api/Role
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="queryWhere">分页数据及查询条件</param>
+        /// <returns></returns>
+        [Route("api/User/List")]
+        public object Post(QueryWhere queryWhere)
+        {
+            try
+            {
+                if (queryWhere.QueryParamModel.SortList.Count == 0)
+                {
+                    queryWhere.QueryParamModel.SortList.Add(new SortField() { SortValue = "CODE" });
+                }
+                var list = this.userService.FindList(queryWhere.PaginationModel, queryWhere.QueryParamModel);
+                return base.ToSuccessObject(new { List = list, RecordTotal = queryWhere.PaginationModel.RecordTotal });
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        // POST: api/User
         /// <summary>
         /// 添加用户信息
         /// </summary>
         /// <param name="value"></param>
-        public object Post([FromBody]string value)
+        public object Post([FromBody]User value)
         {
             try
             {
-                var m = JsonConvert.DeserializeObject<UserDTO>(value);
-                var sha1 = System.Security.Cryptography.SHA1.Create();
-
-                m.SaltValue = Guid.NewGuid().ToString();
-                m.Password = BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(m.Password + m.SaltValue))).Replace("-", null); 
-                this.userService.AddOrModity(m);
+                if (value.Id == "" || value.OldPassword != value.Password)
+                {
+                    var sha1 = System.Security.Cryptography.SHA1.Create();
+                    value.SaltValue = Guid.NewGuid().ToString();
+                    value.Password = BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(value.Password + value.SaltValue))).Replace("-", null);
+                }
+                this.userService.AddOrModity(value);
                 return base.ToSuccessObject();
             }
             catch (DbEntityValidationException dbEx)
@@ -107,39 +114,12 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
             }
         }
 
-        // PUT: api/Role/5
-        /// <summary>
-        /// 更新用户信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        public object Put(Guid id, [FromBody]string value)
-        {
-            try
-            {
-                var m = JsonConvert.DeserializeObject<UserDTO>(value);
-                if (m.IsModityPassword)
-                {
-                    var sha1 = System.Security.Cryptography.SHA1.Create();
-                    m.SaltValue = Guid.NewGuid().ToString();
-                    m.Password = BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(m.Password + m.SaltValue))).Replace("-", null);
-                }
-                this.userService.AddOrModity(m);
-
-                return base.ToSuccessObject();
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
         // DELETE: api/Role/5
         /// <summary>
         /// 删除用户信息
         /// </summary>
         /// <param name="id"></param>
-        public object Delete(Guid id)
+        public object Delete(string id)
         {
             try
             {

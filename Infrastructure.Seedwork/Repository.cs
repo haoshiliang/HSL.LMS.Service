@@ -206,16 +206,19 @@ namespace LMS.Infrastructure.Seedwork
                     {
                         string whereStr = "";   
                         string[] fields = whereItem.Field.Split('|');
-                        foreach(var field in fields)
+                        if (fields.Length > 0)
                         {
-                            whereStr += this.GetCondition(field, whereItem.Operator, whereItem.Value) + " OR ";
-                            if(whereItem.Operator.ToLower() != "in")
+                            foreach (var field in fields)
                             {
-                                paramNameList.Add(field);
-                                paramValueList.Add(this.GetParamValue(whereItem.Value, whereItem.DataType.ToString()));
+                                whereStr += this.GetCondition(field, whereItem.ParamName, whereItem.Operator, whereItem.Value, whereItem.Exists) + " OR ";
                             }
+                            whereBuilder.AppendLine("AND (" + whereStr.Substring(0, whereStr.Length - 4) + ")");
                         }
-                        whereBuilder.AppendLine("AND ("+ whereStr.Substring(0, whereStr.Length- 4) + ")");
+                        if (whereItem.Operator.ToLower() != "in")
+                        {
+                            paramNameList.Add(whereItem.ParamName);
+                            paramValueList.Add(this.GetParamValue(whereItem.Value, whereItem.DataType.ToString(), whereItem.Operator));
+                        }
                     }
                 }
                 sql = sql.Replace("{WHERE}", whereBuilder.ToString());
@@ -484,22 +487,30 @@ namespace LMS.Infrastructure.Seedwork
         /// <summary>
         /// 得到过滤表达式
         /// </summary>
+        /// <param name="paramName">参数名</param>
         /// <param name="queryField">字段</param>
         /// <param name="operationType">操作类型</param>
+        /// <param name="exists">exists条件</param>
         /// <returns></returns>
-        private string GetCondition(string queryField, string operationType,string queryValue)
+        private string GetCondition(string queryField, string paramName, string operationType, string queryValue, string exists)
         {
             string condition = "";
-            switch (operationType.ToLower().Trim().Substring(0, operationType.Trim().Length>6?6: operationType.Trim().Length))
+            switch (operationType)
             {
                 case "in":
-                    condition = string.Format("{0} {1} ({2})", queryField, operationType,this.GetInValue(queryValue));
+                    condition = string.Format("{0} {1} ({2})", queryField, operationType, this.GetInValue(queryValue));
                     break;
                 case "exists":
-                    condition = operationType;
+                    condition = exists;
+                    break;
+                case "like":
+                    if (ConfigurationManager.AppSettings["DBType"] == "2")
+                        condition = string.Format("UPPER({0}) {1} '%' || @{2} || '%'", queryField, operationType, paramName);
+                    else
+                        condition = string.Format("UPPER({0}) {1} '%' + @{2} + '%'", queryField, operationType, paramName);
                     break;
                 default:
-                    condition = string.Format("{0} {1} @{0}", queryField, operationType);
+                    condition = string.Format("{0} {1} @{2}", queryField, operationType, paramName);
                     break;
             }
             return condition;
@@ -599,7 +610,7 @@ namespace LMS.Infrastructure.Seedwork
         /// <param name="fieldValue"></param>
         /// <param name="fieldType"></param>
         /// <returns></returns>
-        private object GetParamValue(string fieldValue,string fieldType)
+        private object GetParamValue(string fieldValue, string fieldType, string operatorType)
         {
             object returnValue = null;
             switch (fieldType.ToLower())
@@ -633,7 +644,10 @@ namespace LMS.Infrastructure.Seedwork
                     returnValue = Guid.Parse(fieldValue);
                     break;
                 default:
-                    returnValue = fieldValue;
+                    if (operatorType.ToLower() == "like")
+                        returnValue = fieldValue.ToUpper();
+                    else
+                        returnValue = fieldValue;
                     break;
             }
             return returnValue;

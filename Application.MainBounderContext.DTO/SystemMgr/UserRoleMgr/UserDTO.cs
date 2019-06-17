@@ -10,7 +10,7 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr
     {
         public UserDTO()
         {
-            this.RoleList = new List<RoleDTO>();
+            RoleList = new List<RoleDTO>();
         }
         public virtual string Id { get; set; }
         /// <summary>
@@ -34,21 +34,29 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr
         /// </summary>
         public virtual string SaltValue { get; set; }
         /// <summary>
-        /// 用户简拼
+        /// 公司部门职位
         /// </summary>
-        public virtual string PyCode { get; set; }
+        public virtual string CorpName { get; set; }
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        public virtual string DeptName { get; set; }
+        /// <summary>
+        /// 职位名称
+        /// </summary>
+        public virtual string PositionName { get; set; }
+        /// <summary>
+        /// 电话
+        /// </summary>
+        public virtual string Tel { get; set; }
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public virtual string Address { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary>
         public virtual DateTime CreateDate { get; set; }
-        /// <summary>
-        /// 最后更新日期
-        /// </summary>
-        public virtual DateTime LastUpdateDate { get; set; }
-        /// <summary>
-        /// 是否修改密码
-        /// </summary>
-        public virtual bool IsModityPassword { get; set; }
         /// <summary>
         /// 角色列表
         /// </summary>

@@ -41,6 +41,11 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity
         [Required]
         public virtual string Password { get; set; }
         /// <summary>
+        /// 旧密码
+        /// </summary>
+        [NotMapped]
+        public virtual string OldPassword { get; set; }
+        /// <summary>
         /// 盐值
         /// </summary>
         [Column("SALT_VALUE")]
@@ -54,6 +59,18 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity
         [MaxLength(64)]
         [Required]
         public virtual string PyCode { get; set; }
+        /// <summary>
+        /// 电话
+        /// </summary>
+        [Column("TELEPHONE")]
+        [MaxLength(128)]
+        public virtual string Tel { get; set; }
+        /// <summary>
+        /// 地址
+        /// </summary>
+        [Column("ADDRESS")]
+        [MaxLength(128)]
+        public virtual string Address { get; set; }
         /// <summary>
         /// 公司ID
         /// </summary>

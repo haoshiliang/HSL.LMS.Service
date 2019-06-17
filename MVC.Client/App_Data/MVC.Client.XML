@@ -683,7 +683,7 @@
             </summary>
             <param name="positionService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.Get(System.String,System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.PositionController.Post(LMS.Domain.Seedwork.QueryWhere)">
             <summary>
             获取职位列表
             </summary>
@@ -724,7 +724,7 @@
             </summary>
             <param name="deptService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Get(System.String,System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Post(LMS.Domain.Seedwork.QueryWhere)">
             <summary>
             获取部门列表
             </summary>
@@ -821,33 +821,27 @@
             </summary>
             <param name="userService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Get">
-            <summary>
-            获取用户列表
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Get(System.Guid)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Get(System.String)">
             <summary>
             获取用户信息
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Post(System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Post(LMS.Domain.Seedwork.QueryWhere)">
+            <summary>
+            获取用户列表
+            </summary>
+            <param name="queryWhere">分页数据及查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Post(LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity.User)">
             <summary>
             添加用户信息
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Put(System.Guid,System.String)">
-            <summary>
-            更新用户信息
-            </summary>
-            <param name="id"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Delete(System.Guid)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserController.Delete(System.String)">
             <summary>
             删除用户信息
             </summary>
@@ -869,7 +863,7 @@
             </summary>
             <param name="roleService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Get(System.String,System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Post(LMS.Domain.Seedwork.QueryWhere)">
             <summary>
             获取角色列表
             </summary>

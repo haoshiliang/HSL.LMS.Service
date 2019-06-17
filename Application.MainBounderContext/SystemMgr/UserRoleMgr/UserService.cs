@@ -8,6 +8,8 @@ using LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity;
 using LMS.Application.Seedwork;
 using LMS.Application.Seedwork.Cache;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
+using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
+using LMS.Domain.Seedwork;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
 {
@@ -52,18 +54,15 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 添加或修改
         /// </summary>
         /// <param name="model"></param>
-        public void AddOrModity(UserDTO model)
+        public void AddOrModity(User userModel)
         {
-            var userModel = model.ProjectedAs<UserDTO, User>();
-            userModel.PyCode = model.Name.ToConvertPyCode();
+            userModel.PyCode = userModel.Name.ToConvertPyCode();
             userModel.LastUpdateDate = DateTime.Now;
-            userModel.Id = model.Id;            
 
             if (!userRepository.IsExistLoginName(userModel.LoginName, userModel.Id))
             {
-                if (!string.IsNullOrEmpty(model.Id))
+                if (!string.IsNullOrEmpty(userModel.Id))
                 {
-                    var list = this.roleRepository.GetAll();
                     userRepository.Modity(userModel);
                 }
                 else
@@ -85,9 +84,15 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public User FindById(Guid id)
+        public User FindById(string id)
         {
             var model = userRepository.Get(id);
+            var returnModel = model.ProjectedAs<User>();
+            returnModel.OldPassword = model.Password;
+            returnModel.CorporationModel = new Corporation() { Id = model.CorporationModel.Id, CorpName = model.CorporationModel.CorpName };
+            returnModel.DepartmentModel = new Department() { Id = model.DepartmentModel.Id, DepartName = model.DepartmentModel.DepartName };
+            returnModel.PositionModel = new Position() { Id = model.PositionModel.Id, PositionName = model.PositionModel.PositionName };
+
             return model;
         }
 
@@ -122,17 +127,16 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// 取出用户列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<User> FindList()
+        public ICollection<UserDTO> FindList(Pagination pagination, QueryParam queryParam)
         {
-            var list = userRepository.GetAll().ToList();
-            return list;
+            return this.userRepository.GetList<UserDTO>(pagination, queryParam);
         }
 
         /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(Guid id)
+        public void Delete(string id)
         {
             userRepository.Remove(userRepository.Get(id));
             userRepository.SaveChanges();

@@ -20,6 +20,15 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Repository
         /// <returns></returns>
         bool IsExistLoginName(string loginName,string id);
 
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <typeparam name="DTO"></typeparam>
+        /// <param name="pagination"></param>
+        /// <param name="queryParam"></param>
+        /// <returns></returns>
+        ICollection<DTO> GetList<DTO>(Pagination pagination, QueryParam queryParam) where DTO : class;
+
         #endregion
     }
 }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="QueryArgument\QueryConfig.cs" />
     <Compile Include="QueryArgument\QueryParam.cs" />
+    <Compile Include="QueryArgument\QueryWhere.cs" />
     <Compile Include="RepositoryInterface\EntityBase.cs" />
     <Compile Include="RepositoryInterface\IRepository.cs" />
     <Compile Include="RepositoryInterface\IQueryableUnitOfWork.cs" />
