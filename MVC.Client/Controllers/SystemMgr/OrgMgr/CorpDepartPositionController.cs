@@ -60,6 +60,42 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
             }
         }
 
+        /// <summary>
+        /// 获取所有公司下部门
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/CorpDepartPosition/DeptList")]
+        public object GetDeptList()
+        {
+            try
+            {
+                var m = this.corpDepartPositionService.FindAllDeptList();
+                return base.ToSuccessObject(m);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取所有公司所有部门下职位
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/CorpDepartPosition/PositionList")]
+        public object GetPositionList()
+        {
+            try
+            {
+                var m = this.corpDepartPositionService.FindAllPositionList();
+                return base.ToSuccessObject(m);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
         // POST: api/Position
         /// <summary>
         /// 添加公司部门职位关系信息

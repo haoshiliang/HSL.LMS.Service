@@ -54,6 +54,25 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr
         /// 获取公司-部门-职位列表
         /// </summary>
         /// <param name="corpId">公司编号</param>
+        public IList<DTO> GetAllList<DTO>() where DTO : class
+        {
+            StringBuilder sBuilder = new StringBuilder();
+            sBuilder.AppendLine("SELECT c.ID AS CorpId,c.CORP_NAME AS CorpName,d.ID AS DepartId,d.DEPART_NAME AS DepartName,p.ID AS PositionId,p.POSITION_NAME AS PositionName");
+            sBuilder.AppendLine("  FROM SYS_CORP_DEPART_POSITION cdp");
+            sBuilder.AppendLine(" INNER JOIN SYS_CORPORATION c ON c.ID = cdp.CORP_ID");
+            sBuilder.AppendLine(" INNER JOIN SYS_DEPARTMENT d ON d.ID = cdp.DEPART_ID");
+            sBuilder.AppendLine(" INNER JOIN SYS_POSITION p ON p.ID = cdp.POSITION_ID");
+            sBuilder.AppendLine(" WHERE d.IS_DEL = '0'");
+            sBuilder.AppendLine("   AND p.IS_DEL = '0'");
+            sBuilder.AppendLine("   AND c.IS_DEL = '0'");
+
+            return base.ExecuteQuerySql<DTO>(sBuilder.ToString(), null, null).ToList();
+        }
+
+        /// <summary>
+        /// 获取公司-部门-职位列表
+        /// </summary>
+        /// <param name="corpId">公司编号</param>
         public IList<DTO> GetList<DTO>(string corpId) where DTO : class
         {
             StringBuilder sBuilder = new StringBuilder();

@@ -9,6 +9,7 @@ using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
 using LMS.Domain.Seedwork;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository;
 using LMS.Application.Seedwork;
+using LMS.Application.MainBounderContext.DTO.Common;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 {
@@ -130,6 +131,28 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
             return dtoList;
         }
 
+        /// <summary>
+        /// 取出树列表
+        /// </summary>
+        /// <returns></returns>
+        public ICollection<TreeDTO> FindTreeList()
+        {
+            var list = this.corpRepository.GetAll().Where(m => m.ParentId == Guid.Empty.ToString() && m.IsDel == false);
+            var dtoList = new List<TreeDTO>();
+            foreach (var corp in list)
+            {
+                var dto = new TreeDTO()
+                {
+                    Id=corp.Id,
+                    Name=corp.CorpName,
+                    ParentId=corp.ParentId
+                };
+                this.SetTreeChildList(corp, dto);
+                dtoList.Add(dto);
+            }
+            return dtoList;
+        }
+
         #endregion
 
         #region 私有方法
@@ -154,6 +177,30 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                         d.ParentName = m.ParentCorp.CorpName;
                     }
                     this.SetChildList(m, d, id);
+                    dto.ChildList.Add(d);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 设置公司树子列表
+        /// </summary>
+        /// <param name="corp"></param>
+        /// <param name="dto"></param>
+        private void SetTreeChildList(Corporation corp, TreeDTO dto)
+        {
+            if (corp.ChildCorpList != null && corp.ChildCorpList.Count > 0)
+            {
+                var childList = corp.ChildCorpList.Where(m =>m.IsDel == false);
+                foreach (var m in childList)
+                {
+                    var d = new TreeDTO()
+                    {
+                        Id=m.Id,
+                        Name = m.CorpName,
+                        ParentId=m.ParentId
+                    };
+                    this.SetTreeChildList(m, d);
                     dto.ChildList.Add(d);
                 }
             }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr;
+using LMS.Application.MainBounderContext.DTO.Common;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 {
@@ -29,5 +30,17 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <param name="corpId">公司ID</param>
         /// <returns></returns>
         IList<CorpDeptPositionDTO> FindList(string corpId);
+
+        /// <summary>
+        /// 获取所有公司部门
+        /// </summary>
+        /// <returns></returns>
+        IList<SelectDTO> FindAllDeptList();
+
+        /// <summary>
+        /// 获取所有公司部门职位
+        /// </summary>
+        /// <returns></returns>
+        IList<SelectDTO> FindAllPositionList();
     }
 }

@@ -31,10 +31,22 @@ namespace LMS.Domain.Seedwork
             TimeText = 2,
 
             /// <summary>
-            /// 下拉单元框
+            /// 下拉单选框
             /// </summary>
             [Description("下拉单选框")]
             ComboRadioBox = 3,
+
+            /// <summary>
+            /// 下拉多选框
+            /// </summary>
+            [Description("下拉多选框")]
+            ComboMultipleBox = 4,
+
+            /// <summary>
+            /// 下拉树单选框
+            /// </summary>
+            [Description("下拉树单选框")]
+            ComboTreeBox = 5,
 
             /// <summary>
             /// 复选框

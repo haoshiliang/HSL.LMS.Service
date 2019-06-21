@@ -79,16 +79,35 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         }
 
         /// <summary>
-        /// 获取公司列表
+        /// 获取可用公司列表
         /// </summary>
         /// <param name="id">编号</param>
-        /// <param name="isTree">是否树列表</param>
         /// <returns></returns>
-        public object GetTreeList(string id,bool isTree)
+        [Route("api/Corporation/EnableList")]
+        public object GetEnableList(string id)
         {
             try
             {
                 var list = this.corpService.FindList(id);
+                return base.ToSuccessObject(list);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取可用公司树列表
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <returns></returns>
+        [Route("api/Corporation/TreeList")]
+        public object GetTreeList()
+        {
+            try
+            {
+                var list = this.corpService.FindTreeList();
                 return base.ToSuccessObject(list);
             }
             catch (Exception ex)

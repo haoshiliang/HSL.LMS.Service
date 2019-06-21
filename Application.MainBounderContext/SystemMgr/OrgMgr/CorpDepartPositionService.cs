@@ -7,6 +7,7 @@ using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository;
 using LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Entity;
 using LMS.Application.Seedwork;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr;
+using LMS.Application.MainBounderContext.DTO.Common;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
 {
@@ -88,6 +89,55 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                 {
                     dto.PositionList.Add(new DeptPositionDTO() { Id = pModel.PositionId, Name = pModel.PositionName, IsChecked = pModel.IsSelected==1 });
                 }
+                returnList.Add(dto);
+            }
+            return returnList;
+        }
+
+        /// <summary>
+        /// 获取所有公司部门
+        /// </summary>
+        /// <returns></returns>
+        public IList<SelectDTO> FindAllDeptList()
+        {
+            var returnList = new List<SelectDTO>();
+            var list = this.corpDepartPositionRepository.GetAllList<CorpDeptPositionDTO>();
+            var deptList = list.GroupBy(m => new { m.CorpId, m.DepartId, m.DepartName })
+                               .Select(m => new { CorpId = m.Key.CorpId, DepartId = m.Key.DepartId, DepartName = m.Key.DepartName });
+
+            foreach (var deptModel in deptList)
+            {
+                var dto = new SelectDTO()
+                {
+                    Id = deptModel.DepartId,
+                    Name = deptModel.DepartName,
+                    RelationId_1 = deptModel.CorpId
+                };
+                returnList.Add(dto);
+            }
+            return returnList;
+        }
+
+        /// <summary>
+        /// 获取所有公司部门职位
+        /// </summary>
+        /// <returns></returns>
+        public IList<SelectDTO> FindAllPositionList()
+        {
+            var returnList = new List<SelectDTO>();
+            var list = this.corpDepartPositionRepository.GetAllList<CorpDeptPositionDTO>();
+            var deptList = list.GroupBy(m => new { m.CorpId, m.DepartId, m.PositionId, m.PositionName })
+                               .Select(m => new { CorpId = m.Key.CorpId, DepartId = m.Key.DepartId, PositoinId = m.Key.PositionId, PositionName = m.Key.PositionName });
+
+            foreach (var deptModel in deptList)
+            {
+                var dto = new SelectDTO()
+                {
+                    Id = deptModel.PositoinId,
+                    Name = deptModel.PositionName,
+                    RelationId_1 = deptModel.CorpId,
+                    RelationId_2 = deptModel.DepartId
+                };
                 returnList.Add(dto);
             }
             return returnList;

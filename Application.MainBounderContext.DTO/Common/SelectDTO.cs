@@ -7,25 +7,30 @@ using System.Threading.Tasks;
 namespace LMS.Application.MainBounderContext.DTO.Common
 {
     /// <summary>
-    /// 树数据DTO
+    /// 下拉DTO
+    /// 最多支持四级联动
     /// </summary>
-    public class TreeDTO
+    public class SelectDTO
     {
         /// <summary>
-        /// Id
+        /// 下拉值
         /// </summary>
         public string Id { get; set; }
         /// <summary>
-        /// 显示名称
+        /// 下拉显示名称
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 上级Id
+        /// 关联信息Id
         /// </summary>
-        public string ParentId { get; set; }
+        public string RelationId_1 { get; set; }
         /// <summary>
-        /// 子列表
+        /// 关联信息Id
         /// </summary>
-        public IList<TreeDTO> ChildList { get; set; }
+        public string RelationId_2 { get; set; }
+        /// <summary>
+        /// 关联信息Id
+        /// </summary>
+        public string RelationId_3 { get; set; }
     }
 }

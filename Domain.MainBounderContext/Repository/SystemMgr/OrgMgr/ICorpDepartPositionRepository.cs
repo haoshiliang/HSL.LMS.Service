@@ -23,6 +23,13 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository
         /// <param name="corpId">公司编号</param>
         IList<DTO> GetAllList<DTO>(string corpId) where DTO : class;
 
+
+        /// <summary>
+        /// 获取公司-部门-职位列表
+        /// </summary>
+        /// <param name="corpId">公司编号</param>
+        IList<DTO> GetAllList<DTO>() where DTO : class;
+
         /// <summary>
         /// 获取公司-部门-职位列表
         /// </summary>
