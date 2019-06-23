@@ -11,6 +11,10 @@ namespace LMS.Application.MainBounderContext.DTO.Common
     /// </summary>
     public class TreeDTO
     {
+        public TreeDTO()
+        {
+            this.ChildList = new List<TreeDTO>();
+        }
         /// <summary>
         /// Id
         /// </summary>
