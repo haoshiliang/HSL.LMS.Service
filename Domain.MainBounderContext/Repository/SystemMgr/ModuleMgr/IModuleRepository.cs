@@ -22,7 +22,7 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Repository
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns></returns>
-        IEnumerable<DTO> GetTreeList<DTO>(string userId);
+        IEnumerable<DTO> GetTreeList<DTO>(string userId,bool isSuperAdmin);
 
         /// <summary>
         /// 取出可访问模块树列表

@@ -55,5 +55,20 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr
             sqlBuilder.AppendLine("   AND c.IS_DEL = 0");
             base.ExecuteSql(sqlBuilder.ToString(), new string[] { "NewCode", "SubStrPos", "OldCode", "Id"}, new object[] { newCode, oldCode.Length + 1, oldCode, id });
         }
+
+        /// <summary>
+        /// 获取用于生成树的公司列表
+        /// </summary>
+        /// <typeparam name="DTO"></typeparam>
+        /// <returns></returns>
+        public IList<DTO> GetTreeList<DTO>()
+        {
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.AppendLine("SELECT c.ID,c.CORP_NAME AS CorpName,c.PARENT_ID AS ParentId");
+            sqlBuilder.AppendLine("  FROM SYS_CORPORATION c");
+            sqlBuilder.AppendLine(" WHERE c.IS_DEL = 0");
+
+            return base.ExecuteQuerySql<DTO>(sqlBuilder.ToString(), null, null).ToList();
+        }
     }
 }

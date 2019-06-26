@@ -34,16 +34,29 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public IEnumerable<DTO> GetTreeList<DTO>(string userId)
+        public IEnumerable<DTO> GetTreeList<DTO>(string userId,bool isSuperAdmin)
         {
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendLine("SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
-            sqlBuilder.AppendLine("  FROM SYS_MODULE m");
-            sqlBuilder.AppendLine(" LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID");
-            sqlBuilder.AppendLine(" LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID");
-            sqlBuilder.AppendLine("WHERE (ru.USER_ID = @UserId OR 1=1)");
-            sqlBuilder.AppendLine("  AND m.ID<>'" + Guid.Empty.ToString() + "'");
-            sqlBuilder.AppendLine("ORDER BY m.CREATE_DATE");
+            if (isSuperAdmin)
+            {
+                sqlBuilder.AppendLine("SELECT DISTINCT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
+                sqlBuilder.AppendLine("  FROM SYS_MODULE m");
+                sqlBuilder.AppendLine("WHERE m.ID<>'" + Guid.Empty.ToString() + "'");
+                sqlBuilder.AppendLine("  AND m.IS_ENABLED = '1'");
+                sqlBuilder.AppendLine("ORDER BY m.CREATE_DATE");
+            }
+            else
+            {
+                sqlBuilder.AppendLine("SELECT DISTINCT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
+                sqlBuilder.AppendLine("  FROM SYS_MODULE m");
+                sqlBuilder.AppendLine(" LEFT JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID");
+                sqlBuilder.AppendLine(" LEFT JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID");
+                sqlBuilder.AppendLine(" LEFT JOIN SYS_USER u ON u.ID = ru.USER_ID");
+                sqlBuilder.AppendLine("WHERE (ru.USER_ID = @UserId OR u.IS_SUPER_ADMIN = '1')");
+                sqlBuilder.AppendLine("  AND m.ID<>'" + Guid.Empty.ToString() + "'");
+                sqlBuilder.AppendLine("  AND m.IS_ENABLED = '1'");
+                sqlBuilder.AppendLine("ORDER BY m.CREATE_DATE");
+            }
 
             return base.ExecuteQuerySql<DTO>(sqlBuilder.ToString(), new string[] { "UserId" }, new object[] { userId });         
         }

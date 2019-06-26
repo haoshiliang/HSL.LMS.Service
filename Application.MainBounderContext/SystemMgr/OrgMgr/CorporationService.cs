@@ -69,6 +69,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                     model.CreateDate = DateTime.Now;
                     model.LastUpdateDate = DateTime.Now;
                     model.AutomaticCode = this.corpRepository.GetAutomaticCode(model.ParentId);
+                    model.ParentCorp = null;
                     this.corpRepository.Add(model);
                 }
                 this.corpRepository.SaveChanges();
@@ -115,7 +116,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <returns></returns>
         public ICollection<CorporationDTO> FindList(string id)
         {
-            var list = this.corpRepository.GetAll().Where(m => m.ParentId == Guid.Empty.ToString() && m.Id != id && m.IsDel == false);
+            var list = this.corpRepository.GetAll().Where(m => m.ParentId == Guid.Empty.ToString() && m.Id != id && m.IsDel == false).ToList();
             var dtoList = new List<CorporationDTO>();
             foreach(var corp in list)
             {

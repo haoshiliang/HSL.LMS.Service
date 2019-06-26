@@ -24,7 +24,7 @@ namespace LMS.Domain.Seedwork
         /// <param name="sql"></param>
         /// <param name="paramList"></param>
         /// <returns></returns>
-        IQueryable<TEntity> ExecuteQuerySql<TEntity>(string sql, object[] paramList);
+        IList<TEntity> ExecuteQuerySql<TEntity>(string sql, object[] paramList);
 
     }
 }

@@ -112,9 +112,9 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// 获取模块儿树列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<ModuleDTO> FindAllowVisitList(string userId)
+        public ICollection<ModuleDTO> FindAllowVisitList(string userId,bool isSuperAdmin)
         {
-            var mList = moduleRepository.GetTreeList<ModuleDTO>(userId).ToList();
+            var mList = moduleRepository.GetTreeList<ModuleDTO>(userId,isSuperAdmin).ToList();
             var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString() && m.IsEnabled == 1).OrderBy(m => m.Code);
             foreach (var m in treeList)
             {

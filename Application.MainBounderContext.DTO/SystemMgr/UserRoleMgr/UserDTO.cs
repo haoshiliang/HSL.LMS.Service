@@ -30,6 +30,30 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr
         /// </summary>
         public virtual string Password { get; set; }
         /// <summary>
+        /// 是否超级管理员
+        /// </summary>
+        public virtual int SuperAdmin { get; set; }
+        /// <summary>
+        /// 是否超级管理员
+        /// </summary>
+        public virtual bool IsSuperAdmin
+        {
+            get { return SuperAdmin == 1; }
+            set { SuperAdmin = (value ? 1 : 0); }
+        }
+        /// <summary>
+        /// 是否可用
+        /// </summary>
+        public virtual int Enable { get; set; }
+        /// <summary>
+        /// 是否可用
+        /// </summary>
+        public virtual bool IsEnable
+        {
+            get { return Enable == 1; }
+            set { Enable = (value ? 1 : 0); }
+        }
+        /// <summary>
         /// 盐值
         /// </summary>
         public virtual string SaltValue { get; set; }

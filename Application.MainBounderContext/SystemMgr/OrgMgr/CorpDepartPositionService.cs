@@ -19,6 +19,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 公司部门职位仓储
         /// </summary>
         private readonly ICorpDepartPositionRepository corpDepartPositionRepository;
+        /// <summary>
+        /// 公司仓储
+        /// </summary>
+        private readonly ICorporationRepository corpRepository;
 
         #endregion
 
@@ -28,9 +32,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// 构造方法
         /// </summary>
         /// <param name="corpDepartPositionRepository"></param>
-        public CorpDepartPositionService(ICorpDepartPositionRepository corpDepartPositionRepository)
+        /// <param name="corpRepository"></param>
+        public CorpDepartPositionService(ICorpDepartPositionRepository corpDepartPositionRepository, ICorporationRepository corpRepository)
         {
             this.corpDepartPositionRepository = corpDepartPositionRepository;
+            this.corpRepository = corpRepository;
         }
 
         #endregion
@@ -153,6 +159,84 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
             return this.corpDepartPositionRepository.GetList<CorpDeptPositionDTO>(corpId);
         }
 
+        /// <summary>
+        /// 获取组织结构树
+        /// </summary>
+        /// <returns></returns>
+        public IList<TreeDTO> FindOrgList()
+        {
+            var returnList = new List<TreeDTO>();
+            var allList = this.corpDepartPositionRepository.GetAllList<CorpDeptPositionDTO>();
+            var corpList = this.corpRepository.GetTreeList<CorporationDTO>();
+            var rootCorpList = corpList.Where(m => m.ParentId == Guid.Empty.ToString());
+            foreach(var cModel in rootCorpList)
+            {
+                var treeDto = new TreeDTO() { Id = cModel.Id, Name = cModel.CorpName };
+                returnList.Add(treeDto);
+                //设置公司子列表
+                this.SetCorpChild(corpList,allList, treeDto);
+                //设置公司部门
+                this.SetDeptList(allList, treeDto);
+            }
+
+            return returnList;
+        }
+
+        #endregion
+
+        #region 私有方法
+        
+        /// <summary>
+        /// 设置子公司
+        /// </summary>
+        /// <param name="corpList"></param>
+        /// <param name="treeDto"></param>
+        private void SetCorpChild(IList<CorporationDTO> corpList,IList<CorpDeptPositionDTO> list,TreeDTO treeDto)
+        {
+            var childList = corpList.Where(m => m.ParentId == treeDto.Id);
+            foreach (var cModel in childList)
+            {
+                var childTreeDto = new TreeDTO() { Id = cModel.Id, Name = cModel.CorpName };
+                treeDto.ChildList.Add(childTreeDto);
+                this.SetCorpChild(corpList, list, childTreeDto);
+                this.SetDeptList(list, childTreeDto);
+            }
+        }
+
+        /// <summary>
+        /// 设置公司部门
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="treeDto"></param>
+        private void SetDeptList(IList<CorpDeptPositionDTO> list,TreeDTO treeDto)
+        {
+            var childList = list.Where(m => m.CorpId == treeDto.Id).GroupBy(m => new { m.DepartId, m.DepartName })
+                                .Select(m => new { DeptId = m.Key.DepartId,DeptName = m.Key.DepartName });
+            foreach(var mModel in childList)
+            {
+                var childTreeDto = new TreeDTO() { Id = mModel.DeptId, Name = mModel.DeptName };
+                treeDto.ChildList.Add(childTreeDto);
+                this.SetPostionList(list, childTreeDto, treeDto.Id);
+            }
+        }
+
+        /// <summary>
+        /// 设置部门下职位
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="treeDto"></param>
+        /// <param name="corpId"></param>
+        private void SetPostionList(IList<CorpDeptPositionDTO> list, TreeDTO treeDto,string corpId)
+        {
+            var childList = list.Where(m => m.CorpId == corpId && m.DepartId == treeDto.Id).GroupBy(m => new { m.PositionId, m.PositionName, m.FullPositionId })
+                    .Select(m => new { PositionId = m.Key.PositionId, PositionName = m.Key.PositionName, FullId = m.Key.FullPositionId });
+            foreach (var mModel in childList)
+            {
+                var childTreeDto = new TreeDTO() { Id = mModel.PositionId, Name = mModel.PositionName, FullId = mModel.FullId, IsLeaf = true };
+                treeDto.ChildList.Add(childTreeDto);
+            }
+        }
+         
         #endregion
     }
 }

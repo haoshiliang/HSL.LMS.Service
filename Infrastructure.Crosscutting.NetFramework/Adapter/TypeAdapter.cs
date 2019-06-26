@@ -58,16 +58,13 @@ namespace LMS.Infrastructure.Crosscutting.NetFramework.Adapter
                                 Guid gid = new Guid(value.ToString());
                                 pi.SetValue(t, gid, null);
                             }
+                            else if(propType.IsEnum)
+                            {
+                                pi.SetValue(t, Convert.ToInt32(value), null);
+                            }
                             else
                             {
-                                if (!propType.IsEnum)
-                                {
-                                    pi.SetValue(t, Convert.ChangeType(value, propType), null);
-                                }
-                                else
-                                {
-                                    pi.SetValue(t, Convert.ToInt32(value), null);
-                                }
+                                pi.SetValue(t, Convert.ChangeType(value, propType), null);
                             }
                         }
                     }

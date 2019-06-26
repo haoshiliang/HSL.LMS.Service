@@ -129,9 +129,9 @@ namespace LMS.Infrastructure.Seedwork
         /// <param name="sql"></param>
         /// <param name="paramList"></param>
         /// <returns></returns>
-        public IQueryable<TEntity> ExecuteQuerySql<TEntity>(string sql, object[] paramList)
+        public IList<TEntity> ExecuteQuerySql<TEntity>(string sql, object[] paramList)
         {
-            return base.Database.SqlQuery<TEntity>(sql, paramList).AsQueryable<TEntity>();
+            return base.Database.SqlQuery<TEntity>(sql, paramList).ToList();
         }
 
 
@@ -155,8 +155,10 @@ namespace LMS.Infrastructure.Seedwork
                     modelBuilder.HasDefaultSchema(connRegexList[0].Groups[1].Value);
                 }
             }
-
+            //默认是级联删除,禁用级联删除,如果需要在实体类配置中配置
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //禁用实体类验证错误提示
+            base.Configuration.ValidateOnSaveEnabled = false;
 
             var assemblyConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             XmlDocument xmlDoc = new XmlDocument();

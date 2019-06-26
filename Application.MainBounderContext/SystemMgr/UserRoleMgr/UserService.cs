@@ -58,7 +58,9 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         {
             userModel.PyCode = userModel.Name.ToConvertPyCode();
             userModel.LastUpdateDate = DateTime.Now;
-
+            userModel.CorporationModel = null;
+            userModel.DepartmentModel = null;
+            userModel.PositionModel = null;
             if (!userRepository.IsExistLoginName(userModel.LoginName, userModel.Id))
             {
                 if (!string.IsNullOrEmpty(userModel.Id))
@@ -103,7 +105,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// <returns></returns>
         public UserDTO FindByName(string loginName)
         {
-            var userList = userRepository.GetList(m => m.LoginName.ToUpper() == loginName.ToUpper());
+            var userList = userRepository.GetList(m => m.LoginName.ToUpper() == loginName.ToUpper() && m.IsEnable==true);
             if (userList.Count() > 0)
             {
                 var userModel = userList.FirstOrDefault();

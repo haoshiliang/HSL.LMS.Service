@@ -61,6 +61,24 @@ namespace MVC.Client.Controllers.SystemMgr.OrgMgr
         }
 
         /// <summary>
+        /// 获取树列表
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/CorpDepartPosition/TreeList")]
+        public object GetTreeList()
+        {
+            try
+            {
+                var m = this.corpDepartPositionService.FindOrgList();
+                return base.ToSuccessObject(m);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 获取所有公司下部门
         /// </summary>
         /// <returns></returns>

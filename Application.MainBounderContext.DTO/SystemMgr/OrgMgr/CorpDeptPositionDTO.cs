@@ -33,6 +33,10 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr
         /// </summary>
         public string PositionName { get; set; }
         /// <summary>
+        /// 完整职位ID
+        /// </summary>
+        public string FullPositionId { get; set; }
+        /// <summary>
         /// 是否选择
         /// </summary>
         public int IsSelected { get; set; }

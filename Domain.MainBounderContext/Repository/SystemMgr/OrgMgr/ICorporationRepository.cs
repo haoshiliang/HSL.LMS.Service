@@ -25,5 +25,12 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository
         /// <param name="id">当前ID</param>
         /// <returns></returns>
         void SetAutomaticCode(string oldCode, string newCode, string id);
+
+        /// <summary>
+        /// 获取用于生成树的公司列表
+        /// </summary>
+        /// <typeparam name="DTO"></typeparam>
+        /// <returns></returns>
+        IList<DTO> GetTreeList<DTO>();
     }
 }

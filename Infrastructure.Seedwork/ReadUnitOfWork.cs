@@ -57,9 +57,9 @@ namespace LMS.Infrastructure.Seedwork
         /// <param name="sql"></param>
         /// <param name="paramList"></param>
         /// <returns></returns>
-        public IQueryable<TEntity> ExecuteQuerySql<TEntity>(string sql, object[] paramList)
+        public IList<TEntity> ExecuteQuerySql<TEntity>(string sql, object[] paramList)
         {
-            return base.Database.SqlQuery<TEntity>(sql, paramList).AsQueryable<TEntity>();
+            return base.Database.SqlQuery<TEntity>(sql, paramList).ToList();
         }
 
         #endregion

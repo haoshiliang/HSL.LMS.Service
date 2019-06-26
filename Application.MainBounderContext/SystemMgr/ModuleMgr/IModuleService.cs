@@ -38,7 +38,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// 获取模块儿树列表
         /// </summary>
         /// <returns></returns>
-        ICollection<ModuleDTO> FindAllowVisitList(string userId);
+        ICollection<ModuleDTO> FindAllowVisitList(string userId,bool isSuperAdmin);
 
         /// <summary>
         /// 获取模块儿树列表

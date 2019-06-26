@@ -42,5 +42,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// </summary>
         /// <returns></returns>
         IList<SelectDTO> FindAllPositionList();
+
+        /// <summary>
+        /// 获取组织结构树
+        /// </summary>
+        /// <returns></returns>
+        IList<TreeDTO> FindOrgList();
     }
 }

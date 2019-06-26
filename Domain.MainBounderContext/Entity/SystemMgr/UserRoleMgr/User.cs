@@ -12,6 +12,11 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity
 {
     public class User : EntityBase
     {
+        public User()
+        {
+            this.IsEnable = true;
+        }
+
         /// <summary>
         /// 用户编号
         /// </summary>
@@ -60,6 +65,12 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity
         [Required]
         public virtual string PyCode { get; set; }
         /// <summary>
+        /// 是否超级管理员
+        /// </summary>
+        [Column("IS_SUPER_ADMIN")]
+        [Required]
+        public virtual bool IsSuperAdmin { get; set; }
+        /// <summary>
         /// 电话
         /// </summary>
         [Column("TELEPHONE")]
@@ -71,6 +82,12 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity
         [Column("ADDRESS")]
         [MaxLength(128)]
         public virtual string Address { get; set; }
+        /// <summary>
+        /// 是否可用
+        /// </summary>
+        [Column("IS_ENABLE")]
+        [Required]
+        public virtual bool IsEnable { get; set; }
         /// <summary>
         /// 公司ID
         /// </summary>

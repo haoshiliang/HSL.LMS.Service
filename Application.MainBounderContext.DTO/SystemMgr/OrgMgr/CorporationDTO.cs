@@ -18,6 +18,10 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr
         /// </summary>
         public virtual string CorpCode { get; set; }
         /// <summary>
+        /// 自动编码生成
+        /// </summary>
+        public virtual string AutomaticCode { get; set; }
+        /// <summary>
         /// 公司名称
         /// </summary>
         public virtual string CorpName { get; set; }

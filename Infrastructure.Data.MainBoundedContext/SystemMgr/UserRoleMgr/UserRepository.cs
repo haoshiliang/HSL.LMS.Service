@@ -40,7 +40,9 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.UserRoleMgr
         public ICollection<DTO> GetList<DTO>(Pagination pagination, QueryParam queryParam) where DTO : class
         {
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendLine("SELECT u.ID,u.CODE,u.NAME,u.LOGIN_NAME AS LoginName,u.TELEPHONE,u.ADDRESS,u.CREATE_DATE,c.CORP_NAME AS CorpName,d.DEPART_NAME AS DeptName,p.POSITION_NAME AS PositionName");
+            sqlBuilder.AppendLine("SELECT u.ID,u.CODE,u.NAME,u.LOGIN_NAME AS LoginName,u.TELEPHONE,u.ADDRESS,u.CREATE_DATE AS CreateDate,");
+            sqlBuilder.AppendLine("       c.CORP_NAME AS CorpName,d.DEPART_NAME AS DeptName,p.POSITION_NAME AS PositionName,");
+            sqlBuilder.AppendLine("       u.IS_SUPER_ADMIN AS SuperAdmin,u.IS_ENABLE AS Enable");
             sqlBuilder.AppendLine("  FROM SYS_USER u");
             sqlBuilder.AppendLine(" INNER JOIN SYS_CORPORATION c ON c.ID = u.CORP_ID");
             sqlBuilder.AppendLine(" INNER JOIN SYS_DEPARTMENT d ON d.ID = u.DEPT_ID");

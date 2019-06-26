@@ -667,6 +667,12 @@
             <param name="corpId">公司编号</param>
             <returns></returns>
         </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorpDepartPositionController.GetTreeList">
+            <summary>
+            获取树列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.CorpDepartPositionController.GetDeptList">
             <summary>
             获取所有公司下部门

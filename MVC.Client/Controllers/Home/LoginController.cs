@@ -81,7 +81,7 @@ namespace MVC.Client.Controllers.Home
                         {
                             UserInfo = userDto,
                             Ticket = FormsAuthentication.Encrypt(ticket),
-                            SysRoleVoList = this.moduleService.FindAllowVisitList(userDto.Id)
+                            SysRoleVoList = this.moduleService.FindAllowVisitList(userDto.Id,userDto.IsSuperAdmin)
                         };
                         this.userService.SetToken(RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + loginUser.LoginName, userModel.Ticket, int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
                         return base.ToSuccessObject(userModel);

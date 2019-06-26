@@ -28,6 +28,14 @@ namespace LMS.Application.MainBounderContext.DTO.Common
         /// </summary>
         public string ParentId { get; set; }
         /// <summary>
+        /// 完整值
+        /// </summary>
+        public string FullId { get; set; }
+        /// <summary>
+        /// 是否叶子节点
+        /// </summary>
+        public bool IsLeaf { get; set; }
+        /// <summary>
         /// 子列表
         /// </summary>
         public IList<TreeDTO> ChildList { get; set; }
