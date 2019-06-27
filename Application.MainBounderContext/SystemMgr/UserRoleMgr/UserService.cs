@@ -95,7 +95,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
             returnModel.DepartmentModel = new Department() { Id = model.DepartmentModel.Id, DepartName = model.DepartmentModel.DepartName };
             returnModel.PositionModel = new Position() { Id = model.PositionModel.Id, PositionName = model.PositionModel.PositionName };
 
-            return model;
+            return returnModel;
         }
 
         /// <summary>
