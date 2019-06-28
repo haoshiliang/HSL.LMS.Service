@@ -34,8 +34,14 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.OrgMgr
         public string PositionName { get; set; }
         /// <summary>
         /// 完整职位ID
+        /// 公司ID$部门ID$职位ID
         /// </summary>
         public string FullPositionId { get; set; }
+        /// <summary>
+        /// 完整职位ID_NAME
+        /// 公司ID^公司名称$部门ID^部门名称$职位ID^职位名称
+        /// </summary>
+        public string FullPositionIdName { get; set; }
         /// <summary>
         /// 是否选择
         /// </summary>

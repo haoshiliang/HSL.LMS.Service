@@ -59,7 +59,8 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr
             StringBuilder sBuilder = new StringBuilder();
             sBuilder.AppendLine("SELECT c.ID AS CorpId,c.CORP_NAME AS CorpName,d.ID AS DepartId,d.DEPART_NAME AS DepartName,");
             sBuilder.AppendLine("p.ID AS PositionId,p.POSITION_NAME AS PositionName,");
-            sBuilder.AppendLine("c.ID || '^' || c.CORP_NAME || '$' || d.ID || '^' || d.DEPART_NAME || '$' || p.ID || '^' || p.POSITION_NAME AS FullPositionId");
+            sBuilder.AppendLine("c.ID || '$' || d.ID || '$' || p.ID  AS FullPositionId,");
+            sBuilder.AppendLine("c.ID || '^' || c.CORP_NAME || '$' || d.ID || '^' || d.DEPART_NAME || '$' || p.ID || '^' || p.POSITION_NAME AS FullPositionIdName");
             sBuilder.AppendLine("  FROM SYS_CORP_DEPART_POSITION cdp");
             sBuilder.AppendLine(" INNER JOIN SYS_CORPORATION c ON c.ID = cdp.CORP_ID");
             sBuilder.AppendLine(" INNER JOIN SYS_DEPARTMENT d ON d.ID = cdp.DEPART_ID");

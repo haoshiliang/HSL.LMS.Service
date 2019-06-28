@@ -228,14 +228,14 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <param name="corpId"></param>
         private void SetPostionList(IList<CorpDeptPositionDTO> list, TreeDTO treeDto,string corpId)
         {
-            var childList = list.Where(m => m.CorpId == corpId && m.DepartId == treeDto.Id).GroupBy(m => new { m.PositionId, m.PositionName, m.FullPositionId })
-                    .Select(m => new { PositionId = m.Key.PositionId, PositionName = m.Key.PositionName, FullId = m.Key.FullPositionId });
+            var childList = list.Where(m => m.CorpId == corpId && m.DepartId == treeDto.Id).GroupBy(m => new { m.PositionId, m.PositionName, m.FullPositionId, m.FullPositionIdName })
+                    .Select(m => new { PositionId = m.Key.PositionId, PositionName = m.Key.PositionName, FullId = m.Key.FullPositionId, FullIdName = m.Key.FullPositionIdName });
             foreach (var mModel in childList)
             {
-                var childTreeDto = new TreeDTO() { Id = mModel.PositionId, Name = mModel.PositionName, FullId = mModel.FullId, IsLeaf = true };
+                var childTreeDto = new TreeDTO() { Id = mModel.PositionId, Name = mModel.PositionName, FullId = mModel.FullId,FullIdName = mModel.FullIdName, IsLeaf = true };
                 treeDto.ChildList.Add(childTreeDto);
             }
-        }
+        } 
          
         #endregion
     }
