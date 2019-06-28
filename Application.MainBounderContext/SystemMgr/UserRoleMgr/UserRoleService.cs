@@ -60,6 +60,16 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// 根据用户ID取出角色列表
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public IList<string> FindByUserId(string userId)
+        {
+            return this.userRoleRepository.GetAll().Where(m => m.UserId == userId).Select(m => m.RoleId).ToList();
+        }
         
         #endregion
     }

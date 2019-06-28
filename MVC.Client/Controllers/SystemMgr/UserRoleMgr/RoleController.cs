@@ -66,6 +66,24 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
             }
         }
 
+        // GET: api/Role
+        /// <summary>
+        /// 获取所有角色列表
+        /// </summary>
+        /// <returns></returns>
+        public object Get()
+        {
+            try
+            {
+                var model = this.roleService.FindNoPageList();
+                return base.ToSuccessObject(model);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
         // GET: api/Role/5
         /// <summary>
         /// 获取角色信息

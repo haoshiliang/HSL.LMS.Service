@@ -817,13 +817,19 @@
             </summary>
             <param name="userRoleService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.Get">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.GetByUserId(System.String)">
             <summary>
             获取用户角色列表
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.Post(System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.GetByRoleId(System.String)">
+            <summary>
+            获取用户角色列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.Post(System.Collections.Generic.IList{LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity.UserRole})">
             <summary>
             添加角色信息
             </summary>
@@ -890,6 +896,12 @@
         <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Post(LMS.Domain.Seedwork.QueryWhere)">
             <summary>
             获取角色列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleController.Get">
+            <summary>
+            获取所有角色列表
             </summary>
             <returns></returns>
         </member>

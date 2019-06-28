@@ -31,6 +31,12 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         void Delete(string id);
 
         /// <summary>
+        /// 取出不分页角色列表
+        /// </summary>
+        /// <returns></returns>
+        ICollection<RoleDTO> FindNoPageList();
+
+        /// <summary>
         /// 取出角色列表
         /// </summary>
         /// <returns></returns>

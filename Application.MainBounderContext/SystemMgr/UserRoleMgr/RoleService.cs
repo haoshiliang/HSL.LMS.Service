@@ -87,6 +87,21 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         }
 
         /// <summary>
+        /// 取出不分页角色列表
+        /// </summary>
+        /// <returns></returns>
+        public ICollection<RoleDTO> FindNoPageList()
+        {
+            var list = roleRepository.GetAll();
+            var dtoList = new List<RoleDTO>();
+            foreach (var m in list)
+            {
+                dtoList.Add(m.ProjectedAs<RoleDTO>());
+            }
+            return dtoList;
+        }
+
+        /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>

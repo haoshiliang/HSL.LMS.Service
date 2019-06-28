@@ -42,12 +42,32 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
 
         #region API
 
-        // GET: api/Role
+        // GET: api/UserRole/GetByUserId
         /// <summary>
         /// 获取用户角色列表
         /// </summary>
         /// <returns></returns>
-        public object Get()
+        [Route("api/UserRole/GetByUserId")]
+        public object GetByUserId(string userId)
+        {
+            try
+            {
+                var list = this.userRoleService.FindByUserId(userId);
+                return base.ToSuccessObject(list);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        // GET: api/UserRole/GetByRoleId
+        /// <summary>
+        /// 获取用户角色列表
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/UserRole/GetByRoleId")]
+        public object GetByRoleId(string roleId)
         {
             try
             {
@@ -60,23 +80,22 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
             }
         }
 
-        // POST: api/Role
+        // POST: api/UserRole
         /// <summary>
         /// 添加角色信息
         /// </summary>
         /// <param name="value"></param>
-        public object Post([FromBody]string value)
+        public object Post([FromBody]IList<UserRole> value)
         {
             try
             {
-                var list = JsonConvert.DeserializeObject<List<UserRole>>(value);
-                if (!list.FirstOrDefault().IsRoleMaster)
+                if (!value.FirstOrDefault().IsRoleMaster)
                 {
-                    this.userRoleService.Add(list, list.FirstOrDefault().UserId, null);
+                    this.userRoleService.Add(value, value.FirstOrDefault().UserId, null);
                 }
                 else
                 {
-                    this.userRoleService.Add(list, null, list.FirstOrDefault().RoleId);
+                    this.userRoleService.Add(value, null, value.FirstOrDefault().RoleId);
                 }
 
                 return base.ToSuccessObject();
