@@ -829,6 +829,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.AddRoleUser(System.Collections.Generic.IList{LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity.UserRole})">
+            <summary>
+            添加角色信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.DelRoleUser(System.Collections.Generic.IList{LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity.UserRole})">
+            <summary>
+            添加角色信息
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController.Post(System.Collections.Generic.IList{LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity.UserRole})">
             <summary>
             添加角色信息

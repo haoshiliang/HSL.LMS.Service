@@ -37,6 +37,53 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         #region 接口实现
 
         /// <summary>
+        /// 添加角色用户
+        /// </summary>
+        /// <param name="userRoleList"></param>
+        public void AddRoleUser(IList<UserRole> userRoleList)
+        {
+            try
+            {
+                userRoleRepository.UnitOfWork.BeginTrans();
+                foreach (var m in userRoleList)
+                {
+                    m.Id = Guid.NewGuid().ToString();
+                    userRoleRepository.Add(m);
+                }
+                userRoleRepository.SaveChanges();
+                userRoleRepository.UnitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                userRoleRepository.UnitOfWork.Rollback();
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 删除角色用户
+        /// </summary>
+        /// <param name="userRoleList"></param>
+        public void DelRoleUser(IList<UserRole> userRoleList)
+        {
+            try
+            {
+                userRoleRepository.UnitOfWork.BeginTrans();
+                foreach (var m in userRoleList)
+                {
+                    userRoleRepository.BatchRemore(m.UserId, m.RoleId);
+                }
+                userRoleRepository.SaveChanges();
+                userRoleRepository.UnitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                userRoleRepository.UnitOfWork.Rollback();
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// 添加
         /// </summary>
         /// <param name="model"></param>
@@ -45,13 +92,16 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
             try
             {
                 userRoleRepository.UnitOfWork.BeginTrans();
+
+                var addList = userRoleList.Where(m => m.RoleId != "" && m.UserId != "");
                 userRoleRepository.BatchRemore(userId, roleId);
-                foreach (var m in userRoleList)
+                foreach (var m in addList)
                 {
                     m.Id = Guid.NewGuid().ToString();
                     userRoleRepository.Add(m);
                 }
                 userRoleRepository.SaveChanges();
+
                 userRoleRepository.UnitOfWork.Commit();
             }
             catch(Exception ex)

@@ -80,6 +80,54 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
             }
         }
 
+        // POST: api/UserRole/AddRoleUser
+        /// <summary>
+        /// 添加角色信息
+        /// </summary>
+        /// <param name="value"></param>
+        [Route("api/UserRole/AddRoleUser")]
+        [HttpPost]
+        public object AddRoleUser([FromBody]IList<UserRole> value)
+        {
+            try
+            {
+                this.userRoleService.AddRoleUser(value);
+                return base.ToSuccessObject();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                return base.ToFailureObject(dbEx.Message);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        // POST: api/UserRole/AddRoleUser
+        /// <summary>
+        /// 添加角色信息
+        /// </summary>
+        /// <param name="value"></param>
+        [Route("api/UserRole/DelRoleUser")]
+        [HttpPost]
+        public object DelRoleUser([FromBody]IList<UserRole> value)
+        {
+            try
+            {
+                this.userRoleService.DelRoleUser(value);
+                return base.ToSuccessObject();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                return base.ToFailureObject(dbEx.Message);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
         // POST: api/UserRole
         /// <summary>
         /// 添加角色信息

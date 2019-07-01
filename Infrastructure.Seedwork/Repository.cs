@@ -208,16 +208,16 @@ namespace LMS.Infrastructure.Seedwork
                         string[] fields = whereItem.Field.Split('|');
                         if (fields.Length > 0)
                         {
-                            foreach (var field in fields)
+                            for (int i = 0, len = fields.Length; i < len; i++)
                             {
-                                whereStr += this.GetCondition(field, whereItem.ParamName, whereItem.Operator, whereItem.Value, whereItem.Exists) + " OR ";
+                                whereStr += this.GetCondition(fields[i], whereItem.ParamName + i.ToString(), whereItem.Operator, whereItem.Value, whereItem.Exists) + " OR ";
+                                if (whereItem.Operator.ToLower() != "in")
+                                {
+                                    paramNameList.Add(whereItem.ParamName+i.ToString());
+                                    paramValueList.Add(this.GetParamValue(whereItem.Value, whereItem.DataType.ToString(), whereItem.Operator));
+                                }
                             }
                             whereBuilder.AppendLine("AND (" + whereStr.Substring(0, whereStr.Length - 4) + ")");
-                        }
-                        if (whereItem.Operator.ToLower() != "in")
-                        {
-                            paramNameList.Add(whereItem.ParamName);
-                            paramValueList.Add(this.GetParamValue(whereItem.Value, whereItem.DataType.ToString(), whereItem.Operator));
                         }
                     }
                 }
@@ -495,7 +495,7 @@ namespace LMS.Infrastructure.Seedwork
         private string GetCondition(string queryField, string paramName, string operationType, string queryValue, string exists)
         {
             string condition = "";
-            switch (operationType)
+            switch (operationType.ToLower())
             {
                 case "in":
                     condition = string.Format("{0} {1} ({2})", queryField, operationType, this.GetInValue(queryValue));

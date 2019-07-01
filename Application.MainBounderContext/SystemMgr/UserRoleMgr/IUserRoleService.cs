@@ -11,6 +11,18 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
     public interface IUserRoleService
     {
         /// <summary>
+        /// 添加角色用户
+        /// </summary>
+        /// <param name="userRoleList"></param>
+        void AddRoleUser(IList<UserRole> userRoleList);
+
+        /// <summary>
+        /// 删除角色用户
+        /// </summary>
+        /// <param name="userRoleList"></param>
+        void DelRoleUser(IList<UserRole> userRoleList);
+
+        /// <summary>
         /// 添加用户角色
         /// </summary>
         /// <param name="userRoleList">角色用户列表</param>
