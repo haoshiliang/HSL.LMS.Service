@@ -52,5 +52,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// <param name="id">模块编号</param>
         /// <returns></returns>
         ICollection<Module> FindFunctionList(string id);
+
+        /// <summary>
+        /// 获取可用的模块及功能树列表
+        /// </summary>
+        /// <returns></returns>
+        ICollection<ModuleDTO> FindModuleFunctionList();
     }
 }

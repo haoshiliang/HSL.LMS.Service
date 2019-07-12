@@ -16,5 +16,12 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// <param name="modelList">角色模块</param>
         /// <param name="roleId">角色编号</param>
         void Add(IList<RoleModule> modelList, string roleId);
+
+        /// <summary>
+        /// 获取角色列表
+        /// </summary>
+        /// <param name="roleId">角色ID</param>
+        /// <returns></returns>
+        IList<string> FindList(string roleId);
     }
 }

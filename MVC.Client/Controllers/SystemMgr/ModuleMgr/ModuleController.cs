@@ -41,6 +41,25 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
 
         #region API
 
+        // GET: api/ModuleFunction
+        /// <summary>
+        /// 获取模块功能列表
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/ModuleFunction")]
+        public object GetModuleFunction()
+        {
+            try
+            {
+                var list = this.moduleService.FindModuleFunctionList();
+                return base.ToSuccessObject(list);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
         // GET: api/Module
         /// <summary>
         /// 获取模块列表

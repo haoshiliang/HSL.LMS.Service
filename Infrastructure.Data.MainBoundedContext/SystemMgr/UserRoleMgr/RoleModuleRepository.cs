@@ -32,8 +32,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.UserRoleMgr
             try
             {
                 sqlBuilder.AppendLine("DELETE FROM SYS_ROLE_MODULE rm");
-                sqlBuilder.AppendLine(" WHERE 1 = 1");
-                sqlBuilder.AppendLine("AND su.ROLE_ID = @RoleId");
+                sqlBuilder.AppendLine(" WHERE rm.ROLE_ID = @RoleId");
 
                 base.ExecuteSql(sqlBuilder.ToString(), new string[] { "RoleId" }, new object[] { roleId });
             }

@@ -42,13 +42,35 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
         /// <param name="modelList">模块列表</param>
         public void Add(IList<RoleModule> modelList,string roleId)
         {
-            this.roleModuleRepository.BatchRemore(roleId);
-            foreach(var m in modelList)
+            try
             {
-                m.Id = Guid.NewGuid().ToString();
-                this.roleModuleRepository.Add(m);
+                this.roleModuleRepository.UnitOfWork.BeginTrans();
+
+                this.roleModuleRepository.BatchRemore(roleId);
+                foreach (var m in modelList)
+                {
+                    m.Id = Guid.NewGuid().ToString();
+                    this.roleModuleRepository.Add(m);
+                }
+                this.roleModuleRepository.SaveChanges();
+
+                this.roleModuleRepository.UnitOfWork.Commit();
             }
-            this.roleModuleRepository.SaveChanges();
+            catch
+            {
+                this.roleModuleRepository.UnitOfWork.Rollback();
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取角色列表
+        /// </summary>
+        /// <param name="roleId">角色ID</param>
+        /// <returns></returns>
+        public IList<string> FindList(string roleId)
+        {
+            return this.roleModuleRepository.GetList(m=>m.RoleId == roleId).Select(m=>m.ModuleId).ToList();
         }
         
         #endregion

@@ -42,16 +42,16 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
 
         #region API
 
-        // GET: api/Role
+        // GET: api/RoleModule
         /// <summary>
         /// 获取用户角色列表
         /// </summary>
         /// <returns></returns>
-        public object Get()
+        public object Get(string roleId)
         {
             try
             {
-                var list = new List<string>();
+                var list = this.roleModuleService.FindList(roleId);
                 return base.ToSuccessObject(list);
             }
             catch (Exception ex)
@@ -60,18 +60,16 @@ namespace MVC.Client.Controllers.SystemMgr.UserRoleMgr
             }
         }
 
-        // POST: api/Role
+        // POST: api/RoleModule
         /// <summary>
         /// 添加角色模块信息
         /// </summary>
-        /// <param name="value"></param>
-        public object Post([FromBody]string value)
+        /// <param name="model"></param>
+        public object Post([FromBody]Dictionary<string,IList<RoleModule>> model)
         {
             try
             {
-                var list = JsonConvert.DeserializeObject<List<RoleModule>>(value);
-                this.roleModuleService.Add(list, list.FirstOrDefault().RoleId);
-
+                this.roleModuleService.Add(model.FirstOrDefault().Value, model.FirstOrDefault().Key);
                 return base.ToSuccessObject();
             }
             catch (DbEntityValidationException dbEx)

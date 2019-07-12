@@ -70,8 +70,9 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
 
                 //删除模块功能
                 moduleRepository.RemoveFunction(fList.FirstOrDefault().ParentId);
+                var addList = fList.Where(m => m.Id != "-1");
                 //添加模块功能
-                foreach (var m in fList)
+                foreach (var m in addList)
                 {
                     m.IsFunction = true;
                     m.GenerateNewIdentity();
@@ -155,6 +156,21 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
             return funList;
         }
 
+        /// <summary>
+        /// 获取可用的模块及功能树列表
+        /// </summary>
+        /// <returns></returns>
+        public ICollection<ModuleDTO> FindModuleFunctionList()
+        {
+            var mList = moduleRepository.GetTreeList<ModuleDTO>(true).ToList();
+            var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString() && m.IsEnabled==1).OrderBy(m => m.Code);
+            foreach (var m in treeList)
+            {
+                m.ChildList = this.GetMFunctionChildList(m.Id, mList).ToList();
+            }
+            return treeList.ToList();
+        }
+
         #endregion
 
         #region 私有函数
@@ -180,6 +196,22 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
                 else
                     t.FunctionList = mList.Where(m => m.ParentId == t.Id && m.IsFunction == 1).ToList().ToDictionary(key => key.Code, value => value.Id);
                 t.ChildList = this.GetChildList(t.Id, mList, id, isEnabled).ToList();
+            }
+            return treeList;
+        }
+
+        /// <summary>
+        /// 取出子模块功能
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <param name="mList"></param>
+        /// <returns></returns>
+        private IEnumerable<ModuleDTO> GetMFunctionChildList(string parentId, IEnumerable<ModuleDTO> mList)
+        {
+            var treeList = mList.Where(m => m.ParentId == parentId && m.IsEnabled == 1).OrderBy(m => m.Code).ToList();
+            foreach (var t in treeList)
+            {
+                t.ChildList = this.GetMFunctionChildList(t.Id,mList).ToList();
             }
             return treeList;
         }

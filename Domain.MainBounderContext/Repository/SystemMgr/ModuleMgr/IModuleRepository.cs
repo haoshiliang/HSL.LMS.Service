@@ -28,7 +28,8 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Repository
         /// 取出可访问模块树列表
         /// </summary>
         /// <typeparam name="DTO"></typeparam>
+        /// <param name="isShowFunction">是否显示功能</param>
         /// <returns></returns>
-        IEnumerable<DTO> GetTreeList<DTO>() where DTO : class;
+        IEnumerable<DTO> GetTreeList<DTO>(bool isShowFunction = false) where DTO : class;
     }
 }

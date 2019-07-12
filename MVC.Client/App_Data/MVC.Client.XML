@@ -554,6 +554,12 @@
             </summary>
             <param name="moduleService"></param>
         </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.GetModuleFunction">
+            <summary>
+            获取模块功能列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Get">
             <summary>
             获取模块列表
@@ -789,17 +795,17 @@
             </summary>
             <param name="roleModuleService"></param>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.Get">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.Get(System.String)">
             <summary>
             获取用户角色列表
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.Post(System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.UserRoleMgr.RoleModuleController.Post(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.IList{LMS.Domain.MainBounderContext.SystemMgr.UserRoleMgr.Entity.RoleModule}})">
             <summary>
             添加角色模块信息
             </summary>
-            <param name="value"></param>
+            <param name="model"></param>
         </member>
         <member name="T:MVC.Client.Controllers.SystemMgr.UserRoleMgr.UserRoleController">
             <summary>
