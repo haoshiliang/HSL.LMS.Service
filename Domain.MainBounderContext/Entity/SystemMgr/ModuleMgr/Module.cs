@@ -51,6 +51,12 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Entity
         [Required]
         public virtual bool IsFunction { get; set; }
         /// <summary>
+        /// 是否允许设置查询
+        /// </summary>
+        [Column("IS_ALLOW_QUERY")]
+        [Required]
+        public virtual bool IsAllowQuery { get; set; }
+        /// <summary>
         /// 是否可用
         /// </summary>
         [Column("IS_ENABLED")]

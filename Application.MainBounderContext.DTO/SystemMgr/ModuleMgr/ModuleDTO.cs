@@ -80,6 +80,10 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
         /// </summary>
         public virtual int IsEnabled { get; set; }
         /// <summary>
+        /// 是否允许设置查询
+        /// </summary>
+        public virtual int IsAllowQuery { get; set; }
+        /// <summary>
         /// 模块层级
         /// </summary>
         public virtual int ModuleLevel { get; set; }
