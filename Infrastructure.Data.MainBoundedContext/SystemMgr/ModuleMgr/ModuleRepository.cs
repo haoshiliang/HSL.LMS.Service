@@ -92,27 +92,37 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
         /// </summary>
         /// <typeparam name="DTO"></typeparam>
         /// <param name="isShowFunction">是否显示功能</param>
+        /// <param name="isOnlyEnable">是否只显示可用模块</param>
+        /// <param name="isOnlyAllowQuery">显示只允许添加查询条件的模块</param>
         /// <returns></returns>
-        public IEnumerable<DTO> GetTreeList<DTO>(bool isShowFunction = false) where DTO : class
+        public IEnumerable<DTO> GetTreeList<DTO>(bool isShowFunction = false, bool isOnlyEnable = true, bool isOnlyAllowQuery = false) where DTO : class
         {
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendLine("WITH MODULE_DT(ID,PARENT_ID,PARENT_NAME,CODE,NAME,ICON,MODULE_PATH,IS_ENABLED,MODULE_LEVEL)");
+            sqlBuilder.AppendLine("WITH MODULE_DT(ID,PARENT_ID,PARENT_NAME,CODE,NAME,ICON,MODULE_PATH,IS_ENABLED,MODULE_LEVEL,IS_FUNCTION,IS_ALLOW_QUERY)");
             sqlBuilder.AppendLine("  AS (");
-            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,'根模块' AS PARENT_NAME,m.CODE,m.NAME,m.ICON,m.MODULE_PATH,m.IS_ENABLED,1 AS MODULE_LEVEL");
+            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,'根模块' AS PARENT_NAME,m.CODE,m.NAME,m.ICON,m.MODULE_PATH,m.IS_ENABLED,1 AS MODULE_LEVEL,m.IS_FUNCTION,m.IS_ALLOW_QUERY");
             sqlBuilder.AppendLine("         FROM SYS_MODULE m");
             sqlBuilder.AppendLine("        WHERE m.PARENT_ID = '00000000-0000-0000-0000-000000000000'");
             sqlBuilder.AppendLine("        UNION ALL");
-            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,TO_CHAR(md.NAME),m.CODE,m.NAME,m.ICON,m.MODULE_PATH,m.IS_ENABLED,md.MODULE_LEVEL+1 AS MODULE_LEVEL");
+            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,TO_CHAR(md.NAME),m.CODE,m.NAME,m.ICON,m.MODULE_PATH,m.IS_ENABLED,md.MODULE_LEVEL+1 AS MODULE_LEVEL,m.IS_FUNCTION,m.IS_ALLOW_QUERY");
             sqlBuilder.AppendLine("         FROM SYS_MODULE m");
             sqlBuilder.AppendLine("        INNER JOIN MODULE_DT md ON m.PARENT_ID = md.ID");
-            if (!isShowFunction)
-            {
-                sqlBuilder.AppendLine("        WHERE m.IS_FUNCTION = '0'");
-            }
             sqlBuilder.AppendLine("     )");
             sqlBuilder.AppendLine("SELECT ID,PARENT_ID AS ParentId,PARENT_NAME AS ParentName,CODE,NAME,ICON,MODULE_PATH AS ModulePath,IS_ENABLED AS IsEnabled,MODULE_LEVEL AS ModuleLevel");
             sqlBuilder.AppendLine("  FROM MODULE_DT");
-
+            sqlBuilder.AppendLine(" WHERE 1=1");
+            if (!isShowFunction)
+            {
+                sqlBuilder.AppendLine("AND IS_FUNCTION = '0'");
+            }
+            if (isOnlyEnable)
+            {
+                sqlBuilder.AppendLine("AND IS_ENABLED = '1'");
+            }
+            if (isOnlyAllowQuery)
+            {
+                sqlBuilder.AppendLine("AND IS_ALLOW_QUERY = '1'");
+            }
             return base.ExecuteQuerySql<DTO>(sqlBuilder.ToString(), null, null);
         }
     }

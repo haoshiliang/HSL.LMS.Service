@@ -97,6 +97,24 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
             }
         }
 
+        /// <summary>
+        /// 获取可用模块列表
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/Module/EnableTreeList")]
+        public object GetEnableTreeList()
+        {
+            try
+            {
+                var list = this.moduleService.FindEnableTreeList();
+                return base.ToSuccessObject(list);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
         // GET: api/Module/5
         /// <summary>
         /// 获取模块信息

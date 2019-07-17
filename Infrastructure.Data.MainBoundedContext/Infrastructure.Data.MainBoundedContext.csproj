@@ -50,6 +50,7 @@
     <Compile Include="SystemMgr\OrgMgr\CorpDepartPositionRepository.cs" />
     <Compile Include="SystemMgr\OrgMgr\PositionRepository.cs" />
     <Compile Include="SystemMgr\OrgMgr\DepartmentRepository.cs" />
+    <Compile Include="SystemMgr\QueryMgr\ModuleQueryRepository.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\RoleModuleRepository.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\UserRoleRepository.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\UserRepository.cs" />

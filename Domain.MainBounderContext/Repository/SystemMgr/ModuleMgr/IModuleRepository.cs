@@ -30,6 +30,6 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Repository
         /// <typeparam name="DTO"></typeparam>
         /// <param name="isShowFunction">是否显示功能</param>
         /// <returns></returns>
-        IEnumerable<DTO> GetTreeList<DTO>(bool isShowFunction = false) where DTO : class;
+        IEnumerable<DTO> GetTreeList<DTO>(bool isShowFunction = false, bool isOnlyEnable = true, bool isOnlyAllowQuery = false) where DTO : class;
     }
 }

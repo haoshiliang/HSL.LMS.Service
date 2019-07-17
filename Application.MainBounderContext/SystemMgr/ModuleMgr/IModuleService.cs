@@ -35,6 +35,12 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         void Delete(string id);
 
         /// <summary>
+        /// 获取可用模块儿树列表
+        /// </summary>
+        /// <returns></returns>
+        ICollection<ModuleDTO> FindEnableTreeList();
+
+        /// <summary>
         /// 获取模块儿树列表
         /// </summary>
         /// <returns></returns>

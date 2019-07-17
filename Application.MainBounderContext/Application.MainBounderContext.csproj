@@ -51,6 +51,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemMgr\OrgMgr\IPositionService.cs" />
     <Compile Include="SystemMgr\OrgMgr\IDepartmentService.cs" />
+    <Compile Include="SystemMgr\QueryMgr\IModuleQueryService.cs" />
+    <Compile Include="SystemMgr\QueryMgr\ModuleQueryService.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\IRoleModuleService.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\IUserRoleService.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\IUserService.cs" />

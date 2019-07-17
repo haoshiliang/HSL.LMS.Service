@@ -574,6 +574,12 @@
             <param name="isTree">是否树列表</param>
             <returns></returns>
         </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.GetEnableTreeList">
+            <summary>
+            获取可用模块列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.ModuleMgr.ModuleController.Get(System.String)">
             <summary>
             获取模块信息

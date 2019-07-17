@@ -140,6 +140,21 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         }
 
         /// <summary>
+        /// 获取可用模块儿树列表
+        /// </summary>
+        /// <returns></returns>
+        public ICollection<ModuleDTO> FindEnableTreeList()
+        {
+            var mList = moduleRepository.GetTreeList<ModuleDTO>(false, true, true).ToList();
+            var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString()).OrderBy(m => m.Code);
+            foreach (var m in treeList)
+            {
+                m.ChildList = this.GetChildList(m.Id, mList).ToList();
+            }
+            return treeList.ToList();
+        }
+
+        /// <summary>
         /// 获取功能列表
         /// </summary>
         /// <param name="id">模块编号</param>
