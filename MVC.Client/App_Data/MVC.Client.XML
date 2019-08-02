@@ -459,6 +459,29 @@
             <param name="error"></param>
             <returns></returns>
         </member>
+        <member name="T:MVC.Client.Controllers.CommonMgr.CommonController">
+            <summary>
+            公共数据
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.CommonMgr.CommonController.GetControlType">
+            <summary>
+            获取控件类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.CommonMgr.CommonController.GetDataType">
+            <summary>
+            获取数据类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.CommonMgr.CommonController.GetDateDefalutValueType">
+            <summary>
+            获取数据类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:MVC.Client.Controllers.Home.LoginController">
             <summary>
             系统登录
@@ -780,6 +803,47 @@
             <param name="value"></param>
         </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.OrgMgr.DepartmentController.Delete(System.String)">
+            <summary>
+            删除部门信息
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController">
+            <summary>
+            模块查询设置
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.moduleQueryService">
+            <summary>
+            模块查询服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.#ctor(LMS.Application.MainBounderContext.SystemMgr.QueryMgr.IModuleQueryService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="moduleQueryService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Post(LMS.Domain.Seedwork.QueryWhere)">
+            <summary>
+            获取部门列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Get(System.String)">
+            <summary>
+            获取部门信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Post(LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Entity.ModuleQuery)">
+            <summary>
+            添加部门信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Delete(System.String)">
             <summary>
             删除部门信息
             </summary>

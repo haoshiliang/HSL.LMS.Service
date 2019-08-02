@@ -47,6 +47,7 @@
     <Compile Include="SystemMgr\OrgMgr\CorpDeptPositionDTO.cs" />
     <Compile Include="SystemMgr\OrgMgr\DeptPositionDTO.cs" />
     <Compile Include="SystemMgr\OrgMgr\CorporationDTO.cs" />
+    <Compile Include="SystemMgr\QueryMgr\ModuleQueryDTO.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\UserDTO.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\RoleDTO.cs" />
   </ItemGroup>

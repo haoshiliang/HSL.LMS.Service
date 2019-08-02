@@ -1,10 +1,13 @@
-﻿using LMS.Domain.MainBounderContext.Repository.SystemMgr.QueryMgr;
+﻿using LMS.Application.MainBounderContext.DTO.SystemMgr.QueryMgr;
+using LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Repository;
 using LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Entity;
+using LMS.Domain.Seedwork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LMS.Application.Seedwork;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
 {
@@ -40,7 +43,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         /// <param name="model"></param>
         public void AddOrModity(ModuleQuery model)
         {
-            model.PyCode = model.ModuleQueryName.ToConvertPyCode();
             if (!string.IsNullOrEmpty(model.Id))
             {
                 model.LastUpdateDate = DateTime.Now;
@@ -70,18 +72,38 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         /// 取出部门列表
         /// </summary>
         /// <returns></returns>
-        public ICollection<ModuleQuery> FindList(Pagination pagination, QueryParam queryParam)
+        public ICollection<ModuleQueryDTO> FindList(Pagination pagination, QueryParam queryParam)
         {
-            queryParam.WhereList.Add(
-            new WhereParam()
+            var list = moduleQueryRepository.GetPaged<ModuleQueryDTO>(pagination, queryParam).ToList();
+            var dataTypeList = QueryConfig.GetEnumList(typeof(QueryConfig.DataType));
+            var contrlTypeList = QueryConfig.GetEnumList(typeof(QueryConfig.ControlType));
+            var defaultValueList = QueryConfig.GetEnumList(typeof(QueryConfig.DateDefalutValueType));
+            foreach(var m in list)
             {
-                Field = "IsDel",
-                IsDefaultQuery = true,
-                Operator = "=",
-                DataType = QueryConfig.DataType.Bool,
-                Value = "False"
-            });
-            return moduleQueryRepository.GetPaged(pagination, queryParam).ToList();
+                m.DataType = dataTypeList.Where(d => d["Id"] == m.DataType).FirstOrDefault()["Name"];
+                m.ControlType = contrlTypeList.Where(d => d["Id"] == m.ControlType).FirstOrDefault()["Name"];
+                if (m.ControlType == "2")
+                {
+                    m.DefaultValue = defaultValueList.Where(d => d["Id"] == m.DefaultValue).FirstOrDefault()["Name"];
+                }
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 根据模块ID获取列表
+        /// </summary>
+        /// <param name="mId"></param>
+        /// <returns></returns>
+        public ICollection<ModuleQueryDTO> FindByModuleList(string mId, string id)
+        {
+            var returnList = new List<ModuleQueryDTO>();
+            var list = moduleQueryRepository.GetList(m => m.ModuleId == mId && m.Id != id);
+            foreach (var m in list)
+            {
+                returnList.Add(m.ProjectedAs<ModuleQueryDTO>());
+            }
+            return returnList;
         }
 
         /// <summary>
@@ -91,8 +113,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         public void Delete(string id)
         {
             var model = FindById(id);
-            model.IsDel = true;
-            moduleQueryRepository.Modity(model);
+            moduleQueryRepository.Remove(model);
             moduleQueryRepository.SaveChanges();
         }
 

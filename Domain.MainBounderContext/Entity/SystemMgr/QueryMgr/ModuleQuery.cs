@@ -40,71 +40,81 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Entity
         [Column("PARAM_NAME")]
         [MaxLength(64)]
         [Required]
-        public string ParamName { get; set; }
+        public virtual string ParamName { get; set; }
         /// <summary>
         /// 操作类型
         /// </summary>
         [Column("OPERATOR_TYPE")]
         [MaxLength(32)]
         [Required]
-        public string Operator { get; set; }
+        public virtual string Operator { get; set; }
         /// <summary>
         /// 默认查询值
         /// </summary>
         [Column("DEFAULT_VALUE")]
         [MaxLength(128)]
-        public string DefaultValue { get; set; }
+        public virtual string DefaultValue { get; set; }
         /// <summary>
         /// 下拉选项值
         /// </summary>
         [Column("DOWN_LIST_VALUE")]
         [MaxLength(512)]
-        public string DownListValue { get; set; }
+        public virtual string DownListValue { get; set; }
         /// <summary>
         /// Exists条件
         /// </summary>
         [Column("EXISTS_VALUE")]
         [MaxLength(512)]
-        public string Exists { get; set; }
+        public virtual string Exists { get; set; }
         /// <summary>
         /// 目标参数名
         /// </summary>
         [Column("TARGET_NAME")]
         [MaxLength(64)]
-        public string TargetName { get; set; }
+        public virtual string TargetName { get; set; }
         /// <summary>
         /// 数据类型
         /// </summary>
         [Column("DATA_TYPE")]
-        public int DataType { get; set; }
+        public virtual int DataType { get; set; }
         /// <summary>
         /// 控件类型
         /// </summary>
         [Column("CONTROL_TYPE")]
-        public int ControlType { get; set; }
+        public virtual int ControlType { get; set; }
         /// <summary>
         /// 是否默认查询
         /// </summary>
         [Column("IS_DEFAULT_QUERY")]
-        public bool IsDefaultQuery { get; set; }
+        public virtual bool IsDefaultQuery { get; set; }
         /// <summary>
         /// 关联字段1对应的控件参数名
         /// </summary>
         [Column("RELATIONID_1")]
         [MaxLength(64)]
-        public string RelationId_1 { get; set; }
+        public virtual string RelationId_1 { get; set; }
         /// <summary>
         /// 关联字段2对应的控件参数名
         /// </summary>
         [Column("RELATIONID_2")]
         [MaxLength(64)]
-        public string RelationId_2 { get; set; }
+        public virtual string RelationId_2 { get; set; }
         /// <summary>
         /// 关联字段3对应的控件参数名
         /// </summary>
         [Column("RELATIONID_3")]
         [MaxLength(64)]
-        public string RelationId_3 { get; set; }
+        public virtual string RelationId_3 { get; set; }
+        /// <summary>
+        /// 排序字段
+        /// </summary>
+        [Column("DISPLAY_ORDER")]
+        public virtual int DisplayOrder { get; set; }
+        /// <summary>
+        /// 下拉数据来源
+        /// </summary>
+        [Column("DROPDOWN_DATASOURCE")]
+        public virtual int DropdownDataSource { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary>

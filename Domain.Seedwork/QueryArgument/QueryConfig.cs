@@ -33,13 +33,13 @@ namespace LMS.Domain.Seedwork
             /// <summary>
             /// 下拉单选框
             /// </summary>
-            [Description("下拉单选框")]
+            [Description("下拉单选")]
             ComboRadioBox = 3,
 
             /// <summary>
             /// 下拉多选框
             /// </summary>
-            [Description("下拉多选框")]
+            [Description("下拉多选")]
             ComboMultipleBox = 4,
 
             /// <summary>
@@ -70,19 +70,19 @@ namespace LMS.Domain.Seedwork
             /// 日期型
             /// </summary>
             [Description("日期型")]
-            DateTime,
+            DateTime=2,
 
             /// <summary>
             /// 数值型
             /// </summary>
             [Description("数值型")]
-            Double,
+            Double=3,
 
             /// <summary>
-            /// 布尔型
+            /// 布尔类型
             /// </summary>
-            [Description("布尔型")]
-            Bool
+            [Description("布尔类型")]
+            Bool = 4
         }
 
         /// <summary>
@@ -176,22 +176,20 @@ namespace LMS.Domain.Seedwork
         /// </summary>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        public static DataTable GetEnumList(Type type)
+        public static IList<Dictionary<string, string>> GetEnumList(Type type)
         {
-            DataTable enumDt = new DataTable();
-            enumDt.Columns.Add(new DataColumn("ID"));
-            enumDt.Columns.Add(new DataColumn("NAME"));
-            enumDt.Columns.Add(new DataColumn("VALUE"));
+            var enumDt = new List<Dictionary<string, string>>();
 
             FieldInfo[] fields = type.GetFields();
             for (int i = 1; i < fields.Length; i++)
             {
                 FieldInfo field = fields[i];
-                DataRow newRow = enumDt.NewRow();
-                newRow["ID"] = ((int)Enum.Parse(type, field.Name, true)).ToString();
-                newRow["VALUE"] = field.Name;
-                newRow["NAME"] = GetDescription(field);
-                enumDt.Rows.Add(newRow);
+                enumDt.Add(new Dictionary<string, string>()
+                {
+                    {"Id",((int)Enum.Parse(type, field.Name, true)).ToString() },
+                    {"Value",field.Name },
+                    {"Name",GetDescription(field)}
+                });
             }
             return enumDt;
         }

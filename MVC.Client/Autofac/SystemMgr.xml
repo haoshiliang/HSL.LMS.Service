@@ -102,4 +102,15 @@
     <services name="ModuleService" type="LMS.Application.MainBounderContext.SystemMgr.ModuleMgr.IModuleService,Application.MainBounderContext" />
     <injectProperties>true</injectProperties>
   </components>
+  <!--模块查询设置-->
+  <components name="ModuleQueryRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.QueryMgr.ModuleQueryRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="ModuleQueryRepository" type="LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Repository.IModuleQueryRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <components name="ModuleQueryService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.QueryMgr.ModuleQueryService, Application.MainBounderContext</type>
+    <services name="ModuleQueryService" type="LMS.Application.MainBounderContext.SystemMgr.QueryMgr.IModuleQueryService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
 </Application>
