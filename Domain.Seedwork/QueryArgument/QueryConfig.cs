@@ -176,17 +176,17 @@ namespace LMS.Domain.Seedwork
         /// </summary>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        public static IList<Dictionary<string, string>> GetEnumList(Type type)
+        public static IList<Dictionary<string, object>> GetEnumList(Type type)
         {
-            var enumDt = new List<Dictionary<string, string>>();
+            var enumDt = new List<Dictionary<string, object>>();
 
             FieldInfo[] fields = type.GetFields();
             for (int i = 1; i < fields.Length; i++)
             {
                 FieldInfo field = fields[i];
-                enumDt.Add(new Dictionary<string, string>()
+                enumDt.Add(new Dictionary<string, object>()
                 {
-                    {"Id",((int)Enum.Parse(type, field.Name, true)).ToString() },
+                    {"Id",(int)Enum.Parse(type, field.Name, true) },
                     {"Value",field.Name },
                     {"Name",GetDescription(field)}
                 });

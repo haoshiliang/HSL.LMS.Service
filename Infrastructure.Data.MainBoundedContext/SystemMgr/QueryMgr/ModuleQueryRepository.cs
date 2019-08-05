@@ -39,6 +39,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.QueryMgr
             sqlBulder.AppendLine("  LEFT JOIN SYS_MODULE_QUERY mr3 ON mr3.ID = mq.RELATIONID_3");
             sqlBulder.AppendLine(" WHERE 1=1");
             sqlBulder.AppendLine("{WHERE}");
+            sqlBulder.AppendLine("ORDER BY mq.DISPLAY_ORDER");
             return base.GetPagedSql<DTO>(sqlBulder.ToString(), pagination, queryParam).ToList();
         }
 
@@ -63,6 +64,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.QueryMgr
             sqlBulder.AppendLine("  LEFT JOIN SYS_MODULE_QUERY mr2 ON mr2.ID = mq.RELATIONID_2");
             sqlBulder.AppendLine("  LEFT JOIN SYS_MODULE_QUERY mr3 ON mr3.ID = mq.RELATIONID_3");
             sqlBulder.AppendLine(" WHERE mq.MODULE_ID=@ModuleId");
+            sqlBulder.AppendLine("ORDER BY mq.DISPLAY_ORDER");
             return base.ExecuteQuerySql<DTO>(sqlBulder.ToString(), new string[] { "ModuleId" }, new object[] { mId }, true).ToList();
         }
     }

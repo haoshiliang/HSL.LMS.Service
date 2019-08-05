@@ -88,11 +88,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
             var defaultValueList = QueryConfig.GetEnumList(typeof(QueryConfig.DateDefalutValueType));
             foreach (var m in list)
             {
-                m.DataTypeLabel = dataTypeList.Where(d => d["Id"] == m.DataType.ToString()).FirstOrDefault()["Name"];
-                m.ControlTypeLabel = contrlTypeList.Where(d => d["Id"] == m.ControlType.ToString()).FirstOrDefault()["Name"];
+                m.DataTypeLabel = dataTypeList.Where(d => d["Id"].ToString() == m.DataType.ToString()).FirstOrDefault()["Name"].ToString();
+                m.ControlTypeLabel = contrlTypeList.Where(d => d["Id"].ToString() == m.ControlType.ToString()).FirstOrDefault()["Name"].ToString();
                 if (m.ControlType.ToString() == "2")
                 {
-                    m.DefaultValue = defaultValueList.Where(d => d["Id"] == m.DefaultValue).FirstOrDefault()["Name"];
+                    m.DefaultValue = defaultValueList.Where(d => d["Id"].ToString() == m.DefaultValue).FirstOrDefault()["Name"].ToString();
                 }
             }
             return list;
