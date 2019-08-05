@@ -38,6 +38,13 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         ICollection<ModuleQueryDTO> FindByModuleList(string mId,string id);
 
         /// <summary>
+        /// 取出查询条件
+        /// </summary>
+        /// <param name="mId">模块ID</param>
+        /// <returns></returns>
+        QueryParam FindQueryParam(string mId, string userId);
+
+        /// <summary>
         /// 删除信息
         /// </summary>
         /// <param name="id"></param>

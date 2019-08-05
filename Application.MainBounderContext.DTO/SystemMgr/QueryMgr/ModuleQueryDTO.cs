@@ -47,11 +47,19 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.QueryMgr
         /// <summary>
         /// 数据类型
         /// </summary>
-        public string DataType { get; set; }
+        public int DataType { get; set; }
+        /// <summary>
+        /// 数据类型描述
+        /// </summary>
+        public string DataTypeLabel { get; set; }
         /// <summary>
         /// 控件类型
         /// </summary>
-        public string ControlType { get; set; }
+        public int ControlType { get; set; }
+        /// <summary>
+        /// 控件类型描述
+        /// </summary>
+        public string ControlTypeLabel { get; set; }
         /// <summary>
         /// 是否默认查询
         /// </summary>
@@ -72,6 +80,18 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.QueryMgr
         /// 排序字段
         /// </summary>
         public int DisplayOrder { get; set; }
+        /// <summary>
+        /// 下拉数据来源
+        /// </summary>
+        public int DropdownDataSource { get; set; }
+        /// <summary>
+        /// 下拉选项值
+        /// </summary>
+        public string DownListValue { get; set; }
+        /// <summary>
+        /// Exists条件
+        /// </summary>
+        public string ExistsValue { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary>

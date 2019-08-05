@@ -43,9 +43,9 @@ namespace LMS.Domain.Seedwork
             ComboMultipleBox = 4,
 
             /// <summary>
-            /// 下拉树单选框
+            /// 下拉公司单选框
             /// </summary>
-            [Description("下拉树单选框")]
+            [Description("下拉公司单选框")]
             ComboTreeBox = 5,
 
             /// <summary>

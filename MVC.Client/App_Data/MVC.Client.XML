@@ -826,26 +826,42 @@
         </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Post(LMS.Domain.Seedwork.QueryWhere)">
             <summary>
-            获取部门列表
+            获取模块列表
             </summary>
             <returns></returns>
         </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Get(System.String)">
             <summary>
-            获取部门信息
+            获取模块信息
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.GetByModuleId(System.String,System.String)">
+            <summary>
+            api/ModuleQuery/GetByModuleId/1
+            </summary>
+            <param name="moduleId">模块Id</param>
+            <param name="id">查询ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.GetSearchList(System.String,System.String)">
+            <summary>
+            获取每个页面的查询条件列表
+            </summary>
+            <param name="moduleId">模块ID</param>
+            <param name="userId">用户ID</param>
+            <returns></returns>
+        </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Post(LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Entity.ModuleQuery)">
             <summary>
-            添加部门信息
+            添加模块信息
             </summary>
             <param name="value"></param>
         </member>
         <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.Delete(System.String)">
             <summary>
-            删除部门信息
+            删除模块信息
             </summary>
             <param name="id"></param>
         </member>

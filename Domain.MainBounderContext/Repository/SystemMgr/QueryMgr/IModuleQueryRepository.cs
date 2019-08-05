@@ -18,5 +18,13 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Repository
         /// <param name="queryParam"></param>
         /// <returns></returns>
         IList<DTO> GetPaged<DTO>(Pagination pagination, QueryParam queryParam) where DTO : class;
+
+        /// <summary>
+        /// 获取模块儿查询列表
+        /// </summary>
+        /// <typeparam name="DTO"></typeparam>
+        /// <param name="mId">模块ID</param>
+        /// <returns></returns>
+        IList<DTO> GetListByModuleId<DTO>(string mId) where DTO : class;
     }
 }

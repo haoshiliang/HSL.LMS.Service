@@ -82,7 +82,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                     Field = "IsDel",
                     IsDefaultQuery = true,
                     Operator = "=",
-                    DataType = QueryConfig.DataType.Bool,
+                    DataType = QueryConfig.DataType.Bool.ToString(),
                     Value = "False"
                 });
             return deptRepository.GetPaged(pagination, queryParam).ToList();

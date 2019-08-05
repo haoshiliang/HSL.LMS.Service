@@ -69,8 +69,8 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Entity
         /// <summary>
         /// 目标参数名
         /// </summary>
-        [Column("TARGET_NAME")]
-        [MaxLength(64)]
+        [Column("TARGET_NAME", TypeName = "CHAR")]
+        [MaxLength(36)]
         public virtual string TargetName { get; set; }
         /// <summary>
         /// 数据类型
@@ -90,20 +90,20 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.QueryMgr.Entity
         /// <summary>
         /// 关联字段1对应的控件参数名
         /// </summary>
-        [Column("RELATIONID_1")]
-        [MaxLength(64)]
+        [Column("RELATIONID_1", TypeName = "CHAR")]
+        [MaxLength(36)]
         public virtual string RelationId_1 { get; set; }
         /// <summary>
         /// 关联字段2对应的控件参数名
         /// </summary>
-        [Column("RELATIONID_2")]
-        [MaxLength(64)]
+        [Column("RELATIONID_2", TypeName = "CHAR")]
+        [MaxLength(36)]
         public virtual string RelationId_2 { get; set; }
         /// <summary>
         /// 关联字段3对应的控件参数名
         /// </summary>
-        [Column("RELATIONID_3")]
-        [MaxLength(64)]
+        [Column("RELATIONID_3", TypeName = "CHAR")]
+        [MaxLength(36)]
         public virtual string RelationId_3 { get; set; }
         /// <summary>
         /// 排序字段

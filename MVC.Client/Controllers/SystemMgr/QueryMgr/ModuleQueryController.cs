@@ -82,17 +82,39 @@ namespace MVC.Client.Controllers.SystemMgr.QueryMgr
                 return base.ToFailureObject(ex.Message);
             }
         }
+
         /// <summary>
         /// api/ModuleQuery/GetByModuleId/1
         /// </summary>
         /// <param name="moduleId">模块Id</param>
+        /// <param name="id">查询ID</param>
         /// <returns></returns>
         [Route("api/ModuleQuery/GetByModuleId")]
-        public object GetByModuleId(string moduleId)
+        public object GetByModuleId(string moduleId,string id)
         {
             try
             {
-                var model = this.moduleQueryService.FindById(id);
+                var model = this.moduleQueryService.FindByModuleList(moduleId, id);
+                return base.ToSuccessObject(model);
+            }
+            catch (Exception ex)
+            {
+                return base.ToFailureObject(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取每个页面的查询条件列表
+        /// </summary>
+        /// <param name="moduleId">模块ID</param>
+        /// <param name="userId">用户ID</param>
+        /// <returns></returns>
+        [Route("api/ModuleQuery/GetSearchList")]
+        public object GetSearchList(string moduleId, string userId)
+        {
+            try
+            {
+                var model = this.moduleQueryService.FindQueryParam(moduleId, userId);
                 return base.ToSuccessObject(model);
             }
             catch (Exception ex)
