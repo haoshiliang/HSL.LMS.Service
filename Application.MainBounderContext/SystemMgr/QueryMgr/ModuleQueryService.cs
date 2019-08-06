@@ -173,9 +173,21 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         /// <param name="id"></param>
         public void Delete(string id)
         {
-            var model = FindById(id);
-            moduleQueryRepository.Remove(model);
-            moduleQueryRepository.SaveChanges();
+            try
+            {
+                moduleQueryRepository.UnitOfWork.BeginTrans();
+                var model = FindById(id);
+                moduleQueryRepository.Remove(model);
+                moduleQueryRepository.SaveChanges();
+                moduleQueryRepository.UnitOfWork.Commit();
+                //删除缓存
+                cacheService.Remove(RedisPrefixEnum.Sys_Module_Query_.ToString() + model.ModuleId);
+            }
+            catch
+            {
+                moduleQueryRepository.UnitOfWork.Rollback();
+                throw;
+            }
         }
 
         #endregion
