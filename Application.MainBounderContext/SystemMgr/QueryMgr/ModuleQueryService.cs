@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using LMS.Application.Seedwork;
 using LMS.Application.MainBounderContext.SystemMgr.OrgMgr;
 using LMS.Application.MainBounderContext.DTO.Common;
+using LMS.Application.Seedwork.Cache;
+using LMS.Application.Seedwork.EnumData;
 
 namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
 {
@@ -27,6 +29,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         /// </summary>
         private readonly ICorporationService corporationService;
 
+        /// <summary>
+        /// 缓存服务
+        /// </summary>
+        private readonly ICache cacheService;
+
         #endregion
 
         #region 构造方法
@@ -35,10 +42,11 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         /// 构造方法
         /// </summary>
         /// <param name="moduleQueryRepository"></param>
-        public ModuleQueryService(IModuleQueryRepository moduleQueryRepository, ICorporationService corporationService)
+        public ModuleQueryService(IModuleQueryRepository moduleQueryRepository, ICorporationService corporationService, ICache cacheService)
         {
             this.moduleQueryRepository = moduleQueryRepository;
             this.corporationService = corporationService;
+            this.cacheService = cacheService;
         }
 
         #endregion
@@ -51,19 +59,31 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         /// <param name="model"></param>
         public void AddOrModity(ModuleQuery model)
         {
-            if (!string.IsNullOrEmpty(model.Id))
+            try
             {
-                model.LastUpdateDate = DateTime.Now;
-                moduleQueryRepository.Modity(model);
+                moduleQueryRepository.UnitOfWork.BeginTrans();
+                if (!string.IsNullOrEmpty(model.Id))
+                {
+                    model.LastUpdateDate = DateTime.Now;
+                    moduleQueryRepository.Modity(model);
+                }
+                else
+                {
+                    model.GenerateNewIdentity();
+                    model.CreateDate = DateTime.Now;
+                    model.LastUpdateDate = DateTime.Now;
+                    moduleQueryRepository.Add(model);
+                }
+                moduleQueryRepository.SaveChanges();
+                moduleQueryRepository.UnitOfWork.Commit();
+                //删除缓存
+                cacheService.Remove(RedisPrefixEnum.Sys_Module_Query_.ToString() + model.ModuleId);
             }
-            else
+            catch
             {
-                model.GenerateNewIdentity();
-                model.CreateDate = DateTime.Now;
-                model.LastUpdateDate = DateTime.Now;
-                moduleQueryRepository.Add(model);
+                moduleQueryRepository.UnitOfWork.Rollback();
+                throw;
             }
-            moduleQueryRepository.SaveChanges();
         }
 
         /// <summary>
@@ -122,19 +142,27 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
         public QueryParam FindQueryParam(string mId, string userId)
         {
             var returnValue = new QueryParam();
-            var list = moduleQueryRepository.GetListByModuleId<ModuleQueryDTO>(mId);
-            foreach (var m in list)
+            if (!this.cacheService.Exists(RedisPrefixEnum.Sys_Module_Query_.ToString() + mId))
             {
-                var whereParam = m.ProjectedAs<ModuleQueryDTO, WhereParam>();
-                whereParam.IsDefaultQuery = (m.IsDefaultQuery == 1);
-                whereParam.Exists = m.ExistsValue;
-                whereParam.ControlType = ((QueryConfig.ControlType)m.ControlType).ToString();
-                whereParam.DataType = ((QueryConfig.DataType)m.DataType).ToString();
-                //获取绑定列表
-                this.GetBinderList(whereParam, m, list, userId);
-                //获取默认值
-                this.GetDefaultValue(whereParam, m);
-                returnValue.WhereList.Add(whereParam);
+                var list = moduleQueryRepository.GetListByModuleId<ModuleQueryDTO>(mId);
+                foreach (var m in list)
+                {
+                    var whereParam = m.ProjectedAs<ModuleQueryDTO, WhereParam>();
+                    whereParam.IsDefaultQuery = (m.IsDefaultQuery == 1);
+                    whereParam.Exists = m.ExistsValue;
+                    whereParam.ControlType = ((QueryConfig.ControlType)m.ControlType).ToString();
+                    whereParam.DataType = ((QueryConfig.DataType)m.DataType).ToString();
+                    //获取绑定列表
+                    this.GetBinderList(whereParam, m, list, userId);
+                    //获取默认值
+                    this.GetDefaultValue(whereParam, m);
+                    returnValue.WhereList.Add(whereParam);
+                }
+                this.cacheService.Insert(RedisPrefixEnum.Sys_Module_Query_.ToString() + mId, returnValue);
+            }
+            else
+            {
+                returnValue = this.cacheService.Get<QueryParam>(RedisPrefixEnum.Sys_Module_Query_.ToString() + mId);
             }
             return returnValue;
         }

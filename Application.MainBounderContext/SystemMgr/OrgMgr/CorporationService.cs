@@ -138,9 +138,10 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// <returns></returns>
         public ICollection<TreeDTO> FindTreeList()
         {
-            var list = this.corpRepository.GetAll().Where(m => m.ParentId == Guid.Empty.ToString() && m.IsDel == false);
+            var list = this.corpRepository.GetTreeList<CorporationDTO>();
             var dtoList = new List<TreeDTO>();
-            foreach (var corp in list)
+            var rootList = list.Where(m=>m.ParentId==Guid.Empty.ToString());
+            foreach (var corp in rootList)
             {
                 var dto = new TreeDTO()
                 {
@@ -148,7 +149,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                     Name=corp.CorpName,
                     ParentId=corp.ParentId
                 };
-                this.SetTreeChildList(corp, dto);
+                this.SetTreeChildList(list, dto);
                 dtoList.Add(dto);
             }
             return dtoList;
@@ -188,12 +189,12 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
         /// </summary>
         /// <param name="corp"></param>
         /// <param name="dto"></param>
-        private void SetTreeChildList(Corporation corp, TreeDTO dto)
+        private void SetTreeChildList(IList<CorporationDTO> corpList, TreeDTO dto)
         {
-            if (corp.ChildCorpList != null && corp.ChildCorpList.Count > 0)
+            var list = corpList.Where(m => m.ParentId == dto.Id);
+            if (list != null && list.Count() > 0)
             {
-                var childList = corp.ChildCorpList.Where(m =>m.IsDel == false);
-                foreach (var m in childList)
+                foreach (var m in list)
                 {
                     var d = new TreeDTO()
                     {
@@ -201,7 +202,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.OrgMgr
                         Name = m.CorpName,
                         ParentId=m.ParentId
                     };
-                    this.SetTreeChildList(m, d);
+                    this.SetTreeChildList(corpList, d);
                     dto.ChildList.Add(d);
                 }
             }

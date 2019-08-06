@@ -16,6 +16,10 @@ namespace LMS.Application.Seedwork.EnumData
         /// </summary>
         Sys_Module_,
         /// <summary>
+        /// 模块查询
+        /// </summary>
+        Sys_Module_Query_,
+        /// <summary>
         /// 组织机构
         /// </summary>
         Sys_Org_,
