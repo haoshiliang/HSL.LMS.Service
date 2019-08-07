@@ -39,6 +39,12 @@ namespace LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Entity
         [MaxLength(64)]
         public virtual string Icon { get; set; }
         /// <summary>
+        /// 模块名称
+        /// </summary>
+        [Column("MODULE_NAME")]
+        [MaxLength(128)]
+        public virtual string ModuleName { get; set; }
+        /// <summary>
         /// 模块路径
         /// </summary>
         [Column("MODULE_PATH")]

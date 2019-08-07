@@ -20,6 +20,11 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
         /// </summary>
         private string icon;
 
+        /// <summary>
+        /// 模块名称
+        /// </summary>
+        private string moduleName;
+
         #endregion
 
         #region 构造函数
@@ -63,6 +68,15 @@ namespace LMS.Application.MainBounderContext.DTO.SystemMgr.ModuleMgr
             get { return this.icon ?? ""; }
             set { this.icon = value; }
         }
+        /// <summary>
+        /// 模块名称
+        /// </summary>
+        public string ModuleName
+        {
+            get { return this.moduleName ?? ""; }
+            set { this.moduleName = value; }
+        }
+
         /// <summary>
         /// 模块路径
         /// </summary>

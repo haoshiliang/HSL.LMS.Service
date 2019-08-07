@@ -40,7 +40,8 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
             StringBuilder tmpBuilder = new StringBuilder();
             if (isSuperAdmin)
             {
-                sqlBuilder.AppendLine("SELECT DISTINCT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
+                sqlBuilder.AppendLine("SELECT DISTINCT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_NAME AS ModuleName,");
+                sqlBuilder.AppendLine("       m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
                 sqlBuilder.AppendLine("  FROM SYS_MODULE m");
                 sqlBuilder.AppendLine("WHERE m.ID<>'" + Guid.Empty.ToString() + "'");
                 sqlBuilder.AppendLine("  AND m.IS_ENABLED = '1'");
@@ -48,7 +49,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
             }
             else
             {
-                tmpBuilder.AppendLine("SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
+                tmpBuilder.AppendLine("SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_NAME AS ModuleName,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
                 tmpBuilder.AppendLine("  FROM SYS_MODULE m");
                 tmpBuilder.AppendLine(" INNER JOIN SYS_ROLE_MODULE rm ON rm.MODULE_ID = m.ID");
                 tmpBuilder.AppendLine(" INNER JOIN SYS_ROLE_USER ru ON ru.ROLE_ID = rm.ROLE_ID");
@@ -58,29 +59,29 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
                 tmpBuilder.AppendLine("  AND m.IS_ENABLED = '1'");
                 tmpBuilder.AppendLine("ORDER BY m.CREATE_DATE");
                 //取出父模块与子模块
-                sqlBuilder.AppendLine("WITH MODULE_DT(Id,ParentId,Code,Name,Icon,ModulePath,IsFunction,IsEnabled)");
+                sqlBuilder.AppendLine("WITH MODULE_DT(Id,ParentId,Code,Name,Icon,ModuleName,ModulePath,IsFunction,IsEnabled)");
                 sqlBuilder.AppendLine("  AS (");
-                sqlBuilder.AppendLine("        SELECT m.Id,m.ParentId,m.Code,m.Name,m.Icon,m.ModulePath,m.IsFunction,m.IsEnabled");
+                sqlBuilder.AppendLine("        SELECT m.Id,m.ParentId,m.Code,m.Name,m.Icon,m.ModuleName,m.ModulePath,m.IsFunction,m.IsEnabled");
                 sqlBuilder.AppendLine("          FROM (" + tmpBuilder.ToString() + ") m");
                 sqlBuilder.AppendLine("         UNION ALL");
-                sqlBuilder.AppendLine("        SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
+                sqlBuilder.AppendLine("        SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_NAME AS ModuleName,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
                 sqlBuilder.AppendLine("          FROM SYS_MODULE m");
                 sqlBuilder.AppendLine("         INNER JOIN MODULE_DT md ON m.PARENT_ID=md.ID ");
                 sqlBuilder.AppendLine("     ),");
-                sqlBuilder.AppendLine("     PARENT_MODULE_DT(Id,ParentId,Code,Name,Icon,ModulePath,IsFunction,IsEnabled)");
+                sqlBuilder.AppendLine("     PARENT_MODULE_DT(Id,ParentId,Code,Name,Icon,ModuleName,ModulePath,IsFunction,IsEnabled)");
                 sqlBuilder.AppendLine("  AS (");
-                sqlBuilder.AppendLine("        SELECT mp.ID AS Id,mp.PARENT_ID AS ParentId,mp.CODE AS Code,mp.NAME,mp.ICON,mp.MODULE_PATH AS ModulePath,mp.IS_FUNCTION AS IsFunction,mp.IS_ENABLED AS IsEnabled");
+                sqlBuilder.AppendLine("        SELECT mp.ID AS Id,mp.PARENT_ID AS ParentId,mp.CODE AS Code,mp.NAME,mp.ICON,mp.MODULE_NAME AS ModuleName,mp.MODULE_PATH AS ModulePath,mp.IS_FUNCTION AS IsFunction,mp.IS_ENABLED AS IsEnabled");
                 sqlBuilder.AppendLine("          FROM (" + tmpBuilder.ToString() + ") m");
                 sqlBuilder.AppendLine("         INNER JOIN SYS_MODULE mp ON mp.ID = m.ParentId");
                 sqlBuilder.AppendLine("         UNION ALL");
-                sqlBuilder.AppendLine("        SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
+                sqlBuilder.AppendLine("        SELECT m.ID AS Id,m.PARENT_ID AS ParentId,m.CODE AS Code,m.NAME,m.ICON,m.MODULE_NAME AS ModuleName,m.MODULE_PATH AS ModulePath,m.IS_FUNCTION AS IsFunction,m.IS_ENABLED AS IsEnabled");
                 sqlBuilder.AppendLine("          FROM SYS_MODULE m");
                 sqlBuilder.AppendLine("         INNER JOIN PARENT_MODULE_DT mp ON mp.ParentId=m.ID ");
                 sqlBuilder.AppendLine("     )");
-                sqlBuilder.AppendLine("SELECT Id,ParentId,Code,Name,Icon,ModulePath,IsFunction,IsEnabled");
+                sqlBuilder.AppendLine("SELECT Id,ParentId,Code,Name,Icon,ModuleName,ModulePath,IsFunction,IsEnabled");
                 sqlBuilder.AppendLine("  FROM MODULE_DT");
                 sqlBuilder.AppendLine(" UNION");
-                sqlBuilder.AppendLine("SELECT Id,ParentId,Code,Name,Icon,ModulePath,IsFunction,IsEnabled");
+                sqlBuilder.AppendLine("SELECT Id,ParentId,Code,Name,Icon,ModuleName,ModulePath,IsFunction,IsEnabled");
                 sqlBuilder.AppendLine("  FROM PARENT_MODULE_DT");
             }
 
@@ -98,17 +99,17 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.ModuleMgr
         public IEnumerable<DTO> GetTreeList<DTO>(bool isShowFunction = false, bool isOnlyEnable = true, bool isOnlyAllowQuery = false) where DTO : class
         {
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendLine("WITH MODULE_DT(ID,PARENT_ID,PARENT_NAME,CODE,NAME,ICON,MODULE_PATH,IS_ENABLED,MODULE_LEVEL,IS_FUNCTION,IS_ALLOW_QUERY)");
+            sqlBuilder.AppendLine("WITH MODULE_DT(ID,PARENT_ID,PARENT_NAME,CODE,NAME,ICON,MODULE_NAME,MODULE_PATH,IS_ENABLED,MODULE_LEVEL,IS_FUNCTION,IS_ALLOW_QUERY)");
             sqlBuilder.AppendLine("  AS (");
-            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,'根模块' AS PARENT_NAME,m.CODE,m.NAME,m.ICON,m.MODULE_PATH,m.IS_ENABLED,1 AS MODULE_LEVEL,m.IS_FUNCTION,m.IS_ALLOW_QUERY");
+            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,'根模块' AS PARENT_NAME,m.CODE,m.NAME,m.ICON,m.MODULE_NAME,m.MODULE_PATH,m.IS_ENABLED,1 AS MODULE_LEVEL,m.IS_FUNCTION,m.IS_ALLOW_QUERY");
             sqlBuilder.AppendLine("         FROM SYS_MODULE m");
             sqlBuilder.AppendLine("        WHERE m.PARENT_ID = '00000000-0000-0000-0000-000000000000'");
             sqlBuilder.AppendLine("        UNION ALL");
-            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,TO_CHAR(md.NAME),m.CODE,m.NAME,m.ICON,m.MODULE_PATH,m.IS_ENABLED,md.MODULE_LEVEL+1 AS MODULE_LEVEL,m.IS_FUNCTION,m.IS_ALLOW_QUERY");
+            sqlBuilder.AppendLine("       SELECT m.ID,m.PARENT_ID,TO_CHAR(md.NAME),m.CODE,m.NAME,m.ICON,m.MODULE_NAME,m.MODULE_PATH,m.IS_ENABLED,md.MODULE_LEVEL+1 AS MODULE_LEVEL,m.IS_FUNCTION,m.IS_ALLOW_QUERY");
             sqlBuilder.AppendLine("         FROM SYS_MODULE m");
             sqlBuilder.AppendLine("        INNER JOIN MODULE_DT md ON m.PARENT_ID = md.ID");
             sqlBuilder.AppendLine("     )");
-            sqlBuilder.AppendLine("SELECT ID,PARENT_ID AS ParentId,PARENT_NAME AS ParentName,CODE,NAME,ICON,MODULE_PATH AS ModulePath,IS_ENABLED AS IsEnabled,MODULE_LEVEL AS ModuleLevel");
+            sqlBuilder.AppendLine("SELECT ID,PARENT_ID AS ParentId,PARENT_NAME AS ParentName,CODE,NAME,ICON,MODULE_NAME AS ModuleName,MODULE_PATH AS ModulePath,IS_ENABLED AS IsEnabled,MODULE_LEVEL AS ModuleLevel");
             sqlBuilder.AppendLine("  FROM MODULE_DT");
             sqlBuilder.AppendLine(" WHERE 1=1");
             if (!isShowFunction)
