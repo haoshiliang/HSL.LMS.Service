@@ -1028,5 +1028,46 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="T:MVC.Client.Controllers.WorkLogMgr.DayLogMgr.DayLogController">
+            <summary>
+            日志控制器
+            </summary>
+        </member>
+        <member name="F:MVC.Client.Controllers.WorkLogMgr.DayLogMgr.DayLogController.dayLogService">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="M:MVC.Client.Controllers.WorkLogMgr.DayLogMgr.DayLogController.#ctor(LMS.Application.MainBounderContext.WorkLogMgr.DayLogMgr.IDayLogService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dayLogService"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.WorkLogMgr.DayLogMgr.DayLogController.Post(LMS.Domain.Seedwork.QueryWhere)">
+            <summary>
+            获取列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.WorkLogMgr.DayLogMgr.DayLogController.Get(System.String)">
+            <summary>
+            获取信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MVC.Client.Controllers.WorkLogMgr.DayLogMgr.DayLogController.Post(LMS.Domain.MainBounderContext.WorkLogMgr.DayLogMgr.Entity.DayLog)">
+            <summary>
+            添加信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MVC.Client.Controllers.WorkLogMgr.DayLogMgr.DayLogController.Delete(System.String)">
+            <summary>
+            删除信息
+            </summary>
+            <param name="id"></param>
+        </member>
     </members>
 </doc>

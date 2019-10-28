@@ -25,6 +25,7 @@ namespace MVC.Client
             // config.AddXmlFile comes from Microsoft.Extensions.Configuration.Xml
             config.AddXmlFile("Autofac/Seedwork.xml");
             config.AddXmlFile("Autofac/SystemMgr.xml");
+            config.AddXmlFile("Autofac/WorkLogMgr.xml");
 
             // Register the ConfigurationModule with Autofac.
             var module = new ConfigurationModule(config.Build());

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <!--日志管理-->
+  <components name="DayLogRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.WorkLogMgr.DayLogMgr.DayLogRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="DayLogRepository" type="LMS.Domain.MainBounderContext.WorkLogMgr.DayLogMgr.Repository.IDayLogRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties> 
+  </components>
+  <components name="DayLogService">
+    <type>LMS.Application.MainBounderContext.WorkLogMgr.DayLogMgr.DayLogService, Application.MainBounderContext</type>
+    <services name="DayLogService" type="LMS.Application.MainBounderContext.WorkLogMgr.DayLogMgr.IDayLogService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+  <!--日志明细管理-->
+  <components name="DayLogDetailRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.WorkLogMgr.DayLogMgr.DayLogDetailRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="DayLogDetailRepository" type="LMS.Domain.MainBounderContext.WorkLogMgr.DayLogMgr.Repository.IDayLogDetailRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+</Application>

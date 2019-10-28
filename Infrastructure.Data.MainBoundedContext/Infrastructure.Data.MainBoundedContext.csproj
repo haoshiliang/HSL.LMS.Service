@@ -55,6 +55,8 @@
     <Compile Include="SystemMgr\UserRoleMgr\UserRoleRepository.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\UserRepository.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\RoleRepository.cs" />
+    <Compile Include="WorkLogMgr\DayLogMgr\DayLogDetailRepository.cs" />
+    <Compile Include="WorkLogMgr\DayLogMgr\DayLogRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain.MainBounderContext\Domain.MainBounderContext.csproj">

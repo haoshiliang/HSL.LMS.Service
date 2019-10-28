@@ -61,6 +61,8 @@
     <Compile Include="SystemMgr\UserRoleMgr\UserRoleService.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\UserService.cs" />
     <Compile Include="SystemMgr\UserRoleMgr\RoleService.cs" />
+    <Compile Include="WorkLogMgr\DayLogMgr\DayLogService.cs" />
+    <Compile Include="WorkLogMgr\DayLogMgr\IDayLogService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.MainBounderContext.DTO\Application.MainBounderContext.DTO.csproj">

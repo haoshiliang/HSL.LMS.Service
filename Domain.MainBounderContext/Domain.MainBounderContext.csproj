@@ -61,6 +61,8 @@
     <Compile Include="Entity\SystemMgr\UserRoleMgr\UserRole.cs" />
     <Compile Include="Entity\SystemMgr\UserRoleMgr\User.cs" />
     <Compile Include="Entity\SystemMgr\UserRoleMgr\Role.cs" />
+    <Compile Include="Entity\WorkLogMgr\DayLogMgr\DayLog.cs" />
+    <Compile Include="Entity\WorkLogMgr\DayLogMgr\DayLogDetail.cs" />
     <Compile Include="Mapping\SystemMgr\ModuleMgr\ModuleMapping.cs" />
     <Compile Include="Mapping\SystemMgr\OrgMgr\CorporationMapping.cs" />
     <Compile Include="Mapping\SystemMgr\OrgMgr\CorpDepartPositionMapping.cs" />
@@ -71,6 +73,8 @@
     <Compile Include="Mapping\SystemMgr\UserRoleMgr\UserRoleMapping.cs" />
     <Compile Include="Mapping\SystemMgr\UserRoleMgr\UserMapping.cs" />
     <Compile Include="Mapping\SystemMgr\UserRoleMgr\RoleMapping.cs" />
+    <Compile Include="Mapping\WorkLogMgr\DayLogMgr\DayLogDetailMapping.cs" />
+    <Compile Include="Mapping\WorkLogMgr\DayLogMgr\DayLogMappping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\SystemMgr\ModuleMgr\IModuleRepository.cs" />
     <Compile Include="Repository\SystemMgr\OrgMgr\ICorporationRepository.cs" />
@@ -82,6 +86,8 @@
     <Compile Include="Repository\SystemMgr\UserRoleMgr\IUserRoleRepository.cs" />
     <Compile Include="Repository\SystemMgr\UserRoleMgr\IUserRepository.cs" />
     <Compile Include="Repository\SystemMgr\UserRoleMgr\IRoleRepository.cs" />
+    <Compile Include="Repository\WorkLogMgr\DayLogMgr\IDayLogDetailRepository.cs" />
+    <Compile Include="Repository\WorkLogMgr\DayLogMgr\IDayLogRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain.Seedwork\Domain.Seedwork.csproj">

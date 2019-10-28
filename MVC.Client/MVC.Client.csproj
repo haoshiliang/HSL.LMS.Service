@@ -295,6 +295,7 @@
     <Compile Include="Controllers\SystemMgr\UserRoleMgr\UserRoleController.cs" />
     <Compile Include="Controllers\SystemMgr\UserRoleMgr\UserController.cs" />
     <Compile Include="Controllers\SystemMgr\UserRoleMgr\RoleController.cs" />
+    <Compile Include="Controllers\WorkLogMgr\DayLogMgr\DayLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -311,6 +312,12 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\TestClient.css" />
     <Content Include="AssemblyConfig\Assembly.xml" />
+    <Content Include="Autofac\WorkLogSqlServerMgr.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Autofac\WorkLogMgr.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Autofac\SystemSqlServerMgr.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -443,7 +450,9 @@
     <Content Include="Views\Student\List.cshtml" />
     <Content Include="Views\Home\Vue.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\DayLog\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

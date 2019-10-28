@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <!--公司管理-->
+  <components name="CorporationRepository">
+    <type>LMS.Infrastructure.Data.MainBoundedContext.SystemMgr.OrgMgr.CorporationRepository, Infrastructure.Data.MainBoundedContext</type>
+    <services name="CorporationRepository" type="LMS.Domain.MainBounderContext.SystemMgr.OrgMgr.Repository.ICorporationRepository,Domain.MainBounderContext" />
+    <injectProperties>true</injectProperties> 
+  </components>
+  <components name="CorporationService">
+    <type>LMS.Application.MainBounderContext.SystemMgr.OrgMgr.CorporationService, Application.MainBounderContext</type>
+    <services name="CorporationService" type="LMS.Application.MainBounderContext.SystemMgr.OrgMgr.ICorporationService,Application.MainBounderContext" />
+    <injectProperties>true</injectProperties>
+  </components>
+</Application>

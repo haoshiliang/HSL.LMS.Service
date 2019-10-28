@@ -323,46 +323,46 @@ namespace LMS.Application.MainBounderContext.SystemMgr.QueryMgr
             switch (defaultValueType)
             {
                 case QueryConfig.DateDefalutValueType.CurrentDate:
-                    returnValue = DateTime.Now.ToString("yyyy-MM-dd");
+                    returnValue = DateTime.Now.ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.PreCurrentDate:
-                    returnValue = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd");
+                    returnValue = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.NextMonthFirstDay:
-                    returnValue = DateTime.Now.AddMonths(1).ToString("yyyy-MM-01");
+                    returnValue = DateTime.Now.AddMonths(1).ToString("yyyy-MM-01 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.NextMonthLastDay:
-                    returnValue = DateTime.Parse(DateTime.Now.AddMonths(2).ToString("yyyy-MM-01")).AddDays(-1).ToString("yyyy-MM-dd");
+                    returnValue = DateTime.Parse(DateTime.Now.AddMonths(2).ToString("yyyy-MM-01")).AddDays(-1).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.PreviousMonthFirstDay:
-                    returnValue = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-01");
+                    returnValue = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-01 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.PreviousMonthLastDay:
-                    returnValue = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")).AddDays(-1).ToString("yyyy-MM-dd");
+                    returnValue = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")).AddDays(-1).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.ThisMonthFirstDay:
-                    returnValue = DateTime.Now.ToString("yyyy-MM-01");
+                    returnValue = DateTime.Now.ToString("yyyy-MM-01 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.ThisMonthLastDay:
-                    returnValue = DateTime.Parse(DateTime.Now.AddMonths(1).ToString("yyyy-MM-01")).AddDays(-1).ToString("yyyy-MM-dd");
+                    returnValue = DateTime.Parse(DateTime.Now.AddMonths(1).ToString("yyyy-MM-01")).AddDays(-1).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.ThisWeekFirstDay:
-                    returnValue = GetWeekFirstDayMon(DateTime.Now).ToString("yyyy-MM-dd");
+                    returnValue = GetWeekFirstDayMon(DateTime.Now).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.ThisWeekLastDay:
-                    returnValue = GetWeekLastDaySun(DateTime.Now).ToString("yyyy-MM-dd");
+                    returnValue = GetWeekLastDaySun(DateTime.Now).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.PreviousWeekFirstDay:
-                    returnValue = GetWeekFirstDayMon(DateTime.Now.AddDays(-7)).ToString("yyyy-MM-dd");
+                    returnValue = GetWeekFirstDayMon(DateTime.Now.AddDays(-7)).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.PreviousWeekLastDay:
-                    returnValue = GetWeekLastDaySun(DateTime.Now.AddDays(-7)).ToString("yyyy-MM-dd");
+                    returnValue = GetWeekLastDaySun(DateTime.Now.AddDays(-7)).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.NextWeekFirstDay:
-                    returnValue = GetWeekFirstDayMon(DateTime.Now.AddDays(7)).ToString("yyyy-MM-dd");
+                    returnValue = GetWeekFirstDayMon(DateTime.Now.AddDays(7)).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 case QueryConfig.DateDefalutValueType.NextWeekLastDay:
-                    returnValue = GetWeekLastDaySun(DateTime.Now.AddDays(7)).ToString("yyyy-MM-dd");
+                    returnValue = GetWeekLastDaySun(DateTime.Now.AddDays(7)).ToString("yyyy-MM-dd 00:00:00");
                     break;
                 default:
                     returnValue = "";

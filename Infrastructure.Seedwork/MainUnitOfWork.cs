@@ -32,19 +32,6 @@ namespace LMS.Infrastructure.Seedwork
             Database.SetInitializer<MainUnitOfWork>(new DropCreateDatabaseIfModelChanges<MainUnitOfWork>());
             Database.Log = LogManager.WriteLog;
         }
-        /// <summary>
-        /// 连接数据库
-        /// </summary>
-        public MainUnitOfWork(string connctionString) : base(connctionString)
-        {
-            /*
-                1.CreateDatabaseIfNotExists：这是默认的策略。如果数据库不存在，那么就创建数据库。但是如果数据库存在了，而且实体发生了变化，就会出现异常。
-                2.DropCreateDatabaseIfModelChanges：此策略表明，如果模型变化了，数据库就会被重新创建，原来的数据库被删除掉了。
-                3.DropCreateDatabaseAlways：此策略表示，每次运行程序都会重新创建数据库，这在开发和调试的时候非常有用。
-                4.自定制数据库策略：可以自己实现IDatabaseInitializer来创建自己的策略。或者从已有的实现了IDatabaseInitializer接口的类派生。
-            */
-            Database.SetInitializer<MainUnitOfWork>(new CreateDatabaseIfNotExists<MainUnitOfWork>());           
-        }
 
         #endregion
 
