@@ -14,8 +14,14 @@ using LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr;
 
 namespace MVC.Client
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WebApiApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected void Application_Start()
         {
             //IOC

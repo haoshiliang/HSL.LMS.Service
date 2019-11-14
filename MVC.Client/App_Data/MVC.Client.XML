@@ -1069,5 +1069,15 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="T:MVC.Client.WebApiApplication">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MVC.Client.WebApiApplication.Application_Start">
+            <summary>
+            
+            </summary>
+        </member>
     </members>
 </doc>
