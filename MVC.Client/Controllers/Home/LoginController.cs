@@ -14,6 +14,8 @@ using LMS.Application.MainBounderContext.SystemMgr.ModuleMgr;
 using LMS.Application.MainBounderContext.DTO.SystemMgr.UserRoleMgr;
 using LMS.Application.Seedwork.Cache;
 using LMS.Application.Seedwork.EnumData;
+using LMS.Application.MainBounderContext.DTO.Common;
+using LMS.Domain.Seedwork.RepositoryInterface;
 
 namespace MVC.Client.Controllers.Home
 {
@@ -74,15 +76,18 @@ namespace MVC.Client.Controllers.Home
                 if (userDto != null)
                 {
                     var sha1 = System.Security.Cryptography.SHA1.Create();
-                    var ticket = new FormsAuthenticationTicket(0, loginUser.LoginName, DateTime.Now, DateTime.Now.AddDays(1), false, Guid.NewGuid().ToString());
                     if (userDto.Password == BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(loginUser.Password + userDto.SaltValue))).Replace("-", null))
                     {
+                        var userInfo = new LoginUserInfo() { Rnd = Guid.NewGuid().ToString(), UserId = userDto.Id, UserName = userDto.Name };
+                        var ticket = new FormsAuthenticationTicket(0, loginUser.LoginName, DateTime.Now, DateTime.Now.AddDays(1), false, JsonConvert.SerializeObject(userInfo));
+
                         var userModel = new
                         {
                             UserInfo = userDto,
                             Ticket = FormsAuthentication.Encrypt(ticket),
                             SysRoleVoList = this.moduleService.FindAllowVisitList(userDto.Id,userDto.IsSuperAdmin)
                         };
+
                         this.userService.SetToken(RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + loginUser.LoginName, userModel.Ticket, int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
                         return base.ToSuccessObject(userModel);
                     }

@@ -55,6 +55,7 @@
     <Compile Include="QueryArgument\WhereParam.cs" />
     <Compile Include="QueryArgument\SortField.cs" />
     <Compile Include="RepositoryInterface\IReadUnitOfWork.cs" />
+    <Compile Include="RepositoryInterface\LoginUserInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

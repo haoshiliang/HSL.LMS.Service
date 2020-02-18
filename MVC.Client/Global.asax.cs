@@ -11,6 +11,7 @@ using System.Data.Entity.Infrastructure.Interception;
 using LMS.Infrastructure.Seedwork;
 using Autofac.Core;
 using LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr;
+using LMS.Application.MainBounderContext.DTO.Common;
 
 namespace MVC.Client
 {
@@ -39,8 +40,7 @@ namespace MVC.Client
             builder.RegisterModule(module);
 
 
-            //builder.RegisterType<DbInterceptor>();
-
+            //builder.RegisterType<DbInterceptor>();            
             // Register your MVC Controllers.
             builder.RegisterControllers(typeof(WebApiApplication).Assembly);
             // Register your Api Controllers.
@@ -55,10 +55,7 @@ namespace MVC.Client
             //4.实现DI(DependencyResolver方式) 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-
-            //控制反转
-            UserAuthAttribute.UserService = container.Resolve<IUserService>();
-
+                        
             //AOP拦截，为了切换数据库
             DbInterception.Add(new DbInterceptor());
 

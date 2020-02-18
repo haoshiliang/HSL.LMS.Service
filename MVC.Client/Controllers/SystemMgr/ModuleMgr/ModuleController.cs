@@ -9,6 +9,7 @@ using Newtonsoft.Json.Converters;
 using LMS.Application.MainBounderContext.SystemMgr.ModuleMgr;
 using LMS.Domain.MainBounderContext.SystemMgr.ModuleMgr.Entity;
 using System.Data.Entity.Validation;
+using LMS.Domain.Seedwork.RepositoryInterface;
 
 namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
 {

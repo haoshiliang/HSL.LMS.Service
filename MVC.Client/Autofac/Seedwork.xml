@@ -14,6 +14,7 @@
       每一次依赖组件或调用Resolve()方法都会得到一个相同的共享的实例。其实就是单例模式。
       InstancePerHttpRequest
       在一次Http请求上下文中,共享一个组件实例。仅适用于asp.net mvc开发。
+      InstancePerApiRequest
     -->
 <Application>
   <components name="MainUnitOfWork">

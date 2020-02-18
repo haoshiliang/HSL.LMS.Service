@@ -29,7 +29,7 @@ namespace LMS.Infrastructure.Seedwork
                 3.DropCreateDatabaseAlways：此策略表示，每次运行程序都会重新创建数据库，这在开发和调试的时候非常有用。
                 4.自定制数据库策略：可以自己实现IDatabaseInitializer来创建自己的策略。或者从已有的实现了IDatabaseInitializer接口的类派生。
             */
-            Database.SetInitializer<MainUnitOfWork>(new DropCreateDatabaseIfModelChanges<MainUnitOfWork>());
+            Database.SetInitializer<MainUnitOfWork>(null);//new DropCreateDatabaseIfModelChanges<MainUnitOfWork>()
             Database.Log = LogManager.WriteLog;
         }
 

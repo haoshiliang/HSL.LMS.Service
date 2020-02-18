@@ -12,6 +12,10 @@ using System.Text;
 using LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr;
 using LMS.Application.Seedwork.Cache;
 using LMS.Application.Seedwork.EnumData;
+using LMS.Domain.Seedwork.RepositoryInterface;
+using Newtonsoft;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MVC.Client
 {
@@ -25,7 +29,13 @@ namespace MVC.Client
         /// <summary>
         /// 用户服务
         /// </summary>
-        public static IUserService UserService { get; set; }
+        private IUserService UserService
+        {
+            get
+            {
+                return (UserService)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IUserService));
+            }
+        }
 
         #endregion
 
