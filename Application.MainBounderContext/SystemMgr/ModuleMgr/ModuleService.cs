@@ -130,7 +130,7 @@ namespace LMS.Application.MainBounderContext.SystemMgr.ModuleMgr
         /// <returns></returns>
         public ICollection<ModuleDTO> FindTreeList(string id)
         {
-            var mList = moduleRepository.GetTreeList<ModuleDTO>().ToList();
+            var mList = moduleRepository.GetTreeList<ModuleDTO>(false,false,false).ToList();
             var treeList = mList.Where(m => m.ParentId == Guid.Empty.ToString() && m.Id != id).OrderBy(m => m.Code);
             foreach (var m in treeList)
             {

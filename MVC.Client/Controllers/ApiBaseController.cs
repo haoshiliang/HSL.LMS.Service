@@ -37,9 +37,13 @@ namespace MVC.Client.Controllers
         public ApiBaseController()
         {
             var auth = HttpContext.Current.Request.Headers["Authorization"];
-            if(auth!=null && auth.ToString() != "")
+            if (auth != null && auth.ToString() != "")
             {
-                LoginInfo = (LoginUserInfo)JsonConvert.DeserializeObject<LoginUserInfo>(FormsAuthentication.Decrypt(auth.ToString()).UserData);
+                try
+                {
+                    LoginInfo = (LoginUserInfo)JsonConvert.DeserializeObject<LoginUserInfo>(FormsAuthentication.Decrypt(auth.ToString()).UserData);
+                }
+                catch { }
             }
         }
 
