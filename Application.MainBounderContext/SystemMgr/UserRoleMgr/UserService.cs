@@ -94,7 +94,6 @@ namespace LMS.Application.MainBounderContext.SystemMgr.UserRoleMgr
             returnModel.CorporationModel = new Corporation() { Id = model.CorporationModel.Id, CorpName = model.CorporationModel.CorpName };
             returnModel.DepartmentModel = new Department() { Id = model.DepartmentModel.Id, DepartName = model.DepartmentModel.DepartName };
             returnModel.PositionModel = new Position() { Id = model.PositionModel.Id, PositionName = model.PositionModel.PositionName };
-
             return returnModel;
         }
 

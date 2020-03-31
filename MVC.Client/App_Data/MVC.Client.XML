@@ -855,7 +855,7 @@
             <param name="id">查询ID</param>
             <returns></returns>
         </member>
-        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.GetSearchList(System.String,System.String)">
+        <member name="M:MVC.Client.Controllers.SystemMgr.QueryMgr.ModuleQueryController.GetSearchList(System.String)">
             <summary>
             获取每个页面的查询条件列表
             </summary>

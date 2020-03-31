@@ -110,11 +110,11 @@ namespace MVC.Client.Controllers.SystemMgr.QueryMgr
         /// <param name="userId">用户ID</param>
         /// <returns></returns>
         [Route("api/ModuleQuery/GetSearchList")]
-        public object GetSearchList(string moduleId, string userId)
+        public object GetSearchList(string moduleId)
         {
             try
             {
-                var model = this.moduleQueryService.FindQueryParam(moduleId, userId);
+                var model = this.moduleQueryService.FindQueryParam(moduleId, base.LoginInfo.UserId);
                 return base.ToSuccessObject(model);
             }
             catch (Exception ex)
