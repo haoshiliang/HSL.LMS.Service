@@ -444,6 +444,11 @@
             登录信息
             </summary>
         </member>
+        <member name="P:MVC.Client.Controllers.ApiBaseController.UserService">
+            <summary>
+            用户服务类
+            </summary>
+        </member>
         <member name="M:MVC.Client.Controllers.ApiBaseController.#ctor">
             <summary>
             构造方法

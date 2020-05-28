@@ -116,19 +116,10 @@ namespace MVC.Client
             try
             {
                 var returnValue = true;
-                var faTicket = FormsAuthentication.Decrypt(ticket);
-                var ticketKey = RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + faTicket.Name;
+                var ticketKey = RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + ticket;
                 if (UserService.IsExistToken(ticketKey))
                 {
-                    if(UserService.GetToken(ticketKey)!= ticket)
-                    {
-                        error = "用户登录验证失败！";
-                        returnValue = false;
-                    }
-                    else
-                    {
-                        UserService.SetExpire(ticketKey, int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
-                    }
+                    UserService.SetExpire(ticketKey, int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
                 }
                 else
                 {

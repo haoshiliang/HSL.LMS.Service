@@ -88,7 +88,7 @@ namespace MVC.Client.Controllers.Home
                             SysRoleVoList = this.moduleService.FindAllowVisitList(userDto.Id,userDto.IsSuperAdmin)
                         };
 
-                        this.userService.SetToken(RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + loginUser.LoginName, userModel.Ticket, int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
+                        this.userService.SetToken(RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + userModel.Ticket, JsonConvert.SerializeObject(userInfo), int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpirationTime"]));
                         return base.ToSuccessObject(userModel);
                     }
                     else

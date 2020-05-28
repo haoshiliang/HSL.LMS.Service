@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Web.Security;
 using System.Web;
+using LMS.Application.Seedwork.EnumData;
 
 namespace MVC.Client.Controllers
 {
@@ -27,6 +28,17 @@ namespace MVC.Client.Controllers
         /// </summary>
         protected LoginUserInfo LoginInfo { get; set; }
 
+        /// <summary>
+        /// 用户服务类
+        /// </summary>
+        private IUserService UserService
+        {
+            get
+            {
+                return (UserService)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IUserService));
+            }
+        }
+
         #endregion
 
         #region 构造方法
@@ -39,11 +51,11 @@ namespace MVC.Client.Controllers
             var auth = HttpContext.Current.Request.Headers["Authorization"];
             if (auth != null && auth.ToString() != "")
             {
-                try
+                var ticketKey = RedisPrefixEnum.Sys_UserRole_.ToString() + "Ticket_" + auth.ToString();
+                if (UserService.IsExistToken(ticketKey))
                 {
-                    LoginInfo = (LoginUserInfo)JsonConvert.DeserializeObject<LoginUserInfo>(FormsAuthentication.Decrypt(auth.ToString()).UserData);
+                    LoginInfo = (LoginUserInfo)JsonConvert.DeserializeObject<LoginUserInfo>(UserService.GetToken(ticketKey));
                 }
-                catch { }
             }
         }
 
