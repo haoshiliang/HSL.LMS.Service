@@ -47,7 +47,7 @@ namespace MVC.Client.Areas.HelpPage
             //// The sample will be generated as if the controller named "Values" and action named "Post" were returning a string.
             //config.SetActualResponseType(typeof(string), "Values", "Post");
 
-            config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/MVC.Client.XML")));
+            config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/bin/MVC.Client.XML")));
         }
     }
 }

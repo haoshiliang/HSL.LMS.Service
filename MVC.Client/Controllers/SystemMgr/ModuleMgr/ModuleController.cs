@@ -61,34 +61,16 @@ namespace MVC.Client.Controllers.SystemMgr.ModuleMgr
             }
         }
 
-        // GET: api/Module
-        /// <summary>
-        /// 获取模块列表
-        /// </summary>
-        /// <returns></returns>
-        public object Get()
-        {
-            try
-            {
-                var list = this.moduleService.FindTreeList(null);
-                return base.ToSuccessObject(list);
-            }
-            catch (Exception ex)
-            {
-                return base.ToFailureObject(ex.Message);
-            }
-        }
-
         /// <summary>
         /// 获取模块列表
         /// </summary>
         /// <param name="id">编号</param>
-        /// <param name="isTree">是否树列表</param>
         /// <returns></returns>
-        public object GetTreeList(string id, bool isTree)
+        [Route("api/Module/TreeList")]
+        public object GetTreeList(string id)
         {
             try
-            {
+            {                
                 var list = this.moduleService.FindTreeList(id);
                 return base.ToSuccessObject(list);
             }

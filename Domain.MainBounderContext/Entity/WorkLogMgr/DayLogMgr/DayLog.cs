@@ -35,6 +35,13 @@ namespace LMS.Domain.MainBounderContext.WorkLogMgr.DayLogMgr.Entity
         public virtual DateTime LogDate { get; set; }
 
         /// <summary>
+        /// 日志标题
+        /// </summary>
+        [Column("LOG_TITLE")]
+        [Required]
+        public virtual string LogTitle { get; set; }
+
+        /// <summary>
         /// 创建人
         /// </summary>
         [ForeignKey("CreateUserId")]

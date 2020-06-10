@@ -26,5 +26,9 @@ namespace LMS.Application.MainBounderContext.DTO.WorkLogMgr.DayLogMgr
         /// 日志日期
         /// </summary>
         public DateTime LogDate { get; set; }
+        /// <summary>
+        /// 日志标题
+        /// </summary>
+        public string LogTitle { get; set; }
     }
 }

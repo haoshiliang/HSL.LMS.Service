@@ -27,7 +27,7 @@ namespace LMS.Infrastructure.Data.MainBoundedContext.WorkLogMgr.DayLogMgr
         public IList<DTO> GetPaged<DTO>(Pagination pagination, QueryParam queryParam) where DTO : class
         {
             var sqlBulder = new StringBuilder();
-            sqlBulder.AppendLine("SELECT wdl.ID,wdl.CREATE_USER AS CreateUser,wdl.CREATE_DATE AS CreateDate,wdl.LOG_DATE AS LogDate");
+            sqlBulder.AppendLine("SELECT wdl.ID,wdl.CREATE_USER AS CreateUser,wdl.CREATE_DATE AS CreateDate,wdl.LOG_DATE AS LogDate,wdl.LOG_TITLE AS LogTitle");
             sqlBulder.AppendLine("  FROM WL_DAY_LOG wdl");
             sqlBulder.AppendLine(" WHERE 1=1");
             sqlBulder.AppendLine("{WHERE}");
